@@ -25,4 +25,6 @@ public class Location {
     private Double latitude; //위도
 
     private Double longitude; //경도
+
+    private Boolean marker; //마커 등록 여부
 }

@@ -13,6 +13,9 @@ public class Board extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne(mappedBy = "board", fetch = FetchType.LAZY)
+    private User user;
+
     @Column(name = "title")
     private String title;
 

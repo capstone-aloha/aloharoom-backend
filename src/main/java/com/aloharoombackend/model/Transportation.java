@@ -13,9 +13,9 @@ public class Transportation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
-
     @ManyToOne
     @JoinColumn(name = "home_id")
     private Home home;
+
+    private String content;
 }

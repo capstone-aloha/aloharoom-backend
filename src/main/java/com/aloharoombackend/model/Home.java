@@ -17,6 +17,10 @@ public class Home {
 
     private String name;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id")
+    private Location location;
+
     private Long maintenance; //관리비
 
     private String type; //주거공간 형태 => 아파트, 빌라, 주택

@@ -13,6 +13,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "home_id")
+    private Home home;
+
+    @OneToOne
+    @JoinColumn(name = "board_id")
+    private Board board;
+
     @Column(name = "username")
     private String username;
 
