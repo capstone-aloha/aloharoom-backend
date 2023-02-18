@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://capstone.ci26bpttokr7.ap-northeast-2.rds.amazonaws.com:3306/sys?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://aloharoom.c9fohc6fwv8m.ap-northeast-2.rds.amazonaws.com:3306/aloharoomDB?serverTimezone=Asia/Seoul
     username: admin
-    password: dEs0tZHqOxYYuGgGmMRR
+    password: rlagudals3
   jpa:
     hibernate:
       ddl-auto: create
