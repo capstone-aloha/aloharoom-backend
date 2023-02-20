@@ -1,6 +1,6 @@
 package com.aloharoombackend.auth;
 
-import com.aloharoombackend.controller.UserRepository;
+import com.aloharoombackend.Repository.UserRepository;
 import com.aloharoombackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

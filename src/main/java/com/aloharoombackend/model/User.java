@@ -43,4 +43,17 @@ public class User {
 
     @Column(name = "role")
     private String role;
+
+    @Column(name = "tendency")
+    private String tendency;
+
+    @OneToOne
+    @JoinColumn(name = "pfapp_id")
+    private PfAppliance pfAppliance;
+
+    @OneToOne
+    @JoinColumn(name = "hash_id")
+    private Hashtag hashtag;
+
+
 }
