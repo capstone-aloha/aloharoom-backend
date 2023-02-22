@@ -8,25 +8,25 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class PfAppliance {
+public class LikeProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "pfAppliance", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "likeProduct", fetch = FetchType.LAZY)
     private User user;
 
     @Column(name = "waterpurifier")
-    private boolean waterpurifier;
+    private Boolean waterpurifier;
 
-    @Column(name = "airconditioner")
-    private boolean airconditioner;
+    @Column(name = "aircon")
+    private Boolean aircon;
 
     @Column(name = "microwave")
-    private boolean microwave;
+    private Boolean microwave;
 
     @Column(name = "washer")
-    private boolean washer;
+    private Boolean washer;
 
 }

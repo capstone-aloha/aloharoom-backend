@@ -3,12 +3,14 @@ package com.aloharoombackend.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class User {
     @Id
@@ -48,12 +50,20 @@ public class User {
     private String tendency;
 
     @OneToOne
-    @JoinColumn(name = "pfapp_id")
-    private PfAppliance pfAppliance;
+    @JoinColumn(name = "likeProduct")
+    private LikeProduct likeProduct;
 
     @OneToOne
-    @JoinColumn(name = "hash_id")
-    private Hashtag hashtag;
+    @JoinColumn(name = "myProduct")
+    private MyProduct myProduct;
+
+    @OneToOne
+    @JoinColumn(name = "likeHashtag")
+    private LikeHashtag likeHashtag;
+
+    @OneToOne
+    @JoinColumn(name = "myHashtag")
+    private MyHashtag myHashtag;
 
 
 }
