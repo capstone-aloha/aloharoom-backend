@@ -1,6 +1,6 @@
-package com.aloharoombackend.Service;
+package com.aloharoombackend.service;
 
-import com.aloharoombackend.Repository.UserRepository;
+import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

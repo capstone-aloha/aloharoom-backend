@@ -1,4 +1,4 @@
-package com.aloharoombackend.Repository;
+package com.aloharoombackend.repository;
 
 import com.aloharoombackend.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
