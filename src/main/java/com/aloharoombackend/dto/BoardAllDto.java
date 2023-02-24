@@ -1,6 +1,7 @@
 package com.aloharoombackend.dto;
 
 import com.aloharoombackend.model.Board;
+import com.aloharoombackend.model.Home;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,23 +15,24 @@ public class BoardAllDto {
     private Long boardId;
     private String title;
     private String address;
-    private String price;
-    private String flat;
-    private int roomCount;
+    private Integer price;
+    private Integer flat;
+    private Integer roomCount;
     private List<String> homeImgUrls;
     private Double x; //위도
     private Double y; //경도
 
-    public BoardAllDto (Board board) {
+
+    public BoardAllDto(Board board, Home home) {
         this.boardId = board.getId();
         this.title = board.getTitle();
-        this.address = board.getHome().getName();
-        this.price = board.getHome().getPrice();
-        this.flat = board.getHome().getFlat();
-        this.roomCount = board.getHome().getRoomCount();
-        this.homeImgUrls = board.getHome().getHomeImages().stream()
-                .map(homeImage->homeImage.getHomeImgUrl()).collect(Collectors.toList());
-        this.x = board.getHome().getLocation().getLatitude(); //위도
-        this.y = board.getHome().getLocation().getLongitude(); //경도
+        this.address = home.getAddress();
+        this.price = home.getPrice();
+        this.flat = home.getFlat();
+        this.roomCount = home.getRoomCount();
+        this.homeImgUrls = home.getHomeImages().stream()
+                .map(homeImage->homeImage.getImgUrl()).collect(Collectors.toList());
+        this.x = home.getX(); //위도
+        this.y = home.getY(); //경도
     }
 }

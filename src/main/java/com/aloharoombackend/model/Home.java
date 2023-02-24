@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.BoardAddDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,7 @@ public class Home {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String address;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
@@ -25,19 +26,23 @@ public class Home {
     @OneToMany(mappedBy = "home")
     private List<HomeImage> homeImages = new ArrayList<>();
 
-    private Long maintenance; //관리비
+    private Integer maintenance; //관리비
 
-    private String flat; //평수
+    private Integer flat; //평수
 
-    private int roomCount; //방 갯수
+    private Integer roomCount; //방 갯수
     
-    private String type; //주거공간 형태 => 아파트, 빌라, 주택
+    private String homeType; //주거공간 형태 => 아파트, 빌라, 주택
 
-    private String price; //매매가, 전세가, 월세 => 20000, 1500, 1500/30 (만원단위)
+    private String tradeType;
 
-    private Long floor; //층수
+    private Integer price; //매매가, 전세가, 월세 => 20000, 1500, 1500/30 (만원단위)
 
-    private Long totalFloor; //전체 층수
+    private Integer deposit; //매매가, 전세가, 월세 => 20000, 1500, 1500/30 (만원단위)
+
+    private Integer floor; //층수
+
+    private Integer totalFloor; //전체 층수
 
     private LocalDate startDate; //입주 가능한 날짜
 
@@ -49,4 +54,24 @@ public class Home {
     private Boolean washMachine; //세탁기 유무
 
     private Boolean shoeCloset; //신발장 유무
+
+    private Double x;
+
+    private Double y;
+
+    public Home(BoardAddDto boardAddDto) {
+        this.address = boardAddDto.getAddress();
+        this.maintenance = boardAddDto.getMaintenance();
+        this.flat = boardAddDto.getFlat();
+        this.roomCount = boardAddDto.getRoomCount();
+        this.homeType = boardAddDto.getHomeType();
+        this.tradeType = boardAddDto.getTradeType();
+        this.price = boardAddDto.getPrice();
+        this.deposit = boardAddDto.getDeposit();
+        this.floor = boardAddDto.getFloor();
+        this.totalFloor = boardAddDto.getTotalFloor();
+        this.startDate = boardAddDto.getStartDate();
+        this.x = boardAddDto.getX();
+        this.y = boardAddDto.getY();
+    }
 }

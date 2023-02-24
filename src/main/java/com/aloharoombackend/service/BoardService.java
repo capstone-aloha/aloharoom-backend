@@ -14,6 +14,11 @@ import java.util.List;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+    @Transactional
+    public Board create(Board board) {
+        return boardRepository.save(board);
+    }
+
     public List<Board> findAll() {
         return boardRepository.findAll();
     }
