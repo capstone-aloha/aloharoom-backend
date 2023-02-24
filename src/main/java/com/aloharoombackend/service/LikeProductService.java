@@ -1,6 +1,5 @@
 package com.aloharoombackend.service;
 
-import com.aloharoombackend.model.LikeHashtag;
 import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.repository.LikeProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,13 @@ import java.util.List;
 public class LikeProductService {
 
     private final LikeProductRepository likeProductRepository;
+
+    @Transactional
+    public Long create(LikeProduct likeProduct) {
+        likeProductRepository.save(likeProduct);
+        return likeProduct.getId();
+    }
+
     public List<LikeProduct> findAll() {
         return likeProductRepository.findAll();
     }

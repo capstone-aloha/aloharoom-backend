@@ -6,8 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LikeHashtagRepository extends JpaRepository<LikeHashtag, Long> {
-        //public LikeHashtag findByUsername(String username);
-
-
-
 }

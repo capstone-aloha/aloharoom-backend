@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -65,5 +66,19 @@ public class User {
     @JoinColumn(name = "myHashtag")
     private MyHashtag myHashtag;
 
+    public User(SignUpDto signUpDto, LikeProduct likeProduct, MyProduct myProduct, LikeHashtag likeHashtag, MyHashtag myHashtag) {
+        this.username = signUpDto.getUsername();
+        this.password = signUpDto.getPassword();
+//        this.nickname = signUpDto.getnickname;
+//        this.name = signUpDto.getName;
+        this.age = signUpDto.getAge();
+        this.gender = signUpDto.getGender();
+        this.role = signUpDto.getRole();
+        this.tendency = signUpDto.getTendency();
+        this.likeProduct = likeProduct;
+        this.myProduct = myProduct;
+        this.likeHashtag = likeHashtag;
+        this.myHashtag = myHashtag;
+    }
 
 }

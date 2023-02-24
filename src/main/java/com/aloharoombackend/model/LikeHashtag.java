@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -31,4 +32,12 @@ public class LikeHashtag {
 
     @Column(name = "a5") //편의점
     private Boolean a5;
+
+    public LikeHashtag(SignUpDto signUpDto) {
+        this.a1 = signUpDto.getA1();
+        this.a2 = signUpDto.getA2();
+        this.a3 = signUpDto.getA3();
+        this.a4 = signUpDto.getA4();
+        this.a5 = signUpDto.getA5();
+    }
 }

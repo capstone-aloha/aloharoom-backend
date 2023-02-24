@@ -1,6 +1,7 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.model.LikeHashtag;
+import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.repository.LikeHashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,13 @@ import java.util.List;
 public class LikeHashtagService {
 
     private final LikeHashtagRepository likeHashtagRepository;
+
+    @Transactional
+    public Long create(LikeHashtag likeHashtag) {
+        likeHashtagRepository.save(likeHashtag);
+        return likeHashtag.getId();
+    }
+
     public List<LikeHashtag> findAll() {
         return likeHashtagRepository.findAll();
     }
