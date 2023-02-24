@@ -17,7 +17,7 @@ public class Board extends BaseEntity{
     @OneToOne(mappedBy = "board", fetch = FetchType.LAZY)
     private User user;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id")
     private Home home;
 
