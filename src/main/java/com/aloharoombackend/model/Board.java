@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.BoardAddDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,10 @@ public class Board extends BaseEntity{
     @OneToOne(mappedBy = "board", fetch = FetchType.LAZY)
     private User user;
 
+    @OneToOne
+    @JoinColumn(name = "home_id")
+    private Home home;
+
     @Column(name = "title")
     private String title;
 
@@ -26,6 +31,12 @@ public class Board extends BaseEntity{
     private Integer count;
 
     @Column(name = "views")
-    private Integer views;
+    private Integer views = 0;
 
+    public Board(Home home, BoardAddDto boardAddDto) {
+        this.home = home; //나중에 연관관계 메서드
+        this.title = boardAddDto.getTitle();
+        this.contents = boardAddDto.getContents();
+        this.count = boardAddDto.getCount();
+    }
 }
