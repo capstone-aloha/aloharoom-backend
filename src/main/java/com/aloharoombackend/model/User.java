@@ -7,11 +7,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
-@Setter
-@ToString
+@ToString(exclude = "myProducts")
 @NoArgsConstructor
 public class User {
     @Id
@@ -54,9 +55,8 @@ public class User {
     @JoinColumn(name = "likeProduct")
     private LikeProduct likeProduct;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "myProduct")
-    private MyProduct myProduct;
+    @OneToMany(mappedBy = "user")
+    private List<MyProduct> myProducts = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "likeHashtag")
@@ -66,19 +66,26 @@ public class User {
     @JoinColumn(name = "myHashtag")
     private MyHashtag myHashtag;
 
-    public User(SignUpDto signUpDto, LikeProduct likeProduct, MyProduct myProduct, LikeHashtag likeHashtag, MyHashtag myHashtag) {
+    public User(SignUpDto signUpDto, LikeProduct likeProduct, List<MyProduct> myProducts, LikeHashtag likeHashtag, MyHashtag myHashtag) {
         this.username = signUpDto.getUsername();
         this.password = signUpDto.getPassword();
-//        this.nickname = signUpDto.getnickname;
+        this.nickname = signUpDto.getNickname();
 //        this.name = signUpDto.getName;
         this.age = signUpDto.getAge();
         this.gender = signUpDto.getGender();
         this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
         this.likeProduct = likeProduct;
-        this.myProduct = myProduct;
+        this.myProducts = myProducts;
         this.likeHashtag = likeHashtag;
         this.myHashtag = myHashtag;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setPassword(String encPassword) {
+        this.password = encPassword;
+    }
 }

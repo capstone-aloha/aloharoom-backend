@@ -37,8 +37,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> findOne(User user) {
-        return userRepository.findById(user.getId());
+    public User findOne(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
     }
 
 }

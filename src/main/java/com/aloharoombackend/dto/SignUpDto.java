@@ -4,6 +4,8 @@ import com.aloharoombackend.model.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class SignUpDto {
@@ -12,7 +14,7 @@ public class SignUpDto {
     private Long signupId;
     private String username;
     private String password;
-    //private String nickname;
+    private String nickname;
     //private String name;
     private Integer age;
     private String gender;
@@ -40,10 +42,7 @@ public class SignUpDto {
     private Boolean b5; //편의점
 
     //myProduct
-    private Boolean myWaterpurifier;
-    private Boolean myAircon;
-    private Boolean myMicrowave;
-    private Boolean myWasher;
+    private List<String> myProducts;
 
     public SignUpDto(User user) {
         this.signupId = user.getId();
@@ -67,9 +66,5 @@ public class SignUpDto {
         this.b3 = user.getMyHashtag().getB3();
         this.b4 = user.getMyHashtag().getB4();
         this.b5 = user.getMyHashtag().getB5();
-        this.myWaterpurifier = user.getMyProduct().getWaterpurifier();
-        this.myAircon = user.getMyProduct().getAircon();
-        this.myMicrowave = user.getMyProduct().getMicrowave();
-        this.myWasher = user.getMyProduct().getWasher();
     }
 }

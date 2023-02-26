@@ -6,6 +6,9 @@ import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
@@ -22,10 +25,11 @@ public class UserController {
         //System.out.println("user = " + user);
 //        SignUpDto signUpDto = new SignUpDto();
         LikeProduct likeProduct = new LikeProduct(signUpDto);
-        MyProduct myProduct = new MyProduct(signUpDto);
+        List<MyProduct> myProducts = signUpDto.getMyProducts()
+                .stream().map(myProduct -> new MyProduct(myProduct)).collect(Collectors.toList());
         LikeHashtag likeHashtag = new LikeHashtag(signUpDto);
         MyHashtag myHashtag = new MyHashtag(signUpDto);
-        User user = new User(signUpDto, likeProduct, myProduct, likeHashtag, myHashtag);
+        User user = new User(signUpDto, likeProduct, myProducts, likeHashtag, myHashtag);
 
         return user;
     }

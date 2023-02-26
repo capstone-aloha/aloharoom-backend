@@ -15,25 +15,13 @@ public class MyProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "myProduct", fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "waterpurifier")
-    private Boolean waterpurifier;
+    private String name;
 
-    @Column(name = "aircon")
-    private Boolean aircon;
-
-    @Column(name = "microwave")
-    private Boolean microwave;
-
-    @Column(name = "washer")
-    private Boolean washer;
-
-    public MyProduct(SignUpDto signUpDto) {
-        this.waterpurifier = signUpDto.getMyWaterpurifier();
-        this.aircon = signUpDto.getMyAircon();
-        this.microwave = signUpDto.getMyMicrowave();
-        this.washer = signUpDto.getMyWasher();
+    public MyProduct(String name) {
+        this.name = name;
     }
 }
