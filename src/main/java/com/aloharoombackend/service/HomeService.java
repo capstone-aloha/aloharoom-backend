@@ -19,6 +19,11 @@ public class HomeService {
         return homeRepository.save(home);
     }
 
+    public Home findOne(Long homeId) {
+        return homeRepository.findById(homeId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 집이 존재하지 않습니다."));
+    }
+
     public List<Home> findAll() {
         return homeRepository.findAll();
     }

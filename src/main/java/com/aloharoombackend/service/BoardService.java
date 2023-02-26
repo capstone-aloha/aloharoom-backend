@@ -19,6 +19,11 @@ public class BoardService {
         return boardRepository.save(board);
     }
 
+    public Board findOne(Long boardId) {
+        return boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+    }
+
     public List<Board> findAll() {
         return boardRepository.findAll();
     }

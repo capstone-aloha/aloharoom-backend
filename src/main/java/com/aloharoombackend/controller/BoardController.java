@@ -1,17 +1,18 @@
 package com.aloharoombackend.controller;
 
+import com.aloharoombackend.auth.PrincipalDetails;
+import com.aloharoombackend.dto.BoardOneDto;
 import com.aloharoombackend.model.Home;
 import com.aloharoombackend.model.HomeImage;
-import com.aloharoombackend.service.AwsS3Service;
-import com.aloharoombackend.service.BoardService;
+import com.aloharoombackend.model.User;
+import com.aloharoombackend.service.*;
 import com.aloharoombackend.dto.BoardAddDto;
 import com.aloharoombackend.dto.BoardAllDto;
 import com.aloharoombackend.model.Board;
-import com.aloharoombackend.service.HomeImageService;
-import com.aloharoombackend.service.HomeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,7 @@ public class BoardController {
     private final BoardService boardService;
     private final HomeService homeService;
     private final HomeImageService homeImageService;
+    private final UserService userService;
     private final AwsS3Service awsS3Service;
 
     //모든 게시물 조회
@@ -40,6 +42,20 @@ public class BoardController {
         }
         return ResponseEntity.ok()
                 .body(boardAllDtos);
+    }
+
+    //게시물 단건 조회
+    @GetMapping("/{boardId}")
+    public ResponseEntity<BoardOneDto> getBoardOne(
+            @PathVariable Long boardId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        //나중에 필요한 내용 dto로 담아서 보내자.
+        Board board = boardService.findOne(boardId);
+        Home home = homeService.findOne(board.getHome().getId()); //오류 => 프록시 초기화
+        Long userId = principalDetails.getUser().getId();
+        User user = userService.findOne(userId);
+        BoardOneDto boardOneDto = new BoardOneDto(board, home, user);
+
+        return ResponseEntity.ok(boardOneDto);
     }
 
     //게시물 작성
