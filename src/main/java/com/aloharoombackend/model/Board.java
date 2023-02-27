@@ -1,6 +1,7 @@
 package com.aloharoombackend.model;
 
 import com.aloharoombackend.dto.BoardAddDto;
+import com.aloharoombackend.dto.BoardEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,5 +39,12 @@ public class Board extends BaseEntity{
         this.title = boardAddDto.getTitle();
         this.contents = boardAddDto.getContents();
         this.count = boardAddDto.getCount();
+    }
+
+    public Board change(BoardEditDto boardEditDto) {
+        this.title = boardEditDto.getTitle();
+        this.contents = boardEditDto.getContents();
+        this.count = boardEditDto.getCount();
+        return this;
     }
 }

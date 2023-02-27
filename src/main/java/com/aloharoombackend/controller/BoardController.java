@@ -1,6 +1,7 @@
 package com.aloharoombackend.controller;
 
 import com.aloharoombackend.auth.PrincipalDetails;
+import com.aloharoombackend.dto.BoardEditDto;
 import com.aloharoombackend.dto.BoardOneDto;
 import com.aloharoombackend.model.Home;
 import com.aloharoombackend.model.HomeImage;
@@ -78,4 +79,33 @@ public class BoardController {
 
         return ResponseEntity.ok("");
     }
+
+    //게시물 수정
+    @PatchMapping(path = {"/{boardId}"},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity editBoard(@RequestPart BoardEditDto boardEditDto,
+                                    @RequestPart List<MultipartFile> imgFiles,
+                                    @PathVariable Long boardId) {
+        Board board = boardService.findOne(boardId);
+        Home home = board.getHome();
+        Long homeId = home.getId();
+        //home에 있는 이미지 삭제 => aws 삭제, HomeImage 삭제
+        Home home1 = homeService.findOne(homeId);
+        List<HomeImage> homeImages = home1.getHomeImages();
+        homeImages.forEach(homeImageService::delete); // HomeImage 삭제
+        List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+
+        //업데이트
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
+
+        for (HomeImage homeImage : newHomeImages) {
+            homeImageService.create(homeImage);
+        }
+        boardService.update(boardId, boardEditDto);
+        homeService.update(homeId, boardEditDto, newHomeImages);
+
+        return ResponseEntity.ok("");
+    }
+
 }

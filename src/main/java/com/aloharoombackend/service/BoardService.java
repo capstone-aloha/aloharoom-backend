@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.BoardEditDto;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,12 @@ public class BoardService {
 
     public List<Board> findAll() {
         return boardRepository.findAll();
+    }
+
+    @Transactional
+    public Board update(Long boardId, BoardEditDto boardEditDto) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+        return board.change(boardEditDto);
     }
 }

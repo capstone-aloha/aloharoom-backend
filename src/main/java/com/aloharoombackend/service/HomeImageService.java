@@ -17,4 +17,8 @@ public class HomeImageService {
         return homeImageRepository.save(homeImage);
     }
 
+    @Transactional
+    public void delete(HomeImage homeImage) {
+        homeImageRepository.delete(homeImage);
+    }
 }

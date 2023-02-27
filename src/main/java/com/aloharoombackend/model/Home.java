@@ -1,6 +1,7 @@
 package com.aloharoombackend.model;
 
 import com.aloharoombackend.dto.BoardAddDto;
+import com.aloharoombackend.dto.BoardEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -73,5 +74,21 @@ public class Home {
         this.startDate = boardAddDto.getStartDate();
         this.x = boardAddDto.getX();
         this.y = boardAddDto.getY();
+    }
+
+    public Home change(BoardEditDto boardEditDto, List<HomeImage> homeImages) {
+        this.roomCount = boardEditDto.getRoomCount();
+        this.address = boardEditDto.getAddress();
+        this.homeType = boardEditDto.getHomeType();
+        this.tradeType = boardEditDto.getTradeType();
+        this.price = boardEditDto.getPrice();
+        this.deposit = boardEditDto.getDeposit();
+        this.flat = boardEditDto.getFlat();
+        this.maintenance = boardEditDto.getMaintenance();
+        this.floor = boardEditDto.getFloor();
+        this.totalFloor = boardEditDto.getTotalFloor();
+        this.startDate = boardEditDto.getStartDate();
+        this.homeImages = homeImages;
+        return this;
     }
 }
