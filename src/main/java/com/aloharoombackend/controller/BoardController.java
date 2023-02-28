@@ -61,10 +61,12 @@ public class BoardController {
 
     //게시물 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity addBoard(@RequestPart BoardAddDto boardAddDto, @RequestPart List<MultipartFile> imgFiles) {
+    public ResponseEntity addBoard(@RequestPart BoardAddDto boardAddDto, @RequestPart List<MultipartFile> imgFiles,
+                                   @AuthenticationPrincipal PrincipalDetails principalDetails) {
         //일단 넣을 수 있는 것만 넣어보자! => Home, HomeImage, Board + (Transportation, 편의시설 => 보류)
         Home home = new Home(boardAddDto);
-        Board board = new Board(home, boardAddDto);
+        User user = userService.findOne(principalDetails.getUser().getId());
+        Board board = new Board(home, user, boardAddDto);
 
         //MultipartFile을 s3에 저장 후 해당 주소로 HomeImage 생성
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
@@ -86,8 +88,7 @@ public class BoardController {
                                     @RequestPart List<MultipartFile> imgFiles,
                                     @PathVariable Long boardId) {
         Board board = boardService.findOne(boardId);
-        Home home = board.getHome();
-        Long homeId = home.getId();
+        Long homeId = board.getHome().getId();
         //home에 있는 이미지 삭제 => aws 삭제, HomeImage 삭제
         Home home1 = homeService.findOne(homeId);
         List<HomeImage> homeImages = home1.getHomeImages();
@@ -97,7 +98,7 @@ public class BoardController {
 
         //업데이트
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
-        List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
+        List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home1, imgUrl)).collect(Collectors.toList());
 
         for (HomeImage homeImage : newHomeImages) {
             homeImageService.create(homeImage);

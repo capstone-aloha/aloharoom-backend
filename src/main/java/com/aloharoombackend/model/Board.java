@@ -15,7 +15,8 @@ public class Board extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -34,11 +35,12 @@ public class Board extends BaseEntity{
     @Column(name = "views")
     private Integer views = 0;
 
-    public Board(Home home, BoardAddDto boardAddDto) {
+    public Board(Home home, User user, BoardAddDto boardAddDto) {
         this.home = home; //나중에 연관관계 메서드
         this.title = boardAddDto.getTitle();
         this.contents = boardAddDto.getContents();
         this.count = boardAddDto.getCount();
+        this.user = user;
     }
 
     public Board change(BoardEditDto boardEditDto) {

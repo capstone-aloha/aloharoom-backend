@@ -3,7 +3,6 @@ package com.aloharoombackend.model;
 import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -22,10 +21,6 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id")
     private Home home;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
 
     @Column(name = "username")
     private String username;
