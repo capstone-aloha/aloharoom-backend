@@ -15,7 +15,6 @@ import java.util.List;
 public class MyHashtagService {
 
     private final MyHashtagRepository myHashtagRepository;
-    SignUpDto signUpDto = new SignUpDto();
 
     @Transactional
     public Long create(MyHashtag myHashtag) {
