@@ -75,9 +75,6 @@ public class BoardController {
         //DB에 넣어보자 => service 생성 후 사용
         homeService.create(home);
         boardService.create(board);
-        for (HomeImage homeImage : homeImages) {
-            homeImageService.create(homeImage);
-        }
 
         return ResponseEntity.ok("");
     }
