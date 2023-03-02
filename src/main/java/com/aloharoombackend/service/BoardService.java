@@ -35,4 +35,9 @@ public class BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
         return board.change(boardEditDto);
     }
+
+    @Transactional
+    public void delete(Board board) {
+        boardRepository.delete(board);
+    }
 }

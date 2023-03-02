@@ -36,4 +36,9 @@ public class HomeService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 집이 존재하지 않습니다."));
         return home.change(boardEditDto, homeImages);
     }
+
+    @Transactional
+    public void delete(Home home) {
+        homeRepository.delete(home);
+    }
 }

@@ -86,6 +86,7 @@ public class BoardController {
                                     @PathVariable Long boardId) {
         Board board = boardService.findOne(boardId);
         Long homeId = board.getHome().getId();
+
         //home에 있는 이미지 삭제 => aws 삭제, HomeImage 삭제
         Home home1 = homeService.findOne(homeId);
         List<HomeImage> homeImages = home1.getHomeImages();
@@ -97,11 +98,28 @@ public class BoardController {
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
         List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home1, imgUrl)).collect(Collectors.toList());
 
-        for (HomeImage homeImage : newHomeImages) {
-            homeImageService.create(homeImage);
-        }
+//        for (HomeImage homeImage : newHomeImages) {
+//            homeImageService.create(homeImage);
+//        }
         boardService.update(boardId, boardEditDto);
         homeService.update(homeId, boardEditDto, newHomeImages);
+
+        return ResponseEntity.ok("");
+    }
+
+    //게시물 삭제
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity deleteBoard(@PathVariable Long boardId) {
+        //board, home, homeImage 삭제
+        Board board = boardService.findOne(boardId);
+        Home home = homeService.findOne(board.getHome().getId());
+        List<HomeImage> homeImages = home.getHomeImages();
+
+
+        List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+        boardService.delete(board);
+        homeService.delete(home); //Home이 HomeImage의 생명주기를 관리하므로 Home을 삭제하면 연관된 HomeImage들도 삭제된다.
 
         return ResponseEntity.ok("");
     }
