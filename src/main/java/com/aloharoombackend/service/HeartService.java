@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.HeartBoardDto;
 import com.aloharoombackend.model.Heart;
 import com.aloharoombackend.model.HeartId;
 import com.aloharoombackend.repository.HeartRepository;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,5 +30,9 @@ public class HeartService {
     public void delete(HeartId heartId) {
         Heart heart = findById(heartId);
         heartRepository.delete(heart);
+    }
+
+    public List<HeartBoardDto> findByHeartBoard(Long userId) {
+        return heartRepository.findByHeartBoard(userId);
     }
 }
