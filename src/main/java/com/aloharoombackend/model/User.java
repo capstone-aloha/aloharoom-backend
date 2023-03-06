@@ -46,22 +46,19 @@ public class User {
     @Column(name = "tendency")
     private String tendency;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "likeProduct")
-    private LikeProduct likeProduct;
+    @OneToMany(mappedBy = "user")
+    private List<LikeProduct> likeProducts = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<MyProduct> myProducts = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "likeHashtag")
-    private LikeHashtag likeHashtag;
+    @OneToMany(mappedBy = "user")
+    private List<LikeHashtag> likeHashtags = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "myHashtag")
-    private MyHashtag myHashtag;
+    @OneToMany(mappedBy = "user")
+    private List<MyHashtag> myHashtags = new ArrayList<>();
 
-    public User(SignUpDto signUpDto, LikeProduct likeProduct, List<MyProduct> myProducts, LikeHashtag likeHashtag, MyHashtag myHashtag) {
+    public User(SignUpDto signUpDto, List<LikeProduct> likeProducts, List<MyProduct> myProducts, List<LikeHashtag> likeHashtags, List<MyHashtag> myHashtags) {
         this.username = signUpDto.getUsername();
         this.password = signUpDto.getPassword();
         this.nickname = signUpDto.getNickname();
@@ -70,10 +67,10 @@ public class User {
         this.gender = signUpDto.getGender();
         this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
-        this.likeProduct = likeProduct;
+        this.likeProducts = likeProducts;
         this.myProducts = myProducts;
-        this.likeHashtag = likeHashtag;
-        this.myHashtag = myHashtag;
+        this.likeHashtags = likeHashtags;
+        this.myHashtags = myHashtags;
     }
 
     public void setRole(String role) {

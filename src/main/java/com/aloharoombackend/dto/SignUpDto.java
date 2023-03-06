@@ -22,24 +22,13 @@ public class SignUpDto {
     private String tendency;
 
     //likeHash
-    private Boolean a1; //층간소음 없는
-    private Boolean a2; //조용한
-    private Boolean a3; //역세권
-    private Boolean a4; //비흡연자
-    private Boolean a5; //편의점
+    private List<String> likeHashtags;
 
     //likeProduct
-    private Boolean likeWaterpurifier;
-    private Boolean likeAircon;
-    private Boolean likeMicrowave;
-    private Boolean likeWasher;
+    private List<String> likeProducts;
 
     //myHash
-    private Boolean b1; //층간소음 없는
-    private Boolean b2; //조용한
-    private Boolean b3; //역세권
-    private Boolean b4; //비흡연자
-    private Boolean b5; //편의점
+    private List<String> myHashtags;
 
     //myProduct
     private List<String> myProducts;
@@ -48,23 +37,10 @@ public class SignUpDto {
         this.signupId = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.nickname = user.getNickname();
         this.age = user.getAge();
         this.gender = user.getGender();
         this.role = user.getRole();
         this.tendency = user.getTendency();
-        this.a1 = user.getLikeHashtag().getA1();
-        this.a2 = user.getLikeHashtag().getA2();
-        this.a3 = user.getLikeHashtag().getA3();
-        this.a4 = user.getLikeHashtag().getA4();
-        this.a5 = user.getLikeHashtag().getA5();
-        this.likeWaterpurifier = user.getLikeProduct().getWaterpurifier();
-        this.likeAircon = user.getLikeProduct().getAircon();
-        this.likeMicrowave = user.getLikeProduct().getMicrowave();
-        this.likeWasher = user.getLikeProduct().getWasher();
-        this.b1 = user.getMyHashtag().getB1();
-        this.b2 = user.getMyHashtag().getB2();
-        this.b3 = user.getMyHashtag().getB3();
-        this.b4 = user.getMyHashtag().getB4();
-        this.b5 = user.getMyHashtag().getB5();
     }
 }
