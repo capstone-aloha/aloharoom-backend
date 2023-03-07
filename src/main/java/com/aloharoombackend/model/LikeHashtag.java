@@ -20,7 +20,8 @@ public class LikeHashtag {
 
     private String hash;
 
-    public LikeHashtag(String hash) {
+    public LikeHashtag(String hash, User user) {
         this.hash = hash;
+        this.user = user;
     }
 }

@@ -21,7 +21,8 @@ public class MyProduct {
 
     private String name;
 
-    public MyProduct(String name) {
+    public MyProduct(String name, User user) {
         this.name = name;
+        this.user = user;
     }
 }

@@ -20,7 +20,8 @@ public class LikeProduct {
 
     private String name;
 
-    public LikeProduct(String name) {
+    public LikeProduct(String name, User user) {
         this.name = name;
+        this.user = user;
     }
 }

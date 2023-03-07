@@ -17,32 +17,17 @@ import java.util.stream.Collectors;
 public class LikeProductService {
 
     private final LikeProductRepository likeProductRepository;
-    List<LikeProduct> likeProducts = new ArrayList<>();
-
-
-    /*@Transactional
-    public Long create(LikeProduct likeProduct) {
-        likeProductRepository.save(likeProduct);
-        return likeProduct.getId();
-    }*/
-
-    /*@Transactional
-    public void create(List<SignUpDto> signUpDto) {
-        //likeProductRepository.save(likeProducts);
-        likeProducts = likeProduct
-                .stream().map(likeProduct -> new LikeProduct(likeProduct)).collect(Collectors.toList());
-
-    }*/
 
     @Transactional
-    public void create(List<LikeProduct> signUpDto) {
-        List<LikeProduct> likeProducts = signUpDto.stream()
-                .map(SignUpDto::getLikeProducts)
-                .collect(Collectors.toList());
-        likeProductRepository.saveAll(likeProducts);
+    public void create(List<LikeProduct> likeProducts) {
+//        likeProducts.stream().map(likeProduct -> likeProductRepository.save(likeProduct));
+        likeProducts.stream().forEach(likeProduct -> likeProductRepository.save(likeProduct));
     }
-
-    public List<LikeProduct> findAll() {
-        return likeProductRepository.findAll();
-    }
+//
+//    @Transactional
+//    public void test() {
+//        likeProductRepository.save(new LikeProduct("as"));
+//    }
 }
+
+

@@ -20,8 +20,9 @@ public class MyHashtag {
 
     private String hash;
 
-    public MyHashtag(String hash) {
+    public MyHashtag(String hash, User user) {
         this.hash = hash;
+        this.user = user;
     }
 
 }
