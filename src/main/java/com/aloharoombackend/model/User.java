@@ -58,7 +58,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<MyHashtag> myHashtags = new ArrayList<>();
 
-    public User(SignUpDto signUpDto, List<LikeProduct> likeProducts, List<MyProduct> myProducts, List<LikeHashtag> likeHashtags, List<MyHashtag> myHashtags) {
+    public User(SignUpDto signUpDto) {
         this.username = signUpDto.getUsername();
         this.password = signUpDto.getPassword();
         this.nickname = signUpDto.getNickname();
@@ -67,10 +67,6 @@ public class User {
         this.gender = signUpDto.getGender();
         this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
-        this.likeProducts = likeProducts;
-        this.myProducts = myProducts;
-        this.likeHashtags = likeHashtags;
-        this.myHashtags = myHashtags;
     }
 
     public void setRole(String role) {

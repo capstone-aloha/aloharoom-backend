@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     public User findByUsername(String username);
 
     @Override
-    @EntityGraph(attributePaths = {"likeProducts", "myProducts", "likeHashtags", "myHashtags"})
+//    @EntityGraph(attributePaths = {"likeProducts", "myProducts", "likeHashtags", "myHashtags"})
     Optional<User> findById(Long aLong);
 }

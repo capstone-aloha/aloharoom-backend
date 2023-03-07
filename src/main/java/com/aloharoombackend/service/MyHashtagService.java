@@ -1,6 +1,7 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.model.MyHashtag;
 import com.aloharoombackend.repository.MyHashtagRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,9 @@ public class MyHashtagService {
     private final MyHashtagRepository myHashtagRepository;
 
     @Transactional
-    public Long create(MyHashtag myHashtag) {
-        myHashtagRepository.save(myHashtag);
-        return myHashtag.getId();
+    public void create(List<MyHashtag> myHashtags) {
+//        likeProducts.stream().map(likeProduct -> likeProductRepository.save(likeProduct));
+        myHashtags.stream().forEach(likeProduct -> myHashtagRepository.save(likeProduct));
     }
 
     public List<MyHashtag> findAll() {

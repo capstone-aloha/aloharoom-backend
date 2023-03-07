@@ -23,15 +23,22 @@ public class UserController {
     public User signUp(@RequestBody SignUpDto signUpDto){
         //해시태그, 가전제품, 사용자 객체들 따로 만들어서 저장(dto이용)
 //        SignUpDto signUpDto = new SignUpDto();
+        User user = new User(signUpDto);
+
         List<LikeProduct> likeProducts = signUpDto.getLikeProducts()
-                .stream().map(likeProduct -> new LikeProduct(likeProduct)).collect(Collectors.toList());
+                .stream().map(likeProduct -> new LikeProduct(likeProduct, user)).collect(Collectors.toList());
         List<MyProduct> myProducts = signUpDto.getMyProducts()
-                .stream().map(myProduct -> new MyProduct(myProduct)).collect(Collectors.toList());
+                .stream().map(myProduct -> new MyProduct(myProduct, user)).collect(Collectors.toList());
         List<LikeHashtag> likeHashtags = signUpDto.getLikeHashtags()
-                .stream().map(likeHashtag -> new LikeHashtag(likeHashtag)).collect(Collectors.toList());
+                .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, user)).collect(Collectors.toList());
         List<MyHashtag> myHashtags = signUpDto.getMyHashtags()
-                .stream().map(myHashtag -> new MyHashtag(myHashtag)).collect(Collectors.toList());
-        User user = new User(signUpDto, likeProducts, myProducts, likeHashtags, myHashtags);
+                .stream().map(myHashtag -> new MyHashtag(myHashtag, user)).collect(Collectors.toList());
+
+        userService.join(user);
+        likeProductService.create(likeProducts);
+        myProductService.create(myProducts);
+        likeHashtagService.create(likeHashtags);
+        myHashtagService.create(myHashtags);
 
         return user;
     }

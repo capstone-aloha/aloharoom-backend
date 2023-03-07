@@ -21,7 +21,7 @@ public class UserService {
      */
     @Transactional
     public Long join(User user) {
-        validateDuplicateMember(user);
+        //validateDuplicateMember(user);
         userRepository.save(user);
         return user.getId();
     }
