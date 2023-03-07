@@ -33,6 +33,9 @@ public class UserController {
                 .stream().map(myHashtag -> new MyHashtag(myHashtag)).collect(Collectors.toList());
         User user = new User(signUpDto, likeProducts, myProducts, likeHashtags, myHashtags);
 
+        userService.join(user);
+        likeProductService.create(likeProducts);
+
         return user;
     }
 
