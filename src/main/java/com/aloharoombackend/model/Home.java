@@ -27,6 +27,8 @@ public class Home {
     @OneToMany(mappedBy = "home", cascade = CascadeType.ALL)
     private List<HomeImage> homeImages = new ArrayList<>();
 
+    private Integer rent;
+
     private Integer maintenance; //관리비
 
     private Integer flat; //평수
