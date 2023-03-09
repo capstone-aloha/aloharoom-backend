@@ -17,9 +17,9 @@ public class LikeHashtagService {
     private final LikeHashtagRepository likeHashtagRepository;
 
     @Transactional
-    public Long create(LikeHashtag likeHashtag) {
-        likeHashtagRepository.save(likeHashtag);
-        return likeHashtag.getId();
+    public void create(List<LikeHashtag> likeHashtags) {
+//        likeProducts.stream().map(likeProduct -> likeProductRepository.save(likeProduct));
+        likeHashtags.stream().forEach(likeProduct -> likeHashtagRepository.save(likeProduct));
     }
 
     public List<LikeHashtag> findAll() {
