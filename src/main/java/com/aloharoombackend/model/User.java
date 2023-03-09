@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@ToString(exclude = "myProducts")
+@ToString(exclude = {"likeProducts", "myProducts", "likeHashtags", "myHashtags", "board"})
 @NoArgsConstructor
 public class User {
     @Id
@@ -21,6 +21,9 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id")
     private Home home;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    Board board;
 
     @Column(name = "username")
     private String username;
@@ -67,6 +70,12 @@ public class User {
         this.gender = signUpDto.getGender();
         this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
+    }
+
+    //Test용
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public void setRole(String role) {
