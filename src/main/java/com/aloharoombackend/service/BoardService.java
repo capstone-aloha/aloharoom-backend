@@ -1,6 +1,8 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.BoardAllDto;
 import com.aloharoombackend.dto.BoardEditDto;
+import com.aloharoombackend.dto.SearchFilterDto;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +41,9 @@ public class BoardService {
     @Transactional
     public void delete(Board board) {
         boardRepository.delete(board);
+    }
+
+    public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
+        return boardRepository.searchFilter(searchFilterDto);
     }
 }
