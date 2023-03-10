@@ -25,4 +25,9 @@ public class MyHashtag {
         this.user = user;
     }
 
+    //test용
+    public MyHashtag(User user, String hash) {
+        this.hash = hash;
+        this.user = user;
+    }
 }

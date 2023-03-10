@@ -43,4 +43,12 @@ public class SignUpDto {
         this.role = user.getRole();
         this.tendency = user.getTendency();
     }
+
+    //test용
+    public SignUpDto(String username, String password, Integer age, String gender) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
+    }
 }

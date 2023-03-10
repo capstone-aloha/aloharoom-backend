@@ -35,4 +35,19 @@ public class SearchFilterDto {
         this.likeHashtags = user.getLikeHashtags().stream()
                 .map(likeHashtag -> likeHashtag.getHash()).collect(Collectors.toList());
     }
+
+    //test용
+    public SearchFilterDto(Integer minAge, Integer maxAge, String gender, List<String> likeHashtags, Integer minFlat, Integer maxFlat,
+                           Integer minRent, Integer maxRent, Integer roomCount, String homeType) {
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.gender = gender;
+        this.likeHashtags = likeHashtags;
+        this.minFlat = minFlat;
+        this.maxFlat = maxFlat;
+        this.minRent = minRent;
+        this.maxRent = maxRent;
+        this.roomCount = roomCount;
+        this.homeType = homeType;
+    }
 }
