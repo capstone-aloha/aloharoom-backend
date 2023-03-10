@@ -49,21 +49,13 @@ public class Home {
 
     private LocalDate startDate; //입주 가능한 날짜
 
-    //Option으로 나중에 빼도될 듯
-    private Boolean sink; //싱크대 유무
-
-    private Boolean aircon; //에어컨 유무
-
-    private Boolean washMachine; //세탁기 유무
-
-    private Boolean shoeCloset; //신발장 유무
-
     private Double x;
 
     private Double y;
 
     public Home(BoardAddDto boardAddDto) {
         this.address = boardAddDto.getAddress();
+        this.rent = boardAddDto.getRent();
         this.maintenance = boardAddDto.getMaintenance();
         this.flat = boardAddDto.getFlat();
         this.roomCount = boardAddDto.getRoomCount();
