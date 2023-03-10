@@ -53,7 +53,7 @@ public class BoardController {
         Board board = boardService.findOne(boardId);
         Home home = homeService.findOne(board.getHome().getId()); //오류 => 프록시 초기화
         Long userId = principalDetails.getUser().getId();
-        User user = userService.findOne(userId);
+        User user = userService.findOneFetch(userId);
         BoardOneDto boardOneDto = new BoardOneDto(board, home, user);
 
         return ResponseEntity.ok(boardOneDto);
