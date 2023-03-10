@@ -23,18 +23,17 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
     @Override
     public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
-        Map<String, Integer> mappingMap = new HashMap<>();
         Set<String> loginUserTagSet = new HashSet<>();
         //User 쿼리 (필터를 만족하는 사용자 추출)
         List<User> users = queryFactory
-                .selectFrom(user)
+                .selectFrom(user).distinct()
                 .join(user.myHashtags, myHashtag).fetchJoin()
-                .leftJoin(user.board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
-                .leftJoin(user.home)
+                .leftJoin(user.board, board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
                 .where(
-                        home.isNotNull(),
-                        user.age.eq(searchFilterDto.getAge()),
-                        user.gender.eq(searchFilterDto.getGender())
+                        board.isNotNull(),
+                        user.age.goe(searchFilterDto.getMinAge()), //user.age >= minAge
+                        user.age.loe(searchFilterDto.getMaxAge()), //user.age <= maxAge
+                        user.gender.eq(searchFilterDto.getGender()) //user.gender == gender
                 )
                 .fetch();
         //myHashtag 변환말고 가전제품 변환 해야함. 나중에 바꿔
@@ -49,9 +48,9 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         });
 
         //로그인 사용자 해시태그 Set에 저장
-        List<LikeHashtag> loginUserTags = searchFilterDto.getLikeHashtags();
+        List<String> loginUserTags = searchFilterDto.getLikeHashtags();
         loginUserTags.stream()
-                        .forEach(likeHashtag -> loginUserTagSet.add(likeHashtag.getHash()));
+                        .forEach(likeHashtag -> loginUserTagSet.add(likeHashtag));
 
         users.clear();
         //해시태그 필터링 => 이진탐색, 로그인 사용자 값 map 만들고 없으면 바로 짤
@@ -75,12 +74,16 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         List<Board> boards = queryFactory
                 .selectFrom(board)
                 .join(board.home, home).fetchJoin()
-                .join(home.homeImages).fetchJoin()
-                .where(board.user.id.in(userIds),
-                        home.flat.eq(searchFilterDto.getFlat()),
-                        home.roomCount.eq(searchFilterDto.getRoomCount()),
-                        home.homeType.eq(searchFilterDto.getHomeType()),
-                        home.rent.eq(searchFilterDto.getRent())
+                .join(home.homeImages).fetchJoin() //테스트 코드에 이미지 설정 X => 테스트 시 주석처리 후 사용해야함.
+                .join(board.user, user)
+                .where(
+                        user.id.in(userIds),
+                        home.flat.goe(searchFilterDto.getMinFlat()), //home.flat >= minFlat
+                        home.flat.loe(searchFilterDto.getMaxFlat()), //home.flat <= maxFlat
+                        home.roomCount.eq(searchFilterDto.getRoomCount()), //home.roomCount === roomCount
+                        home.homeType.eq(searchFilterDto.getHomeType()), //home.homeType === homeType
+                        home.rent.goe(searchFilterDto.getMinRent()), //home.rent >= minRent
+                        home.rent.loe(searchFilterDto.getMaxRent()) //home.rent <= maxRent
                 )
                 .fetch();
 
