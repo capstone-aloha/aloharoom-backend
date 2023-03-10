@@ -18,9 +18,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id")
-    private Home home;
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "home_id")
+//    private Home home;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
     Board board;
