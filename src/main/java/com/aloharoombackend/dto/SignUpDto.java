@@ -43,4 +43,5 @@ public class SignUpDto {
         this.role = user.getRole();
         this.tendency = user.getTendency();
     }
+
 }
