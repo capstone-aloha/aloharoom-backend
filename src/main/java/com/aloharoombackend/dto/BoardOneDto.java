@@ -32,7 +32,7 @@ public class BoardOneDto {
     //private String transportations;
     //private String facilities;
     //글쓴이, 해시태그, 가전제품
-    private String user;
+    private String nickname;
     private String tendency;
     private List<String> hashtag;
     private List<String> product;
@@ -54,10 +54,12 @@ public class BoardOneDto {
         this.startDate = home.getStartDate();
         this.imgUrls = home.getHomeImages().stream()
                 .map(homeImage -> homeImage.getImgUrl()).collect(Collectors.toList());
-        this.user = user.getNickname();
+        this.nickname = user.getUsername();
         this.tendency = user.getTendency();
         //가전제품은 해봤자 4개 정도니까 일대다로 푸는게 날듯.. => 일단 User, MyProduct만 수정, 딴 곳 오류터진부분 수정해야함
         //User: Product, Hashtag fetch join하도록 override => 나중에 쓰려면 필요
+        this.hashtag = user.getMyHashtags().stream()
+                .map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());
         this.product = user.getMyProducts().stream()
                 .map(myProduct -> myProduct.getName()).collect(Collectors.toList());
         //해시태그를 어떻게 보내야할까
