@@ -47,15 +47,14 @@ public class BoardController {
 
     //게시물 단건 조회
     @GetMapping("/{boardId}")
-    public ResponseEntity<BoardOneDto> getBoardOne(
-            @PathVariable Long boardId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<BoardOneDto> getBoardOne(@PathVariable Long boardId) {
         //나중에 필요한 내용 dto로 담아서 보내자.
         Board board = boardService.findOne(boardId);
         Home home = homeService.findOne(board.getHome().getId()); //오류 => 프록시 초기화
-        Long userId = principalDetails.getUser().getId();
+        Long userId = board.getUser().getId();
         User user = userService.findOneFetch(userId);
         BoardOneDto boardOneDto = new BoardOneDto(board, home, user);
-
+        
         return ResponseEntity.ok(boardOneDto);
     }
 
