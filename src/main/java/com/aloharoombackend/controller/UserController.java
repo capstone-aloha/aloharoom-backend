@@ -43,4 +43,12 @@ public class UserController {
         return user;
     }
 
+    //회원 조회
+    @GetMapping("/myPage/{userId}")
+    public SignUpDto myPage(@PathVariable Long userId) {
+        User findUser = userService.findOne(userId);
+        SignUpDto findUserDto = new SignUpDto(findUser);
+        return findUserDto;
+    }
+
 }
