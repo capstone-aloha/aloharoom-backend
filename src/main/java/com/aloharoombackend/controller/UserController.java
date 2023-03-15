@@ -1,9 +1,11 @@
 package com.aloharoombackend.controller;
 
+import com.aloharoombackend.dto.MyPageDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,9 +47,9 @@ public class UserController {
 
     //회원 조회
     @GetMapping("/myPage/{userId}")
-    public SignUpDto myPage(@PathVariable Long userId) {
-        User findUser = userService.findOne(userId);
-        SignUpDto findUserDto = new SignUpDto(findUser);
+    public MyPageDto myPage(@PathVariable Long userId) {
+        User findUser = userService.findOneFetchAll(userId);
+        MyPageDto findUserDto = new MyPageDto(findUser);
         return findUserDto;
     }
 

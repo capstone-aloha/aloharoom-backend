@@ -1,6 +1,7 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.model.LikeHashtag;
 import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.repository.LikeProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,11 @@ public class LikeProductService {
 //    public void test() {
 //        likeProductRepository.save(new LikeProduct("as"));
 //    }
+
+    public List<LikeProduct> findAll() {
+        return likeProductRepository.findAll();
+    }
+
 }
 
 

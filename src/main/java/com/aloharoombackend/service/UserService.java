@@ -42,6 +42,20 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
     }
 
+    public User findOneFetchAll(Long id) {
+        User findUser = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+        findUser.getMyHashtags().stream().
+                forEach(myHashtag -> myHashtag.getHash());
+        findUser.getMyProducts().stream().
+                forEach(myProduct -> myProduct.getName());
+        findUser.getLikeHashtags().stream().
+                forEach(likeHashtag -> likeHashtag.getHash());
+        findUser.getLikeProducts().stream().
+                forEach(likeProduct -> likeProduct.getName());
+        return findUser;
+    }
+
     public User findOneFetch(Long id) {
         User findUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
