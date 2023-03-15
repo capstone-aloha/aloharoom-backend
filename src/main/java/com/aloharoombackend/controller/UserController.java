@@ -45,7 +45,7 @@ public class UserController {
         return user;
     }
 
-    //회원 조회
+    //회원  조회
     @GetMapping("/myPage/{userId}")
     public MyPageDto myPage(@PathVariable Long userId) {
         User findUser = userService.findOneFetchAll(userId);

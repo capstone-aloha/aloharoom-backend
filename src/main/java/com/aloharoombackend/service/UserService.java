@@ -42,6 +42,18 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
     }
 
+    //프록시 -> 실객체 생성, 게시물 단건 조회 사용
+    public User findOneFetch(Long id) {
+        User findUser = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+        findUser.getMyHashtags().stream().
+                forEach(myHashtag -> myHashtag.getHash());
+        findUser.getMyProducts().stream().
+                forEach(myProduct -> myProduct.getName());
+        return findUser;
+    }
+
+    //프록시 -> 실객체 생성, 유저 조회 사용
     public User findOneFetchAll(Long id) {
         User findUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
@@ -56,14 +68,6 @@ public class UserService {
         return findUser;
     }
 
-    public User findOneFetch(Long id) {
-        User findUser = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
-        findUser.getMyHashtags().stream().
-                forEach(myHashtag -> myHashtag.getHash());
-        findUser.getMyProducts().stream().
-                forEach(myProduct -> myProduct.getName());
-        return findUser;
-    }
+
 
 }
