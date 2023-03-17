@@ -2,6 +2,7 @@ package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.BoardAllDto;
 import com.aloharoombackend.dto.BoardEditDto;
+import com.aloharoombackend.dto.HeartBoardDto;
 import com.aloharoombackend.dto.SearchFilterDto;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.model.Board;
@@ -46,4 +47,9 @@ public class BoardService {
     public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
         return boardRepository.searchFilter(searchFilterDto);
     }
+
+    public List<HeartBoardDto> findByboardIds(List<Long> boardIds) {
+        return boardRepository.recentViewBoard(boardIds);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.aloharoombackend.repository;
 
 import com.aloharoombackend.dto.BoardAllDto;
+import com.aloharoombackend.dto.HeartBoardDto;
 import com.aloharoombackend.dto.SearchFilterDto;
 import com.aloharoombackend.model.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -92,5 +93,17 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                 .collect(Collectors.toList());
 
         return boardAllDtos;
+    }
+
+    @Override
+    public List<HeartBoardDto> recentViewBoard(List<Long> boardIds) {
+        List<Board> boards = queryFactory
+                .select(board)
+                .from(board)
+                .join(board.home, home).fetchJoin()
+                .leftJoin(home.homeImages).fetchJoin()
+                .where(board.id.in(boardIds)).fetch();
+
+        return boards.stream().map(board1 -> new HeartBoardDto(board1)).collect(Collectors.toList());
     }
 }
