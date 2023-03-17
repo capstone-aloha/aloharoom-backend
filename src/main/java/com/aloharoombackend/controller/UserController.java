@@ -25,7 +25,6 @@ public class UserController {
     @PostMapping("/signup")
     public User signUp(@RequestBody SignUpDto signUpDto){
         //해시태그, 가전제품, 사용자 객체들 따로 만들어서 저장(dto이용)
-//        SignUpDto signUpDto = new SignUpDto();
         User user = new User(signUpDto);
 
         List<LikeProduct> likeProducts = signUpDto.getLikeProducts()
@@ -58,11 +57,7 @@ public class UserController {
     @PatchMapping("/myPage/{userId}")
     public MyPageEditDto myPageEdit(@RequestPart(value = "myPageEditDto") MyPageEditDto myPageEditDto,
                                     @PathVariable Long userId) {
-        User findUser = userService.findOne(userId);
-//        User newUser = new User(myPageEditDto);
-//        MyPageEditDto findUserDto = new MyPageEditDto(findUser);
-
-
+        User findUser = userService.findOneFetchAll(userId); //프록시 -> 실객체
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
         List<LikeProduct> likeProducts = findUser.getLikeProducts();
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
