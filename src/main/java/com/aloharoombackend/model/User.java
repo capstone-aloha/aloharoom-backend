@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,9 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.aloharoombackend.model.QUser.user;
 
 @Entity
 @Getter
@@ -70,6 +74,15 @@ public class User {
         this.gender = signUpDto.getGender();
         this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
+    }
+
+    public User edit(MyPageEditDto myPageEditDto) {
+        this.password = myPageEditDto.getPassword();
+        this.nickname = myPageEditDto.getNickname();
+        this.age = myPageEditDto.getAge();
+        this.gender = myPageEditDto.getGender();
+        this.tendency = myPageEditDto.getTendency();
+        return this;
     }
 
     //Test용

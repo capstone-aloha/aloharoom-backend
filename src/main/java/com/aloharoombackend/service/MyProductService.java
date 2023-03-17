@@ -1,6 +1,8 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.model.LikeProduct;
+import com.aloharoombackend.model.MyHashtag;
 import com.aloharoombackend.model.MyProduct;
 import com.aloharoombackend.repository.MyProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,13 +19,17 @@ public class MyProductService {
 
     private final MyProductRepository myProductRepository;
 
+    public List<MyProduct> findAll() {
+        return myProductRepository.findAll();
+    }
+
     @Transactional
     public void create(List<MyProduct> myProducts) {
-//        likeProducts.stream().map(likeProduct -> likeProductRepository.save(likeProduct));
         myProducts.stream().forEach(likeProduct -> myProductRepository.save(likeProduct));
     }
 
-    public List<MyProduct> findAll() {
-        return myProductRepository.findAll();
+    @Transactional
+    public void delete(MyProduct myProduct) {
+        myProductRepository.delete(myProduct);
     }
 }

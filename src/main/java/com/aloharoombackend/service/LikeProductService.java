@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.LikeHashtag;
 import com.aloharoombackend.model.LikeProduct;
@@ -19,19 +20,18 @@ public class LikeProductService {
 
     private final LikeProductRepository likeProductRepository;
 
-    @Transactional
-    public void create(List<LikeProduct> likeProducts) {
-//        likeProducts.stream().map(likeProduct -> likeProductRepository.save(likeProduct));
-        likeProducts.stream().forEach(likeProduct -> likeProductRepository.save(likeProduct));
-    }
-//
-//    @Transactional
-//    public void test() {
-//        likeProductRepository.save(new LikeProduct("as"));
-//    }
-
     public List<LikeProduct> findAll() {
         return likeProductRepository.findAll();
+    }
+
+    @Transactional
+    public void create(List<LikeProduct> likeProducts) {
+        likeProducts.stream().forEach(likeProduct -> likeProductRepository.save(likeProduct));
+    }
+
+    @Transactional
+    public void delete(LikeProduct likeProduct) {
+        likeProductRepository.delete(likeProduct);
     }
 
 }

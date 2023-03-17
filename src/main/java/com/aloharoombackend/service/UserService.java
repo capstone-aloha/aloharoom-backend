@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -66,6 +68,16 @@ public class UserService {
         findUser.getLikeProducts().stream().
                 forEach(likeProduct -> likeProduct.getName());
         return findUser;
+    }
+
+    //유저 수정
+    @Transactional
+    public User update(Long userId, MyPageEditDto myPageEditDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자는 존재하지 않습니다."));
+
+        user.edit(myPageEditDto);
+        return user.edit(myPageEditDto);
     }
 
 
