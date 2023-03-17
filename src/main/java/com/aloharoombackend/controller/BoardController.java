@@ -3,13 +3,10 @@ package com.aloharoombackend.controller;
 import com.aloharoombackend.auth.PrincipalDetails;
 import com.aloharoombackend.dto.BoardEditDto;
 import com.aloharoombackend.dto.BoardOneDto;
-import com.aloharoombackend.model.Home;
-import com.aloharoombackend.model.HomeImage;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import com.aloharoombackend.dto.BoardAddDto;
 import com.aloharoombackend.dto.BoardAllDto;
-import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +26,7 @@ public class BoardController {
     private final HomeService homeService;
     private final HomeImageService homeImageService;
     private final UserService userService;
+    private final RecentViewService recentViewService;
     private final AwsS3Service awsS3Service;
 
     //모든 게시물 조회
@@ -47,14 +45,19 @@ public class BoardController {
 
     //게시물 단건 조회
     @GetMapping("/{boardId}")
-    public ResponseEntity<BoardOneDto> getBoardOne(@PathVariable Long boardId) {
+    public ResponseEntity<BoardOneDto> getBoardOne(@PathVariable Long boardId, 
+                                                   @AuthenticationPrincipal PrincipalDetails principalDetails) {
         //나중에 필요한 내용 dto로 담아서 보내자.
         Board board = boardService.findOne(boardId);
         Home home = homeService.findOne(board.getHome().getId()); //오류 => 프록시 초기화
         Long userId = board.getUser().getId();
         User user = userService.findOneFetch(userId);
         BoardOneDto boardOneDto = new BoardOneDto(board, home, user);
-        
+
+        Long loginUserId = principalDetails.getUser().getId();
+        RecentView recentView = new RecentView(boardId, loginUserId);
+        recentViewService.create(recentView);
+
         return ResponseEntity.ok(boardOneDto);
     }
 
