@@ -25,7 +25,7 @@ public class MyProductService {
 
     @Transactional
     public void create(List<MyProduct> myProducts) {
-        myProducts.stream().forEach(likeProduct -> myProductRepository.save(likeProduct));
+        myProducts.stream().forEach(myProduct -> myProductRepository.save(myProduct));
     }
 
     @Transactional

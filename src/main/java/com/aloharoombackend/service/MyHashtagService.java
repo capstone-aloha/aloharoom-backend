@@ -25,7 +25,7 @@ public class MyHashtagService {
 
     @Transactional
     public void create(List<MyHashtag> myHashtags) {
-        myHashtags.stream().forEach(likeProduct -> myHashtagRepository.save(likeProduct));
+        myHashtags.stream().forEach(myHashtag -> myHashtagRepository.save(myHashtag));
     }
 
     @Transactional
