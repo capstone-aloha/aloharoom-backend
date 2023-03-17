@@ -1,6 +1,5 @@
 package com.aloharoombackend.model;
 
-import com.aloharoombackend.dto.MyPageEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

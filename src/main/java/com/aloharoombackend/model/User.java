@@ -9,9 +9,6 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static com.aloharoombackend.model.QUser.user;
 
 @Entity
 @Getter

@@ -1,9 +1,5 @@
 package com.aloharoombackend.service;
 
-import com.aloharoombackend.dto.MyPageEditDto;
-import com.aloharoombackend.dto.SignUpDto;
-import com.aloharoombackend.model.LikeHashtag;
-import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.model.MyHashtag;
 import com.aloharoombackend.repository.MyHashtagRepository;
 import lombok.RequiredArgsConstructor;

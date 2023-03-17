@@ -1,6 +1,5 @@
 package com.aloharoombackend.dto;
 
-import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;

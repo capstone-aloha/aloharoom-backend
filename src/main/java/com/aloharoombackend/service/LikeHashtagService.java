@@ -1,9 +1,6 @@
 package com.aloharoombackend.service;
 
-import com.aloharoombackend.dto.MyPageEditDto;
-import com.aloharoombackend.model.HomeImage;
 import com.aloharoombackend.model.LikeHashtag;
-import com.aloharoombackend.model.LikeProduct;
 import com.aloharoombackend.repository.LikeHashtagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
