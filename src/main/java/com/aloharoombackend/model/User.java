@@ -65,10 +65,8 @@ public class User {
         this.username = signUpDto.getUsername();
         this.password = signUpDto.getPassword();
         this.nickname = signUpDto.getNickname();
-//        this.name = signUpDto.getName;
         this.age = signUpDto.getAge();
         this.gender = signUpDto.getGender();
-        this.role = signUpDto.getRole();
         this.tendency = signUpDto.getTendency();
     }
 
