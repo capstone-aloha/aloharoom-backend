@@ -1,5 +1,6 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -68,6 +69,15 @@ public class User {
         this.age = signUpDto.getAge();
         this.gender = signUpDto.getGender();
         this.tendency = signUpDto.getTendency();
+    }
+
+    public User edit(MyPageEditDto myPageEditDto) {
+        this.password = myPageEditDto.getPassword();
+        this.nickname = myPageEditDto.getNickname();
+        this.age = myPageEditDto.getAge();
+        this.gender = myPageEditDto.getGender();
+        this.tendency = myPageEditDto.getTendency();
+        return this;
     }
 
     //Test용

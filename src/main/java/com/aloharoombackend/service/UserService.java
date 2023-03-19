@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,6 +42,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
     }
 
+    //프록시 -> 실객체 생성, 게시물 단건 조회 사용
     public User findOneFetch(Long id) {
         User findUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
@@ -51,5 +52,32 @@ public class UserService {
                 forEach(myProduct -> myProduct.getName());
         return findUser;
     }
+
+    //프록시 -> 실객체 생성, 유저 조회 사용
+    public User findOneFetchAll(Long id) {
+        User findUser = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
+        findUser.getMyHashtags().stream().
+                forEach(myHashtag -> myHashtag.getHash());
+        findUser.getMyProducts().stream().
+                forEach(myProduct -> myProduct.getName());
+        findUser.getLikeHashtags().stream().
+                forEach(likeHashtag -> likeHashtag.getHash());
+        findUser.getLikeProducts().stream().
+                forEach(likeProduct -> likeProduct.getName());
+        return findUser;
+    }
+
+    //유저 수정
+    @Transactional
+    public User update(Long userId, MyPageEditDto myPageEditDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자는 존재하지 않습니다."));
+
+        user.edit(myPageEditDto);
+        return user.edit(myPageEditDto);
+    }
+
+
 
 }

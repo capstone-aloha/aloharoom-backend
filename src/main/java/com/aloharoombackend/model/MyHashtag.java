@@ -1,6 +1,5 @@
 package com.aloharoombackend.model;
 
-import com.aloharoombackend.dto.SignUpDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
