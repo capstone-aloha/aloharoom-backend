@@ -70,12 +70,12 @@ public class UserService {
 
     //유저 수정
     @Transactional
-    public User update(Long userId, MyPageEditDto myPageEditDto) {
+    public User update(Long userId, MyPageEditDto myPageEditDto, String profileUrl) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자는 존재하지 않습니다."));
 
-        user.edit(myPageEditDto);
-        return user.edit(myPageEditDto);
+        user.edit(myPageEditDto, profileUrl);
+        return user.edit(myPageEditDto, profileUrl);
     }
 
 

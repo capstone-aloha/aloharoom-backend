@@ -27,6 +27,21 @@ public class AwsS3Service {
 
     private final AmazonS3 amazonS3;
 
+    public String uploadProfile(MultipartFile multipartFile) {
+        String profileImg = createFileName(multipartFile.getOriginalFilename());
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(multipartFile.getContentType());
+
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, profileImg, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.");
+        }
+        return profileImg;
+    }
+
     public List<String> uploadImage(List<MultipartFile> multipartFile) {
         List<String> fileNameList = new ArrayList<>();
 

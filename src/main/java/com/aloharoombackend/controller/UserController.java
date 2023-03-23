@@ -6,7 +6,9 @@ import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ public class UserController {
     private final MyProductService myProductService;
     private final LikeHashtagService likeHashtagService;
     private final MyHashtagService myHashtagService;
+    private final AwsS3Service awsS3Service;
 
     //회원 가입
     @PostMapping("/signup")
@@ -55,14 +58,16 @@ public class UserController {
     }
 
     //회원 수정
-    @PatchMapping("/myPage/{userId}")
+    @PatchMapping(path = {"/myPage/{userId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public MyPageEditDto myPageEdit(@RequestPart(value = "myPageEditDto") MyPageEditDto myPageEditDto,
+                                    @RequestPart MultipartFile profileImg,
                                     @PathVariable Long userId) {
         User findUser = userService.findOneFetchAll(userId); //프록시 -> 실객체
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
         List<LikeProduct> likeProducts = findUser.getLikeProducts();
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
         List<MyProduct> myProducts = findUser.getMyProducts();
+        String profileUrl = awsS3Service.uploadProfile(profileImg);
 
         //삭제
         likeHashtags.forEach(likeHashtagService::delete);
@@ -81,7 +86,7 @@ public class UserController {
                 .stream().map(myHashtag -> new MyHashtag(myHashtag, findUser)).collect(Collectors.toList());
 
         //업데이트
-        userService.update(userId, myPageEditDto);
+        userService.update(userId, myPageEditDto, profileUrl);
         likeProductService.create(newLikeProducts);
         myProductService.create(newMyProducts);
         likeHashtagService.create(newLikeHashtags);
