@@ -15,10 +15,10 @@ public class BoardAllDto {
     private Long boardId;
     private String title;
     private String address;
-    private Integer price;
+    private Integer rent;
     private Integer flat;
     private Integer roomCount;
-    private List<String> homeImgUrls;
+    private List<String> imgUrls;
     private Double x; //위도
     private Double y; //경도
 
@@ -27,10 +27,10 @@ public class BoardAllDto {
         this.boardId = board.getId();
         this.title = board.getTitle();
         this.address = home.getAddress();
-        this.price = home.getPrice();
+        this.rent = home.getPrice();
         this.flat = home.getFlat();
         this.roomCount = home.getRoomCount();
-        this.homeImgUrls = home.getHomeImages().stream()
+        this.imgUrls = home.getHomeImages().stream()
                 .map(homeImage->homeImage.getImgUrl()).collect(Collectors.toList());
         this.x = home.getX(); //위도
         this.y = home.getY(); //경도

@@ -22,6 +22,7 @@ public class BoardOneDto {
     private String tradeType;
     private Integer price;
     private Integer deposit;
+    private Integer rent;
     private Integer flat;
     private Integer maintenance;
     private Integer floor;

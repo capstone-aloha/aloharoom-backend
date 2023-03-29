@@ -19,9 +19,12 @@ public class BoardEditDto {
     private String tradeType;
     private Integer price;
     private Integer deposit;
+    private Integer rent;
     private Integer flat;
     private Integer maintenance;
     private Integer floor;
     private Integer totalFloor;
     private LocalDate startDate;
+    private Double x; //위도
+    private Double y; //경도
 }
