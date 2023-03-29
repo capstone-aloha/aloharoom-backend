@@ -22,6 +22,8 @@ public class MyPageDto {
     private String role;
     private String tendency;
 
+    private String profileUrl;
+
     //likeHash
     private List<String> likeHashtags;
 
@@ -43,6 +45,7 @@ public class MyPageDto {
         this.gender = user.getGender();
         this.role = user.getRole();
         this.tendency = user.getTendency();
+        this.profileUrl = user.getProfileUrl();
         this.likeHashtags = user.getLikeHashtags().stream().map(likeHashtag -> likeHashtag.getHash()).collect(Collectors.toList());
         this.likeProducts = user.getLikeProducts().stream().map(likeProduct -> likeProduct.getName()).collect(Collectors.toList());
         this.myHashtags = user.getMyHashtags().stream().map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());

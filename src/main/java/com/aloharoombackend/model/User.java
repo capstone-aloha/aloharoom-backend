@@ -32,6 +32,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    private String profileUrl;
+
     @Column(name = "nickname")
     private String nickname;
 
@@ -71,12 +73,13 @@ public class User {
         this.tendency = signUpDto.getTendency();
     }
 
-    public User edit(MyPageEditDto myPageEditDto) {
+    public User edit(MyPageEditDto myPageEditDto, String profileUrl) {
         this.password = myPageEditDto.getPassword();
         this.nickname = myPageEditDto.getNickname();
         this.age = myPageEditDto.getAge();
         this.gender = myPageEditDto.getGender();
         this.tendency = myPageEditDto.getTendency();
+        this.profileUrl = "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/" + profileUrl;
         return this;
     }
 
