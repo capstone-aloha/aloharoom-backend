@@ -6,7 +6,9 @@ import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserService userService;
     private final LikeProductService likeProductService;
     private final MyProductService myProductService;
@@ -30,6 +33,11 @@ public class UserController {
     public User signUp(@RequestBody SignUpDto signUpDto){
         //해시태그, 가전제품, 사용자 객체들 따로 만들어서 저장(dto이용)
         User user = new User(signUpDto);
+
+        user.setRole("ROLE_USER");
+        String rawPassword = user.getPassword(); //입력받은 pw
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
+        user.setPassword(encPassword);
 
         List<LikeProduct> likeProducts = signUpDto.getLikeProducts()
                 .stream().map(likeProduct -> new LikeProduct(likeProduct, user)).collect(Collectors.toList());
@@ -68,6 +76,11 @@ public class UserController {
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
         List<MyProduct> myProducts = findUser.getMyProducts();
         String profileUrl = awsS3Service.uploadProfile(profileImg);
+
+        //findUser.setRole("ROLE_USER");
+        String rawPassword = findUser.getPassword(); //입력받은 pw
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
+        findUser.setPassword(encPassword);
 
         //삭제
         likeHashtags.forEach(likeHashtagService::delete);
