@@ -6,7 +6,6 @@ import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -77,10 +76,9 @@ public class UserController {
         List<MyProduct> myProducts = findUser.getMyProducts();
         String profileUrl = awsS3Service.uploadProfile(profileImg);
 
-        //findUser.setRole("ROLE_USER");
-        String rawPassword = findUser.getPassword(); //입력받은 pw
+        String rawPassword = myPageEditDto.getPassword(); //입력받은 pw
         String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
-        findUser.setPassword(encPassword);
+        myPageEditDto.setPassword(encPassword);
 
         //삭제
         likeHashtags.forEach(likeHashtagService::delete);
