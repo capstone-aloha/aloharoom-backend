@@ -4,11 +4,13 @@ import com.aloharoombackend.dto.BoardAddDto;
 import com.aloharoombackend.dto.BoardEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter //삭제해야함
 @NoArgsConstructor
 public class Board extends BaseEntity{
     @Id

@@ -175,4 +175,15 @@ class RecentViewRepositoryTest {
         }
     }
 
+    @Test
+    @Rollback(value = false)
+    void a() {
+        Board board = new Board();
+        board.setTitle("sda");
+        em.persist(board);
+        em.flush(); em.clear();
+        Board one = boardService.findOne(13L);
+        System.out.println(one.getTitle());
+        System.out.println(one.getHome());
+    }
 }
