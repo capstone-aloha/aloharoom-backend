@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,6 +37,9 @@ public class Board extends BaseEntity{
 
     @Column(name = "views")
     private Integer views = 0;
+
+    @OneToMany(mappedBy = "board")
+    private List<HomeComment> comments;
 
     public Board(Home home, User user, BoardAddDto boardAddDto) {
         this.home = home; //나중에 연관관계 메서드
