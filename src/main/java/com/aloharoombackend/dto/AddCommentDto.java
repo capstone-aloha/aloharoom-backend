@@ -10,5 +10,5 @@ public class AddCommentDto {
     private Long boardId;
     private String content;
     private Integer layer;
-    private Long groupNum;
+    private Long groupId;
 }

@@ -29,13 +29,17 @@ public class HomeComment extends BaseEntity{
 
     private Integer layer;
 
-    private Long groupNum;
+    private Long groupId;
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
 
     public HomeComment(User user, Board board, AddCommentDto addCommentDto) {
         this.user = user;
         this.board = board;
         this.content = addCommentDto.getContent();
         this.layer = addCommentDto.getLayer();
-        this.groupNum = addCommentDto.getGroupNum();
+        this.groupId = addCommentDto.getGroupId();
     }
 }
