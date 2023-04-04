@@ -35,6 +35,8 @@ public class HomeComment extends BaseEntity{
         this.groupId = groupId;
     }
 
+    public void setContent(String content) { this.content = content; }
+
     public HomeComment(User user, Board board, AddCommentDto addCommentDto) {
         this.user = user;
         this.board = board;

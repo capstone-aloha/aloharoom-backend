@@ -2,6 +2,7 @@ package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.AddCommentDto;
 import com.aloharoombackend.dto.CommentDto;
+import com.aloharoombackend.dto.EditCommentDto;
 import com.aloharoombackend.model.Board;
 import com.aloharoombackend.model.HomeComment;
 import com.aloharoombackend.model.User;
@@ -76,4 +77,14 @@ public class HomeCommentService {
 
         return commentDtos;
     }
+
+    //댓글 수정
+    @Transactional
+    public CommentDto editComment(EditCommentDto editCommentDto) {
+        HomeComment homeComment = homeCommentRepository.findById(editCommentDto.getHomeCommentId())
+                .orElseThrow(() -> new IllegalArgumentException("찾는 댓글이 존재하지 않습니다."));
+        homeComment.setContent(editCommentDto.getContent());
+        return new CommentDto(homeComment);
+    }
+    
 }
