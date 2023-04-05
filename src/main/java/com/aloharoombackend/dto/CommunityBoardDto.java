@@ -9,5 +9,4 @@ public class CommunityBoardDto {
     public String title;
     public String contents;
     public Integer code;
-
 }

@@ -7,6 +7,7 @@ import com.aloharoombackend.model.CommunityImage;
 import com.aloharoombackend.model.User;
 import com.aloharoombackend.service.AwsS3Service;
 import com.aloharoombackend.service.CommunityBoardService;
+import com.aloharoombackend.service.CommunityImageService;
 import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class CommunityBoardController {
 
     public final CommunityBoardService communityBoardService;
+    public final CommunityImageService communityImageService;
     public final UserService userService;
     public final AwsS3Service awsS3Service;
 
@@ -35,14 +37,16 @@ public class CommunityBoardController {
                                             @RequestPart List<MultipartFile> imgFiles,
                                             @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = userService.findOne(principalDetails.getUser().getId());
-        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
-
-        //MultipartFile을 s3에 저장 후 해당 주소로 CommunityImage 생성
+        
+        //MultipartFile을 s3에 저장 후 해당 주소로 CommunityImages 생성
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
         List<CommunityImage> communityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(imgUrl)).collect(Collectors.toList());
 
+        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto, communityImages);
+
         //DB 저장
         communityBoardService.create(communityBoard);
+        communityImageService.create(communityImages);
 
         return communityBoardDto;
     }

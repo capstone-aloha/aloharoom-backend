@@ -39,10 +39,11 @@ public class CommunityBoard {
     @OneToMany(mappedBy = "communityBoard")
     private List<CommunityImage> communityImages;
 
-    public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {
+    public CommunityBoard(User user, CommunityBoardDto communityBoardDto, List<CommunityImage> communityImages) {
         this.user = user;
         this.title = communityBoardDto.getTitle();
         this.contents = communityBoardDto.getContents();
         this.code = communityBoardDto.getCode();
+        this.communityImages = communityImages;
     }
 }
