@@ -1,12 +1,13 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.CommunityBoardDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity
+@Entity
 @Getter
 @NoArgsConstructor
 public class CommunityBoard {
@@ -37,4 +38,11 @@ public class CommunityBoard {
 
     @OneToMany(mappedBy = "communityBoard")
     private List<CommunityImage> communityImages;
+
+    public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {
+        this.user = user;
+        this.title = communityBoardDto.getTitle();
+        this.contents = communityBoardDto.getContents();
+        this.code = communityBoardDto.getCode();
+    }
 }

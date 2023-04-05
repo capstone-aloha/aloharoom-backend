@@ -6,7 +6,7 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 @Getter
 @NoArgsConstructor
 public class CommunityComment extends BaseEntity{
