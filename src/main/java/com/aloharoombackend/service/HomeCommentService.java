@@ -46,14 +46,14 @@ public class HomeCommentService {
 
     private List<CommentDto> commentSort(List<HomeComment> homeComments) {
         //layer1, layer2 분리 후 layer2 시간순 정렬하여 layer1에 끼워주기
+        List<HomeComment> layer0 = new ArrayList<>();
         List<HomeComment> layer1 = new ArrayList<>();
-        List<HomeComment> layer2 = new ArrayList<>();
         for (HomeComment homeComment : homeComments) {
-            if(homeComment.getLayer() == 1) layer1.add(homeComment);
-            else if(homeComment.getLayer() == 2) layer2.add(homeComment);
+            if(homeComment.getLayer() == 0) layer0.add(homeComment);
+            else if(homeComment.getLayer() == 1) layer1.add(homeComment);
         }
         //시간순 정렬
-        Collections.sort(layer2, new Comparator<HomeComment>() {
+        Collections.sort(layer1, new Comparator<HomeComment>() {
             @Override
             public int compare(HomeComment o1, HomeComment o2) {
                 if(o1.getCreatedDate().isBefore(o2.getCreatedDate())) return -1;
@@ -63,12 +63,12 @@ public class HomeCommentService {
         });
 
         List<CommentDto> commentDtos = new ArrayList<>();
-        for(HomeComment homeComment : layer1) {
+        for(HomeComment homeComment : layer0) {
             commentDtos.add(new CommentDto(homeComment));
         }
-        for (HomeComment hc2 : layer2) {
+        for (HomeComment hc2 : layer1) {
             for (CommentDto commentDto : commentDtos) {
-                if(commentDto.getId() == hc2.getGroupId()){
+                if(commentDto.getHomeCommentId() == hc2.getGroupId()){
                     commentDto.getCommentDtos().add(new CommentDto(hc2));
                     break;
                 }
@@ -86,5 +86,24 @@ public class HomeCommentService {
         homeComment.setContent(editCommentDto.getContent());
         return new CommentDto(homeComment);
     }
-    
+
+    //댓글 삭제
+    @Transactional
+    public CommentDto deleteComment(Long commentId) {
+        HomeComment homeComment = homeCommentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 댓글이 존재하지 않습니다."));
+
+        //댓글 일 경우
+        if(homeComment.getLayer() == 0) {
+            //대댓글 있을 때
+            List<HomeComment> recomments = homeCommentRepository.findAllByGroupId(homeComment.getGroupId());
+            if(recomments.size() != 1) {
+                homeComment.setContent("삭제된 댓글입니다.");
+                return new CommentDto(homeComment);
+            }
+        }
+        //댓글(대댓글 없는), 대댓글이면 삭제
+        homeCommentRepository.delete(homeComment);
+        return new CommentDto(homeComment);
+    }
 }

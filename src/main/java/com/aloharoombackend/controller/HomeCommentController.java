@@ -31,4 +31,9 @@ public class HomeCommentController {
         return ResponseEntity.ok(homeCommentService.getComment(boardId));
     }
 
+    //댓글 삭제
+    @DeleteMapping("/{commentId}")
+    private ResponseEntity deleteComment(@PathVariable Long commentId) {
+        return ResponseEntity.ok(homeCommentService.deleteComment(commentId));
+    }
 }

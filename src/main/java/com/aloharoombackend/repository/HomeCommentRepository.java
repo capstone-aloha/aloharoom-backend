@@ -14,4 +14,7 @@ public interface HomeCommentRepository extends JpaRepository<HomeComment, Long> 
     @Override
     @EntityGraph(attributePaths = {"user", "board"})
     Optional<HomeComment> findById(Long id);
+
+    @EntityGraph(attributePaths = {"user", "board"})
+    List<HomeComment> findAllByGroupId(Long groupId);
 }
