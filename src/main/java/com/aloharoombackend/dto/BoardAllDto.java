@@ -18,6 +18,7 @@ public class BoardAllDto {
     private Integer rent;
     private Integer flat;
     private Integer roomCount;
+    private String nickname;
     private List<String> imgUrls;
     private Double x; //위도
     private Double y; //경도

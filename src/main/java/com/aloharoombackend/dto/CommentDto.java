@@ -11,7 +11,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class CommentDto {
-    private Long id;
+    private Long homeCommentId;
+    private Long userId;
     private String nickname;
     private String content;
     private LocalDateTime createdDate;
@@ -19,7 +20,8 @@ public class CommentDto {
     //추후 시간 추가
 
     public CommentDto(HomeComment homeComment) {
-        this.id = homeComment.getId();
+        this.homeCommentId = homeComment.getId();
+        this.userId = homeComment.getUser().getId();
         this.nickname = homeComment.getUser().getNickname();
         this.content = homeComment.getContent();
         this.createdDate = homeComment.getCreatedDate();
