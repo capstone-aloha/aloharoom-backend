@@ -6,10 +6,12 @@ import com.aloharoombackend.dto.CommentDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.BoardRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -52,21 +54,22 @@ class HomeCommentServiceTest {
 
         //groupNum은 어떻게 넣지? => 새로 입력할 경우 => groupNum이 null이면 id로 대체
         //댓글 작성(게시물1)
-        HomeComment hc1 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글1", 1, 1L));
-        HomeComment hc2 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글2", 1, 2L));
-        HomeComment hc3 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글3", 1, 3L));
-        HomeComment hc4 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글2-1", 2, 2L));
-        HomeComment hc5 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글1-1", 2, 1L));
-        HomeComment hc6 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글2-2", 2, 2L));
-        HomeComment hc7 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, "댓글2-3", 2, 2L));
+        HomeComment hc1 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L,"댓글1", 0, 1L));
+        HomeComment hc2 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글2", 0, 2L));
+        HomeComment hc3 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글3", 0, 3L));
+        HomeComment hc4 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글2-1", 1, 2L));
+        HomeComment hc5 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글1-1", 1, 1L));
+        HomeComment hc6 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글2-2", 1, 2L));
+        HomeComment hc7 = new HomeComment(u1, board1, new AddCommentDto(1L, 1L, 1L, "댓글2-3", 1, 2L));
         //댓글 작성(게시물2)
-        HomeComment hc8 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, "댓글1", 1, 1L));
-        HomeComment hc9 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, "댓글2", 1, 2L));
-        HomeComment hc10 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, "댓글1-1", 2, 8L));
+        HomeComment hc8 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, 2L, "댓글1", 0, 8L));
+        HomeComment hc9 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, 2L, "댓글2", 0, 9L));
+        HomeComment hc10 = new HomeComment(u2, board2, new AddCommentDto(2L, 2L, 2L, "댓글1-1", 1, 8L));
 
         em.persist(hc1); em.persist(hc2);
         em.persist(hc3); em.persist(hc4);
-        em.persist(hc5); em.persist(hc6);
+        em.persist(hc5);
+        em.persist(hc6);
         em.persist(hc7); em.persist(hc8);
         em.persist(hc9); em.persist(hc10);
         em.flush(); em.clear();
@@ -83,6 +86,16 @@ class HomeCommentServiceTest {
         for (CommentDto commentDto : comment) {
             System.out.println(commentDto);
         }
+    }
+
+    @Test
+    void deleteComment() {
+        homeCommentService.deleteComment(1L);
+        List<CommentDto> commentDtos = homeCommentService.getComment(1L);
+        for (CommentDto commentDto : commentDtos) {
+            System.out.println("commentDto = " + commentDto);
+        }
+        Assertions.assertThat(commentDtos.get(0).getContent()).isEqualTo("삭제된 댓글입니다.");
     }
 
 }
