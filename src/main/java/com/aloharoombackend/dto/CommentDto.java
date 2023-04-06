@@ -15,16 +15,16 @@ public class CommentDto {
     private Long userId;
     private String nickname;
     private String content;
-    private LocalDateTime createdDate;
+    private String createdDate;
     private List<CommentDto> commentDtos = new ArrayList<>();
-    //추후 시간 추가
 
     public CommentDto(HomeComment homeComment) {
         this.homeCommentId = homeComment.getId();
         this.userId = homeComment.getUser().getId();
         this.nickname = homeComment.getUser().getNickname();
         this.content = homeComment.getContent();
-        this.createdDate = homeComment.getCreatedDate();
+        //2023.04.05 16:23
+        this.createdDate = homeComment.getCreatedDate().toString().replace('-', '.').replace('T', ' ').substring(0, 16);
     }
 
 }
