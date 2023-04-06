@@ -5,9 +5,11 @@ import com.aloharoombackend.dto.CommentDto;
 import com.aloharoombackend.dto.EditCommentDto;
 import com.aloharoombackend.model.Board;
 import com.aloharoombackend.model.HomeComment;
+import com.aloharoombackend.model.Notification;
 import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.repository.HomeCommentRepository;
+import com.aloharoombackend.repository.NotificationRepository;
 import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class HomeCommentService {
     private final HomeCommentRepository homeCommentRepository;
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
+    private final NotificationRepository notificationRepository;
 
     //댓글 추가
     @Transactional
@@ -31,7 +34,29 @@ public class HomeCommentService {
         Board board = boardRepository.findById(addCommentDto.getBoardId())
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시물이 존재하지 않습니다."));
         HomeComment homeComment = new HomeComment(user, board, addCommentDto);
+
+        //대댓글이면 댓글 사용자 알림 (han님이 내 댓글에 답글을 남겼습니다.)
+        if(addCommentDto.getTargetUserId() != addCommentDto.getUserId()) {
+            Long targetUserId = addCommentDto.getTargetUserId();
+            User targetUser = userRepository.findById(targetUserId)
+                    .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
+            String content = user.getNickname() + "님이 내 댓글에 답글을 남겼습니다.";
+            notificationRepository.save(new Notification(targetUser, board, content));
+        }
+
+        //댓글, 대댓글이면 게시물 사용자 알림 (han님이 댓글을 남겼습니다.)
+        Long writerId = board.getUser().getId();
+        if(writerId != addCommentDto.getTargetUserId()) { //댓글 주인이 작성자인 경우 위 알림만 발생
+            if (addCommentDto.getUserId() != writerId) { //내 댓글에 알림 안 받도록
+                User writer = userRepository.findById(writerId)
+                        .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
+                String content = user.getNickname() + "님이 댓글을 남겼습니다.";
+                notificationRepository.save(new Notification(writer, board, content));
+            }
+        }
+
         HomeComment save = homeCommentRepository.save(homeComment);
+
         //가져와서 변경감지 => 댓글 작성 시에만(대댓글X)
         if(save.getGroupId() == null) save.setGroupId(save.getId());
         return new CommentDto(save);
