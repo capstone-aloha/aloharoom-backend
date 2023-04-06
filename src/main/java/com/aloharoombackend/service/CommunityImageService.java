@@ -16,6 +16,15 @@ public class CommunityImageService {
 
     @Transactional
     public void create(List<CommunityImage> communityImages) {
-        communityImages.stream().forEach(communityImage -> communityImageRepository.save(communityImage));
+        communityImageRepository.saveAll(communityImages);
+    }
+
+    public CommunityImage findOne(Long communityImageId) {
+        return communityImageRepository.findById(communityImageId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티 이미지가 존재하지 않습니다."));
+    }
+
+    public void delete(CommunityImage communityImage) {
+        communityImageRepository.delete(communityImage);
     }
 }

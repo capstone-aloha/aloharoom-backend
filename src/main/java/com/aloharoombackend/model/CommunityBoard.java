@@ -1,6 +1,7 @@
 package com.aloharoombackend.model;
 
 import com.aloharoombackend.dto.CommunityBoardDto;
+import com.aloharoombackend.dto.CommunityEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -45,5 +46,12 @@ public class CommunityBoard {
         this.contents = communityBoardDto.getContents();
         this.code = communityBoardDto.getCode();
         this.communityImages = communityImages;
+    }
+
+    public CommunityBoard change(CommunityEditDto communityEditDto) {
+        this.title = communityEditDto.getTitle();
+        this.contents = communityEditDto.getContents();
+        this.code = communityEditDto.getCode();
+        return this;
     }
 }
