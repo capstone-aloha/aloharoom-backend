@@ -40,18 +40,18 @@ public class CommunityBoard {
     @OneToMany(mappedBy = "communityBoard")
     private List<CommunityImage> communityImages;
 
-    public CommunityBoard(User user, CommunityBoardDto communityBoardDto, List<CommunityImage> communityImages) {
+    public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {
         this.user = user;
         this.title = communityBoardDto.getTitle();
         this.contents = communityBoardDto.getContents();
         this.code = communityBoardDto.getCode();
-        this.communityImages = communityImages;
     }
-
-    public CommunityBoard change(CommunityEditDto communityEditDto) {
+    
+    public CommunityBoard change(CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
         this.title = communityEditDto.getTitle();
         this.contents = communityEditDto.getContents();
         this.code = communityEditDto.getCode();
+        this.communityImages = communityImages;
         return this;
     }
 }

@@ -35,12 +35,11 @@ public class CommunityBoardController {
                                             @RequestPart List<MultipartFile> imgFiles,
                                             @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = userService.findOne(principalDetails.getUser().getId());
+        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
 
         //MultipartFile을 s3에 저장 후 해당 주소로 CommunityImages 생성
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
-        List<CommunityImage> communityImages = imgUrls.stream().map(CommunityImage::new).collect(Collectors.toList());
-
-        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto, communityImages);
+        List<CommunityImage> communityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
 
         //DB 저장
         communityBoardService.create(communityBoard);
@@ -52,12 +51,22 @@ public class CommunityBoardController {
     //커뮤니티 글 수정
     @PatchMapping(path = {"/{communityId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityEditDto editCommunity(@RequestPart CommunityEditDto communityEditDto,
-                                           @RequestPart List<MultipartFile> imgFiles,
-                                           @PathVariable Long communityId) {
-        CommunityBoard communityBoard = communityBoardService.findOne(communityId);
+                                          @RequestPart List<MultipartFile> imgFiles,
+                                          @PathVariable Long communityId) {
+        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId); //프록시 초기화
+
+        //이미지 삭제
+        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+        communityImages.forEach(communityImageService::delete);
+
+        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage);
 
         //업데이트
-        communityBoardService.update(communityId, communityEditDto);
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        List<CommunityImage> newCommunityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
+
+        communityBoardService.update(communityId, communityEditDto, newCommunityImages);
         return communityEditDto;
     }
 }

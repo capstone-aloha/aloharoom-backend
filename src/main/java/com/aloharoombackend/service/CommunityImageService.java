@@ -24,6 +24,7 @@ public class CommunityImageService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티 이미지가 존재하지 않습니다."));
     }
 
+    @Transactional
     public void delete(CommunityImage communityImage) {
         communityImageRepository.delete(communityImage);
     }
