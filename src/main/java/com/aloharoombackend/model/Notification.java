@@ -21,7 +21,14 @@ public class Notification extends BaseEntity{
     @JoinColumn(name = "board_id")
     private Board board;
 
-    private Long sendMemberId;
-
     private String content;
+
+    private Boolean isRead;
+
+    public Notification(User user, Board board, String content) {
+        this.user = user;
+        this.board = board;
+        this.content = content;
+        this.isRead = false;
+    }
 }
