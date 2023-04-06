@@ -58,7 +58,6 @@ public class CommunityBoardController {
         //이미지 삭제
         List<CommunityImage> communityImages = communityBoard.getCommunityImages();
         communityImages.forEach(communityImageService::delete);
-
         List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
         deleteImgUrls.forEach(awsS3Service::deleteImage);
 
@@ -67,6 +66,7 @@ public class CommunityBoardController {
         List<CommunityImage> newCommunityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
 
         communityBoardService.update(communityId, communityEditDto, newCommunityImages);
+        communityImageService.create(newCommunityImages);
         return communityEditDto;
     }
 }

@@ -46,7 +46,7 @@ public class CommunityBoard {
         this.contents = communityBoardDto.getContents();
         this.code = communityBoardDto.getCode();
     }
-    
+
     public CommunityBoard change(CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
         this.title = communityEditDto.getTitle();
         this.contents = communityEditDto.getContents();
