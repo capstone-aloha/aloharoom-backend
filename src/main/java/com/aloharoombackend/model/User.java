@@ -37,7 +37,7 @@ public class User {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 1000)
     private String name;
 
     @Column(name = "age")
@@ -49,7 +49,7 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @Column(name = "tendency")
+    @Column(name = "tendency", length = 1000)
     private String tendency;
 
     @OneToMany(mappedBy = "user")
