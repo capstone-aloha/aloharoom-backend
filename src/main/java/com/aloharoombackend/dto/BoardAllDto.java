@@ -22,7 +22,7 @@ public class BoardAllDto {
     private List<String> imgUrls;
     private Double x; //위도
     private Double y; //경도
-
+    private Integer commentNum; //댓글 갯수
 
     public BoardAllDto(Board board, Home home) {
         this.boardId = board.getId();
@@ -35,5 +35,6 @@ public class BoardAllDto {
                 .map(homeImage->homeImage.getImgUrl()).collect(Collectors.toList());
         this.x = home.getX(); //위도
         this.y = home.getY(); //경도
+        this.commentNum = board.getHomeComments().size();
     }
 }

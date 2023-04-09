@@ -29,7 +29,12 @@ public class BoardService {
     }
 
     public List<Board> findAll() {
-        return boardRepository.findAll();
+        List<Board> boards = boardRepository.findAll();
+        //HomeComment 초기화
+        boards.stream().forEach(board -> {
+            board.getHomeComments().stream().forEach(homeComment -> homeComment.getLayer());
+        });
+        return boards;
     }
 
     @Transactional
