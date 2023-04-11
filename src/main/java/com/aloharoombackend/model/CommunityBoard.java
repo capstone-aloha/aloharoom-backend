@@ -37,7 +37,7 @@ public class CommunityBoard {
     @OneToMany(mappedBy = "communityBoard")
     private List<CommunityComment> communityComments;
 
-    @OneToMany(mappedBy = "communityBoard")
+    @OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL)
     private List<CommunityImage> communityImages;
 
     public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {

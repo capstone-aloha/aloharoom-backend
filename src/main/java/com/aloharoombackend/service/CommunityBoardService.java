@@ -25,7 +25,7 @@ public class CommunityBoardService{
 
     public CommunityBoard findOne(Long communityId) {
         return communityBoardRepository.findById(communityId)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 안ㅅ습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
     }
 
     public List<CommunityBoard> findAll() {
@@ -49,7 +49,7 @@ public class CommunityBoardService{
     @Transactional
     public CommunityBoard update(Long communityId, CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
         CommunityBoard communityBoard = communityBoardRepository.findById(communityId)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 안ㅅ습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
         return communityBoard.change(communityEditDto, communityImages);
     }
 
