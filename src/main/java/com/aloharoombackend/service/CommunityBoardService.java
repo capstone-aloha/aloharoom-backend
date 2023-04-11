@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityEditDto;
 import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.CommunityImage;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,13 +28,23 @@ public class CommunityBoardService{
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 안ㅅ습니다."));
     }
 
+    public List<CommunityBoard> findAll() {
+        List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
+        communityBoards.stream().forEach(communityBoard -> {
+            communityBoard.getCommunityImages().stream()
+                    .forEach(communityImage -> communityImage.getId());
+        });
+        return communityBoards;
+    }
+
     public CommunityBoard findOneFetch(Long id) { // 프록시->실객체 생성
         CommunityBoard findCommunityId = communityBoardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 안ㅅ습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
         findCommunityId.getCommunityImages().stream().
-                forEach(communityImage -> communityImage.getImgUrl());
+                forEach(CommunityImage::getImgUrl);
         return findCommunityId;
     }
+
 
     @Transactional
     public CommunityBoard update(Long communityId, CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
