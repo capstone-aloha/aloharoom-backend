@@ -12,6 +12,7 @@ import com.aloharoombackend.service.CommunityImageService;
 import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -68,5 +69,19 @@ public class CommunityBoardController {
         communityBoardService.update(communityId, communityEditDto, newCommunityImages);
         communityImageService.create(newCommunityImages);
         return communityEditDto;
+    }
+
+    //커뮤니티 글 삭제
+    @DeleteMapping("/{communityId}")
+    public ResponseEntity deleteCommunity(@PathVariable Long communityId) {
+        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId); //프록시 초기화
+        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+        communityImages.forEach(communityImageService::delete);
+
+        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage);
+        communityBoardService.delete(communityBoard);
+
+        return ResponseEntity.ok("");
     }
 }

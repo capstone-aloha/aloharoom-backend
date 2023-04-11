@@ -40,4 +40,9 @@ public class CommunityBoardService{
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 안ㅅ습니다."));
         return communityBoard.change(communityEditDto, communityImages);
     }
+
+    @Transactional
+    public void delete(CommunityBoard communityBoard) {
+        communityBoardRepository.delete(communityBoard);
+    }
 }
