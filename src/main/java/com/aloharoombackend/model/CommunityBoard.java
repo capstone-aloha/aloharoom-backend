@@ -1,12 +1,14 @@
 package com.aloharoombackend.model;
 
+import com.aloharoombackend.dto.CommunityBoardDto;
+import com.aloharoombackend.dto.CommunityEditDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-//@Entity
+@Entity
 @Getter
 @NoArgsConstructor
 public class CommunityBoard {
@@ -37,4 +39,19 @@ public class CommunityBoard {
 
     @OneToMany(mappedBy = "communityBoard")
     private List<CommunityImage> communityImages;
+
+    public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {
+        this.user = user;
+        this.title = communityBoardDto.getTitle();
+        this.contents = communityBoardDto.getContents();
+        this.code = communityBoardDto.getCode();
+    }
+
+    public CommunityBoard change(CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
+        this.title = communityEditDto.getTitle();
+        this.contents = communityEditDto.getContents();
+        this.code = communityEditDto.getCode();
+        this.communityImages = communityImages;
+        return this;
+    }
 }

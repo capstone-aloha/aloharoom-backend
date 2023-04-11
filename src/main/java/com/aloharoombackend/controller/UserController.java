@@ -1,12 +1,16 @@
 package com.aloharoombackend.controller;
 
+import com.aloharoombackend.auth.PrincipalDetails;
 import com.aloharoombackend.dto.MyPageDto;
 import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.dto.UserInfoDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +30,14 @@ public class UserController {
     private final LikeHashtagService likeHashtagService;
     private final MyHashtagService myHashtagService;
     private final AwsS3Service awsS3Service;
+
+    //해시태그, 가전제품(like) 조회
+    @GetMapping("/{userId}/home")
+    public UserInfoDto getUserInfo(@PathVariable Long userId) {
+        User findUser = userService.findOneFetchAll(userId);
+        UserInfoDto userInfoDto = new UserInfoDto(findUser);
+        return userInfoDto;
+    }
 
     //회원 가입
     @PostMapping("/signup")
@@ -105,10 +117,6 @@ public class UserController {
 
         return myPageEditDto;
     }
-
-
-
-
 }
 
 

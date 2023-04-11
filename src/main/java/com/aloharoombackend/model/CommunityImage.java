@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 @Getter
 @NoArgsConstructor
 public class CommunityImage {
@@ -19,7 +19,8 @@ public class CommunityImage {
 
     private String imgUrl;
 
-    public CommunityImage(String imgUrl) {
+    public CommunityImage(CommunityBoard communityBoard, String imgUrl) {
+        this.communityBoard = communityBoard;
         this.imgUrl = "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/" + imgUrl;
     }
 }
