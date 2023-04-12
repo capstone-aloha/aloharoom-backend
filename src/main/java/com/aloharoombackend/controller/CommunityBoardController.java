@@ -44,6 +44,15 @@ public class CommunityBoardController {
         return communityAllDtos;
     }
 
+    //커뮤니티 단건 조회
+    @GetMapping("/{communityId}")
+    public CommunityAllDto getOneCommunity(@PathVariable Long communityId) {
+        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
+        CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
+        return communityAllDto;
+
+    }
+
     //커뮤니티 글 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityBoardDto addCommunity(@RequestPart CommunityBoardDto communityBoardDto,
