@@ -1,6 +1,7 @@
 package com.aloharoombackend.controller;
 
 import com.aloharoombackend.auth.PrincipalDetails;
+import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.CommunityEditDto;
 import com.aloharoombackend.model.CommunityBoard;
@@ -12,10 +13,12 @@ import com.aloharoombackend.service.CommunityImageService;
 import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,27 @@ public class CommunityBoardController {
     public final CommunityImageService communityImageService;
     public final UserService userService;
     public final AwsS3Service awsS3Service;
+
+    //커뮤니티 전체 조회
+    @GetMapping
+    public List<CommunityAllDto> getAllCommunity() {
+        List<CommunityBoard> communityBoards = communityBoardService.findAll();
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
+    }
+
+    //커뮤니티 단건 조회
+    @GetMapping("/{communityId}")
+    public CommunityAllDto getOneCommunity(@PathVariable Long communityId) {
+        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
+        CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
+        return communityAllDto;
+
+    }
 
     //커뮤니티 글 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -68,5 +92,19 @@ public class CommunityBoardController {
         communityBoardService.update(communityId, communityEditDto, newCommunityImages);
         communityImageService.create(newCommunityImages);
         return communityEditDto;
+    }
+
+    //커뮤니티 글 삭제
+    @DeleteMapping("/{communityId}")
+    public ResponseEntity deleteCommunity(@PathVariable Long communityId) {
+        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId); //프록시 초기화
+        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+        communityImages.forEach(communityImageService::delete);
+
+        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage);
+        communityBoardService.delete(communityBoard);
+
+        return ResponseEntity.ok("");
     }
 }
