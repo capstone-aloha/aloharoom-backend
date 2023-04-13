@@ -13,15 +13,17 @@ import java.time.Period;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationDto {
+    private Long notificationId;
     private Long boardId;
     private String content;
     private String createdDate;
-    private Boolean isRead;
+    private Boolean isCheck;
 
     public NotificationDto(Notification notification) {
+        this.notificationId = notification.getId();
         this.boardId = notification.getId();
         this.content = notification.getContent();
-        this.isRead = notification.getIsRead();
+        this.isCheck = notification.getIsCheck();
         LocalDateTime startDT = notification.getCreatedDate();
         LocalDateTime endDT = LocalDateTime.now();
         Period p = Period.between(startDT.toLocalDate(), endDT.toLocalDate());

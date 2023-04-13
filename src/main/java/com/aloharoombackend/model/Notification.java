@@ -23,12 +23,16 @@ public class Notification extends BaseEntity{
 
     private String content;
 
-    private Boolean isRead;
+    private Boolean isCheck;
 
     public Notification(User user, Board board, String content) {
         this.user = user;
         this.board = board;
         this.content = content;
-        this.isRead = false;
+        this.isCheck = false;
+    }
+    
+    public void check() {
+        this.isCheck = true;
     }
 }
