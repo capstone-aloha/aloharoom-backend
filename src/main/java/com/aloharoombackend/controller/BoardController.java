@@ -47,34 +47,23 @@ public class BoardController {
     @GetMapping("/{boardId}")
     public ResponseEntity<BoardOneDto> getBoardOne(@PathVariable Long boardId, 
                                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        //나중에 필요한 내용 dto로 담아서 보내자.
-        Board board = boardService.findOne(boardId);
-        Home home = homeService.findOne(board.getHome().getId()); //오류 => 프록시 초기화
-        Long userId = board.getUser().getId();
-        User user = userService.findOneFetch(userId);
-        BoardOneDto boardOneDto = new BoardOneDto(board, home, user);
-
         Long loginUserId = principalDetails.getUser().getId();
-        RecentView recentView = new RecentView(boardId, loginUserId);
-        recentViewService.create(recentView);
-
-        return ResponseEntity.ok(boardOneDto);
+        return ResponseEntity.ok(boardService.findOneNew(boardId, loginUserId));
     }
 
     //게시물 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity addBoard(@RequestPart BoardAddDto boardAddDto, @RequestPart List<MultipartFile> imgFiles,
                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        //일단 넣을 수 있는 것만 넣어보자! => Home, HomeImage, Board + (Transportation, 편의시설 => 보류)
         Home home = new Home(boardAddDto);
-        User user = userService.findOne(principalDetails.getUser().getId());
+//        User user = userService.findOne(principalDetails.getUser().getId());
+        User user = userService.findOne(1L);
         Board board = new Board(home, user, boardAddDto);
 
         //MultipartFile을 s3에 저장 후 해당 주소로 HomeImage 생성
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
         List<HomeImage> homeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
 
-        //DB에 넣어보자 => service 생성 후 사용
         homeService.create(home);
         boardService.create(board);
 

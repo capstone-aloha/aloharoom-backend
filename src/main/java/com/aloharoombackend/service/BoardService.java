@@ -1,9 +1,9 @@
 package com.aloharoombackend.service;
 
-import com.aloharoombackend.dto.BoardAllDto;
-import com.aloharoombackend.dto.BoardEditDto;
-import com.aloharoombackend.dto.HeartBoardDto;
-import com.aloharoombackend.dto.SearchFilterDto;
+import com.aloharoombackend.dto.*;
+import com.aloharoombackend.model.Home;
+import com.aloharoombackend.model.RecentView;
+import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final HomeService homeService;
+    private final UserService userService;
+    private final RecentViewService recentViewService;
 
     @Transactional
     public Board create(Board board) {
@@ -26,6 +29,19 @@ public class BoardService {
     public Board findOne(Long boardId) {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+    }
+    
+    @Transactional //최근 본 글 때문에 추가
+    public BoardOneDto findOneNew(Long boardId, Long loginUserId) {
+        RecentView recentView = new RecentView(boardId, loginUserId);
+        recentViewService.create(recentView);
+
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+        Home home = homeService.findOne(board.getHome().getId());
+        Long userId = board.getUser().getId();
+        User user = userService.findOneFetch(userId);
+        return new BoardOneDto(board, home, user);
     }
 
     public List<Board> findAll() {
