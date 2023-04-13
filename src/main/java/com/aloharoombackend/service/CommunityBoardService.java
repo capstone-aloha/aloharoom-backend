@@ -5,10 +5,12 @@ import com.aloharoombackend.dto.CommunityEditDto;
 import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.CommunityImage;
 import com.aloharoombackend.repository.CommunityBoardRepository;
+import com.aloharoombackend.repository.CommunitySearchRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CommunityBoardService{
     private final CommunityBoardRepository communityBoardRepository;
+    private final CommunitySearchRepository  communitySearchRepository;
 
     @Transactional
     public CommunityBoard create(CommunityBoard communityBoard) {
@@ -56,5 +59,15 @@ public class CommunityBoardService{
     @Transactional
     public void delete(CommunityBoard communityBoard) {
         communityBoardRepository.delete(communityBoard);
+    }
+
+    public List<CommunityBoard> searchCommunity(String keyword) {
+        List<CommunityBoard> communityBoards = communityBoardRepository.findByTitleContaining(keyword);
+        communityBoards.stream().forEach(communityBoard -> {
+            communityBoard.getCommunityImages().stream()
+                    .forEach(communityImage -> communityImage.getId());
+        });
+        return communityBoards;
+
     }
 }
