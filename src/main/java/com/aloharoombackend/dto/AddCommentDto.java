@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddCommentDto {
     private Long userId;
-    private Long targetUserId; //대댓글 달 때만 유효
+    private Long targetUserId; //알림 용도
     private Long boardId;
     private String content;
+    private String targetContent; //대댓글 용도
     private Integer layer;
     private Long groupId;
 }
