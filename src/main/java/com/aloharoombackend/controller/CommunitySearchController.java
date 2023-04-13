@@ -28,4 +28,14 @@ public class CommunitySearchController {
         return communityAllDtos;
     }
 
+    @GetMapping("/nickname")
+    public List<CommunityAllDto> searchCommunityByNickName(@RequestParam String nickname) {
+        List<CommunityBoard> communityBoards = communityBoardService.searchCommunityByNickName(nickname);
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
+    }
 }
