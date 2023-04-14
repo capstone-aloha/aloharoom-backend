@@ -52,16 +52,16 @@ public class User {
     @Column(name = "tendency", length = 1000)
     private String tendency;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LikeProduct> likeProducts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyProduct> myProducts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LikeHashtag> likeHashtags = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<MyHashtag> myHashtags = new ArrayList<>();
 
     public User(SignUpDto signUpDto) {
