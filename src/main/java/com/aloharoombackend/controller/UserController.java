@@ -8,6 +8,7 @@ import com.aloharoombackend.dto.UserInfoDto;
 import com.aloharoombackend.model.*;
 import com.aloharoombackend.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -70,26 +71,22 @@ public class UserController {
 
     //username 중복 체크
     @GetMapping("/signup/username/{username}")
-    public ResponseEntity<Integer> checkUsernameDuplicate(@PathVariable String username) {
-        Integer status;
+    public ResponseEntity checkUsernameDuplicate(@PathVariable String username) {
         boolean check = userService.checkUsernameDuplicate(username);
         if(check)
-            status = 401;
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         else
-            status = 200;
-        return ResponseEntity.ok(status);
+            return ResponseEntity.ok("");
     }
 
     //nickname 중복 체크
     @GetMapping("/signup/nickname/{nickname}")
-    public ResponseEntity<Integer> checkNicknameDuplicate(@PathVariable String nickname) {
-        Integer status;
+    public ResponseEntity checkNicknameDuplicate(@PathVariable String nickname) {
         boolean check = userService.checkNicknameDuplicate(nickname);
         if(check)
-            status = 401;
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         else
-            status = 200;
-        return ResponseEntity.ok(status);
+            return ResponseEntity.ok("");
     }
 
     //회원 조회
