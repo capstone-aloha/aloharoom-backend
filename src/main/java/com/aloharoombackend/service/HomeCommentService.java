@@ -40,7 +40,14 @@ public class HomeCommentService {
             Long targetUserId = addCommentDto.getTargetUserId();
             User targetUser = userRepository.findById(targetUserId)
                     .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
-            String content = user.getNickname() + "님이 내 댓글에 답글을 남겼습니다.";
+            //내 댓글 "안녕하세요..."에 xx님이 댓글을 남겼습니다.
+            //1. homeCommentId로 쿼리 날린다. / 2. dto로 댓글 내용을 받아온다. (된다면 효율적)
+            String targetContent = addCommentDto.getTargetContent();
+            if (targetContent.length() > 8) {
+                targetContent = targetContent.substring(0, 8);
+                targetContent += "...";
+            }
+            String content = "내 댓글 \"" + targetContent + "\"에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
             notificationRepository.save(new Notification(targetUser, board, content));
         }
 
@@ -50,7 +57,13 @@ public class HomeCommentService {
             if (addCommentDto.getUserId() != writerId) { //내 댓글에 알림 안 받도록
                 User writer = userRepository.findById(writerId)
                         .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
-                String content = user.getNickname() + "님이 댓글을 남겼습니다.";
+                //내 게시글 "안녕하세요..." 글에 xx님이 댓글을 남겼습니다.
+                String title = board.getTitle();
+                if (title.length() > 8) {
+                    title = title.substring(0, 8);
+                    title += "...";
+                }
+                String content = "내 게시글 \"" + title + "\" 글에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
                 notificationRepository.save(new Notification(writer, board, content));
             }
         }
