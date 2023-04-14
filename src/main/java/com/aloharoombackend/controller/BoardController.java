@@ -32,15 +32,8 @@ public class BoardController {
     //모든 게시물 조회
     @GetMapping
     public ResponseEntity<List<BoardAllDto>> getAllBoard() {
-        List<Board> boards = boardService.findAll();
-        List<Home> homes = homeService.findAll();
-
-        List<BoardAllDto> boardAllDtos = new ArrayList<>();
-        for (int i = 0; i < boards.size(); i++) {
-            boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
-        }
         return ResponseEntity.ok()
-                .body(boardAllDtos);
+                .body(boardService.findAll());
     }
 
     //게시물 단건 조회

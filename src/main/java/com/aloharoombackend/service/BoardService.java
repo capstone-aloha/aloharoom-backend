@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,13 +45,20 @@ public class BoardService {
         return new BoardOneDto(board, home, user);
     }
 
-    public List<Board> findAll() {
+    public List<BoardAllDto> findAll() {
         List<Board> boards = boardRepository.findAll();
+        List<Home> homes = homeService.findAll();
+
         //HomeComment 초기화
         boards.stream().forEach(board -> {
             board.getHomeComments().stream().forEach(homeComment -> homeComment.getLayer());
         });
-        return boards;
+
+        List<BoardAllDto> boardAllDtos = new ArrayList<>();
+        for (int i = 0; i < boards.size(); i++) {
+            boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
+        }
+        return boardAllDtos;
     }
 
     @Transactional
