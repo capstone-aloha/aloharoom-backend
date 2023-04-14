@@ -78,6 +78,13 @@ public class UserService {
         return user.edit(myPageEditDto, profileUrl);
     }
 
+    //username 중복 체크
+    public boolean checkUsernameDuplicate(String username) {
+        return userRepository.existsByUsername(username);
+    }
 
-
+    //nickname 중복 체크
+    public boolean checkNicknameDuplicate(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
 }

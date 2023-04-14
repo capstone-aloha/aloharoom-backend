@@ -68,6 +68,30 @@ public class UserController {
         return user;
     }
 
+    //username 중복 체크
+    @GetMapping("/signup/username/{username}")
+    public ResponseEntity<Integer> checkUsernameDuplicate(@PathVariable String username) {
+        Integer status;
+        boolean check = userService.checkUsernameDuplicate(username);
+        if(check)
+            status = 401;
+        else
+            status = 200;
+        return ResponseEntity.ok(status);
+    }
+
+    //nickname 중복 체크
+    @GetMapping("/signup/nickname/{nickname}")
+    public ResponseEntity<Integer> checkNicknameDuplicate(@PathVariable String nickname) {
+        Integer status;
+        boolean check = userService.checkNicknameDuplicate(nickname);
+        if(check)
+            status = 401;
+        else
+            status = 200;
+        return ResponseEntity.ok(status);
+    }
+
     //회원 조회
     @GetMapping("/myPage/{userId}")
     public MyPageDto myPage(@PathVariable Long userId) {
