@@ -23,9 +23,6 @@ public class BoardAddDto {
     private Integer floor;
     private Integer totalFloor;
     private LocalDate startDate;
-    //일단 보류
-    //private String transportations;
-    //private String facilities;
     private Double x;
     private Double y;
 
