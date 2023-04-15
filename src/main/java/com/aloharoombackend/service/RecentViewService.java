@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -42,6 +44,17 @@ public class RecentViewService {
     }
 
     public List<RecentView> findByUserId(Long userId) {
-        return recentViewRepository.findByUserId(userId);
+        List<RecentView> recentViews = recentViewRepository.findByUserId(userId);
+
+        Collections.sort(recentViews, new Comparator<RecentView>() {
+            @Override
+            public int compare(RecentView o1, RecentView o2) {
+                if (o1.getCreatedDate().isBefore(o2.getCreatedDate())) return 1;
+                else if (!o1.getCreatedDate().isBefore(o2.getCreatedDate())) return -1;
+                else return 0;
+            }
+        });
+
+        return recentViews;
     }
 }

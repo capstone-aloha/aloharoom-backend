@@ -19,6 +19,7 @@ public class BoardAllDto {
     private Integer flat;
     private Integer roomCount;
     private String nickname;
+    private String startDate;
     private List<String> imgUrls;
     private Double x; //위도
     private Double y; //경도
@@ -31,6 +32,8 @@ public class BoardAllDto {
         this.rent = home.getPrice();
         this.flat = home.getFlat();
         this.roomCount = home.getRoomCount();
+        this.nickname = board.getUser().getNickname();
+        this.startDate = home.getStartDate().toString();
         this.imgUrls = home.getHomeImages().stream()
                 .map(homeImage->homeImage.getImgUrl()).collect(Collectors.toList());
         this.x = home.getX(); //위도
