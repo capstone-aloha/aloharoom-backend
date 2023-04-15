@@ -78,7 +78,15 @@ public class BoardService {
     }
 
     public List<HeartBoardDto> findByboardIds(List<Long> boardIds) {
-        return boardRepository.recentViewBoard(boardIds);
+        List<HeartBoardDto> heartBoardDtos = boardRepository.recentViewBoard(boardIds);
+        List<HeartBoardDto> heartBoardDtosSort = new ArrayList<>();
+
+        for (int i = 0; i < heartBoardDtos.size(); i++) {
+            for (int j = 0; j < heartBoardDtos.size(); j++) {
+                if(boardIds.get(i) == heartBoardDtos.get(j).getBoardId()) heartBoardDtosSort.add(heartBoardDtos.get(j));
+            }
+        }
+        return heartBoardDtosSort;
     }
 
 }

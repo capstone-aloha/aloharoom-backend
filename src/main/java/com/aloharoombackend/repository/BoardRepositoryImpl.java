@@ -98,7 +98,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     @Override
     public List<HeartBoardDto> recentViewBoard(List<Long> boardIds) {
         List<Board> boards = queryFactory
-                .select(board)
+                .select(board).distinct()
                 .from(board)
                 .join(board.home, home).fetchJoin()
                 .leftJoin(home.homeImages).fetchJoin()
