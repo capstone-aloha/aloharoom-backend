@@ -3,10 +3,7 @@ package com.aloharoombackend.service;
 import com.aloharoombackend.dto.AddCommentDto;
 import com.aloharoombackend.dto.CommentDto;
 import com.aloharoombackend.dto.EditCommentDto;
-import com.aloharoombackend.model.Board;
-import com.aloharoombackend.model.HomeComment;
-import com.aloharoombackend.model.Notification;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.repository.HomeCommentRepository;
 import com.aloharoombackend.repository.NotificationRepository;
@@ -25,15 +22,26 @@ public class HomeCommentService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final NotificationRepository notificationRepository;
+    private final CommunityBoardService communityBoardService;
 
     //댓글 추가
     @Transactional
     public CommentDto addComment(AddCommentDto addCommentDto) {
         User user = userRepository.findById(addCommentDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
-        Board board = boardRepository.findById(addCommentDto.getBoardId())
-                .orElseThrow(() -> new IllegalArgumentException("찾는 게시물이 존재하지 않습니다."));
-        HomeComment homeComment = new HomeComment(user, board, addCommentDto);
+        Board board = new Board();
+        CommunityBoard communityBoard = new CommunityBoard();
+        HomeComment homeComment;
+        Integer flag = addCommentDto.getFlag();
+        if(flag==0) {
+            board = boardRepository.findById(addCommentDto.getBoardId())
+                    .orElseThrow(() -> new IllegalArgumentException("찾는 게시물이 존재하지 않습니다."));
+            homeComment = new HomeComment(user, board, addCommentDto);
+        } else {
+            communityBoard = communityBoardService.findOne(addCommentDto.getBoardId());
+            homeComment = new HomeComment(user, communityBoard, addCommentDto);
+        }
+
 
         //대댓글이면 댓글 사용자 알림 (han님이 내 댓글에 답글을 남겼습니다.)
         if(addCommentDto.getTargetUserId() != addCommentDto.getUserId()) {
@@ -48,11 +56,14 @@ public class HomeCommentService {
                 targetContent += "...";
             }
             String content = "내 댓글 \"" + targetContent + "\"에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
-            notificationRepository.save(new Notification(targetUser, board, content));
+            if(flag==0) notificationRepository.save(new Notification(targetUser, board, content));
+            else notificationRepository.save(new Notification(targetUser, communityBoard, content));
         }
 
         //댓글, 대댓글이면 게시물 사용자 알림 (han님이 댓글을 남겼습니다.)
-        Long writerId = board.getUser().getId();
+        Long writerId;
+        if(flag==0) writerId = board.getUser().getId();
+        else writerId = communityBoard.getUser().getId();
         if(writerId != addCommentDto.getTargetUserId()) { //댓글 주인이 작성자인 경우 위 알림만 발생
             if (addCommentDto.getUserId() != writerId) { //내 댓글에 알림 안 받도록
                 User writer = userRepository.findById(writerId)
@@ -64,7 +75,8 @@ public class HomeCommentService {
                     title += "...";
                 }
                 String content = "내 게시글 \"" + title + "\" 글에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
-                notificationRepository.save(new Notification(writer, board, content));
+                if(flag==0) notificationRepository.save(new Notification(writer, board, content));
+                else notificationRepository.save(new Notification(writer, communityBoard, content));
             }
         }
 
@@ -76,8 +88,13 @@ public class HomeCommentService {
     }
 
     //댓글 조회
-    public List<CommentDto> getComment(Long boardId) {
+    public List<CommentDto> getHomeComment(Long boardId) {
         List<HomeComment> homeComments = homeCommentRepository.findAllByBoardId(boardId);
+        List<CommentDto> commentDtos = commentSort(homeComments);
+        return commentDtos;
+    }
+    public List<CommentDto> getCommunityComment(Long boardId) {
+        List<HomeComment> homeComments = homeCommentRepository.findAllByCommunityBoardId(boardId);
         List<CommentDto> commentDtos = commentSort(homeComments);
         return commentDtos;
     }

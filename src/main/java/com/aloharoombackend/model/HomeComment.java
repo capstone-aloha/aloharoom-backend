@@ -23,6 +23,10 @@ public class HomeComment extends BaseEntity{
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "community_board_id")
+    private CommunityBoard communityBoard;
+
     @NonNull
     @Column(name = "content")
     private String content;
@@ -40,6 +44,13 @@ public class HomeComment extends BaseEntity{
     public HomeComment(User user, Board board, AddCommentDto addCommentDto) {
         this.user = user;
         this.board = board;
+        this.content = addCommentDto.getContent();
+        this.layer = addCommentDto.getLayer();
+        this.groupId = addCommentDto.getGroupId();
+    }
+    public HomeComment(User user, CommunityBoard communityBoard, AddCommentDto addCommentDto) {
+        this.user = user;
+        this.communityBoard = communityBoard;
         this.content = addCommentDto.getContent();
         this.layer = addCommentDto.getLayer();
         this.groupId = addCommentDto.getGroupId();

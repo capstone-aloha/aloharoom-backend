@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HomeCommentRepository extends JpaRepository<HomeComment, Long> {
-    @EntityGraph(attributePaths = {"user", "board"})
+    @EntityGraph(attributePaths = {"user", "board", "communityBoard"})
     List<HomeComment> findAllByBoardId(Long boardId);
+    @EntityGraph(attributePaths = {"user", "board", "communityBoard"})
+    List<HomeComment> findAllByCommunityBoardId(Long boardId);
 
     @Override
     @EntityGraph(attributePaths = {"user", "board"})

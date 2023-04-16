@@ -26,9 +26,13 @@ public class HomeCommentController {
     }
 
     //댓글 조회
-    @GetMapping("/{boardId}")
-    public ResponseEntity getComment(@PathVariable Long boardId) {
-        return ResponseEntity.ok(homeCommentService.getComment(boardId));
+    @GetMapping("/home/{boardId}")
+    public ResponseEntity getHomeComment(@PathVariable Long boardId) {
+        return ResponseEntity.ok(homeCommentService.getHomeComment(boardId));
+    }
+    @GetMapping("/community/{boardId}")
+    public ResponseEntity getCommunityComment(@PathVariable Long boardId) {
+        return ResponseEntity.ok(homeCommentService.getCommunityComment(boardId));
     }
 
     //댓글 삭제

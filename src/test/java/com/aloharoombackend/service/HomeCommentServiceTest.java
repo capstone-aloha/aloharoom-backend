@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -77,12 +76,12 @@ class HomeCommentServiceTest {
 
     @Test
     void getComment() {
-        List<CommentDto> comment = homeCommentService.getComment(1L);
+        List<CommentDto> comment = homeCommentService.getHomeComment(1L);
         for (CommentDto commentDto : comment) {
             System.out.println(commentDto);
         }
         System.out.println("================================================");
-        comment = homeCommentService.getComment(2L);
+        comment = homeCommentService.getHomeComment(2L);
         for (CommentDto commentDto : comment) {
             System.out.println(commentDto);
         }
@@ -91,7 +90,7 @@ class HomeCommentServiceTest {
     @Test
     void deleteComment() {
         homeCommentService.deleteComment(1L);
-        List<CommentDto> commentDtos = homeCommentService.getComment(1L);
+        List<CommentDto> commentDtos = homeCommentService.getHomeComment(1L);
         for (CommentDto commentDto : commentDtos) {
             System.out.println("commentDto = " + commentDto);
         }

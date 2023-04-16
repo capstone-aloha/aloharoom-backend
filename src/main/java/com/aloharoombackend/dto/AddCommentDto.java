@@ -11,6 +11,7 @@ public class AddCommentDto {
     private Long userId;
     private Long targetUserId; //알림 용도
     private Long boardId;
+    private Integer flag; //0:Board, 1:CommunityBoard
     private String content;
     private String targetContent; //대댓글 용도
     private Integer layer;
