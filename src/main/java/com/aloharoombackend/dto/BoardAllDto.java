@@ -38,6 +38,6 @@ public class BoardAllDto {
                 .map(homeImage->homeImage.getImgUrl()).collect(Collectors.toList());
         this.x = home.getX(); //위도
         this.y = home.getY(); //경도
-        this.commentNum = board.getHomeComments().size();
+        this.commentNum = board.getComments().size();
     }
 }

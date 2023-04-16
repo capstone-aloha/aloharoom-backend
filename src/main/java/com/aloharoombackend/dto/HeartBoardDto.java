@@ -33,6 +33,6 @@ public class HeartBoardDto {
         this.nickname = board.getUser().getNickname();
         this.startDate = home.getStartDate().toString().replace('-', '.');
         this.imgUrl = board.getHome().getHomeImages().get(0).getImgUrl();
-        this.commentNum = board.getHomeComments().size();
+        this.commentNum = board.getComments().size();
     }
 }

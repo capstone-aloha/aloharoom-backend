@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class HomeComment extends BaseEntity{
+public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,14 +41,14 @@ public class HomeComment extends BaseEntity{
 
     public void setContent(String content) { this.content = content; }
 
-    public HomeComment(User user, Board board, AddCommentDto addCommentDto) {
+    public Comment(User user, Board board, AddCommentDto addCommentDto) {
         this.user = user;
         this.board = board;
         this.content = addCommentDto.getContent();
         this.layer = addCommentDto.getLayer();
         this.groupId = addCommentDto.getGroupId();
     }
-    public HomeComment(User user, CommunityBoard communityBoard, AddCommentDto addCommentDto) {
+    public Comment(User user, CommunityBoard communityBoard, AddCommentDto addCommentDto) {
         this.user = user;
         this.communityBoard = communityBoard;
         this.content = addCommentDto.getContent();

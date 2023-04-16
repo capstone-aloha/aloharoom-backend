@@ -51,7 +51,7 @@ public class BoardService {
 
         //HomeComment 초기화
         boards.stream().forEach(board -> {
-            board.getHomeComments().stream().forEach(homeComment -> homeComment.getLayer());
+            board.getComments().stream().forEach(comment -> comment.getLayer());
         });
 
         List<BoardAllDto> boardAllDtos = new ArrayList<>();

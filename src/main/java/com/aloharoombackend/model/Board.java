@@ -39,7 +39,7 @@ public class Board extends BaseEntity{
     private Integer views = 0;
 
     @OneToMany(mappedBy = "board")
-    private List<HomeComment> homeComments;
+    private List<Comment> comments;
 
     public Board(Home home, User user, BoardAddDto boardAddDto) {
         this.home = home; //나중에 연관관계 메서드
