@@ -87,4 +87,9 @@ public class UserService {
     public boolean checkNicknameDuplicate(String nickname) {
         return userRepository.existsByNickname(nickname);
     }
+
+    @Transactional
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
 }

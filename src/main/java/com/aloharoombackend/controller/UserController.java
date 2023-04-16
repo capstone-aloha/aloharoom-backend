@@ -138,6 +138,15 @@ public class UserController {
 
         return myPageEditDto;
     }
+
+    //회원 탈퇴
+    @DeleteMapping("/myPage/{userId}")
+    public ResponseEntity deleteUser(@PathVariable Long userId) {
+        User user = userService.findOneFetchAll(userId);
+        userService.delete(user);
+
+        return ResponseEntity.ok("");
+    }
 }
 
 
