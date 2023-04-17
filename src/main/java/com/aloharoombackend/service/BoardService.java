@@ -1,11 +1,8 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.*;
-import com.aloharoombackend.model.Home;
-import com.aloharoombackend.model.RecentView;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.BoardRepository;
-import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -90,14 +87,15 @@ public class BoardService {
     }
 
     //내가 쓴 방 조회
-    public List<BoardAllDto> getMyBoard(Long userId) {
+    public List<BoardOneDto> getMyBoard(Long userId) {
+        Board board = boardRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+        Home home = homeService.findOne(board.getHome().getId());
         List<Board> boards = boardRepository.findAllByUserId(userId);
-        List<Home> homes = homeService.findAll();
-
-        List<BoardAllDto> boardAllDtos = new ArrayList<>();
+        List<BoardOneDto> boardOneDtos = new ArrayList<>();
         for (int i = 0; i < boards.size(); i++) {
-            boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
+            boardOneDtos.add(new BoardOneDto(boards.get(i), home));
         }
-        return boardAllDtos;
+        return boardOneDtos;
     }
 }
