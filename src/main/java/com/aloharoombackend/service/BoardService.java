@@ -89,4 +89,15 @@ public class BoardService {
         return heartBoardDtosSort;
     }
 
+    //내가 쓴 방 조회
+    public List<BoardAllDto> getMyBoard(Long userId) {
+        List<Board> boards = boardRepository.findAllByUserId(userId);
+        List<Home> homes = homeService.findAll();
+
+        List<BoardAllDto> boardAllDtos = new ArrayList<>();
+        for (int i = 0; i < boards.size(); i++) {
+            boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
+        }
+        return boardAllDtos;
+    }
 }

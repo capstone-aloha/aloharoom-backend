@@ -4,6 +4,7 @@ import com.aloharoombackend.auth.PrincipalDetails;
 import com.aloharoombackend.dto.HeartBoardDto;
 import com.aloharoombackend.model.RecentView;
 import com.aloharoombackend.service.BoardService;
+import com.aloharoombackend.service.CommunityBoardService;
 import com.aloharoombackend.service.RecentViewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class RecentViewController {
     private final RecentViewService recentViewService;
     private final BoardService boardService;
+    private final CommunityBoardService communityBoardService;
 
     @GetMapping
     public ResponseEntity getRecentView(@AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -30,5 +32,17 @@ public class RecentViewController {
         List<HeartBoardDto> boards = boardService.findByboardIds(boardIds);
 
         return ResponseEntity.ok(boards);
+    }
+
+    //내가 쓴 방 조회
+    @GetMapping("/board")
+    public ResponseEntity getMyBoard(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(boardService.getMyBoard(principalDetails.getUser().getId()));
+    }
+
+    //내가 쓴 커뮤니티 조회
+    @GetMapping("/community")
+    public ResponseEntity getMyCommunity(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(communityBoardService.getMyCommunity(principalDetails.getUser().getId()));
     }
 }
