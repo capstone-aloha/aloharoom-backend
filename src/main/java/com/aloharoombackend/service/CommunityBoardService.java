@@ -10,8 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -76,5 +76,15 @@ public class CommunityBoardService{
                     .forEach(communityImage -> communityImage.getId());
         });
         return communityBoards;
+    }
+
+    //내가 쓴 커뮤니티 조회
+    public List<CommunityAllDto> getMyCommunity(Long userId) {
+        List<CommunityBoard> communityBoards = communityBoardRepository.findAllByUserId(userId);
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
     }
 }

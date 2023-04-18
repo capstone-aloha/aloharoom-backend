@@ -26,7 +26,6 @@ public class BoardController {
     private final HomeService homeService;
     private final HomeImageService homeImageService;
     private final UserService userService;
-    private final RecentViewService recentViewService;
     private final AwsS3Service awsS3Service;
 
     //모든 게시물 조회
@@ -49,8 +48,8 @@ public class BoardController {
     public ResponseEntity addBoard(@RequestPart BoardAddDto boardAddDto, @RequestPart List<MultipartFile> imgFiles,
                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Home home = new Home(boardAddDto);
-//        User user = userService.findOne(principalDetails.getUser().getId());
-        User user = userService.findOne(1L);
+        User user = userService.findOne(principalDetails.getUser().getId());
+//        User user = userService.findOne(1L);
         Board board = new Board(home, user, boardAddDto);
 
         //MultipartFile을 s3에 저장 후 해당 주소로 HomeImage 생성
