@@ -4,10 +4,7 @@ import com.aloharoombackend.dto.AddCommentDto;
 import com.aloharoombackend.dto.CommentDto;
 import com.aloharoombackend.dto.EditCommentDto;
 import com.aloharoombackend.model.*;
-import com.aloharoombackend.repository.BoardRepository;
-import com.aloharoombackend.repository.CommentRepository;
-import com.aloharoombackend.repository.NotificationRepository;
-import com.aloharoombackend.repository.UserRepository;
+import com.aloharoombackend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +19,8 @@ public class CommentService {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
     private final NotificationRepository notificationRepository;
-    private final CommunityBoardService communityBoardService;
-
+    private final CommunityBoardRepository communityBoardRepository;
+    private final CommunityBoardService s;
     //댓글 추가
     @Transactional
     public CommentDto addComment(AddCommentDto addCommentDto) {
@@ -38,7 +35,8 @@ public class CommentService {
                     .orElseThrow(() -> new IllegalArgumentException("찾는 게시물이 존재하지 않습니다."));
             homeComment = new Comment(user, board, addCommentDto);
         } else {
-            communityBoard = communityBoardService.findOne(addCommentDto.getBoardId());
+            communityBoard = communityBoardRepository.findById(addCommentDto.getBoardId())
+                    .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티 글이 존재하지 않습니다."));
             homeComment = new Comment(user, communityBoard, addCommentDto);
         }
 
@@ -166,5 +164,9 @@ public class CommentService {
         //댓글(대댓글 없는), 대댓글이면 삭제
         commentRepository.delete(homeComment);
         return new CommentDto(homeComment);
+    }
+
+    public List<Comment> findMyComment(Long userId) {
+        return commentRepository.findAllByUserId(userId);
     }
 }

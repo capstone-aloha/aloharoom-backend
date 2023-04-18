@@ -1,17 +1,15 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.*;
-import com.aloharoombackend.model.Home;
-import com.aloharoombackend.model.RecentView;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.BoardRepository;
-import com.aloharoombackend.model.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +19,7 @@ public class BoardService {
     private final HomeService homeService;
     private final UserService userService;
     private final RecentViewService recentViewService;
+    private final CommentService commentService;
 
     @Transactional
     public Board create(Board board) {
@@ -98,6 +97,20 @@ public class BoardService {
         for (int i = 0; i < boards.size(); i++) {
             boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
         }
+        return boardAllDtos;
+    }
+
+    //내가 댓글 단 방 조회
+    public List<BoardAllDto> getBoardComment(Long userId) { //매개변수 나중에 DTO로 변환 => userId만 받는
+        List<Comment> myComments = commentService.findMyComment(userId);
+        List<Comment> myBoardComments = myComments.stream().filter(myComment ->
+                myComment.getCommunityBoard() == null).collect(Collectors.toList());
+        //Home 초기화 => in쿼리로 쿼리 갯수 감소
+        for (Comment myBoardComment : myBoardComments) {
+            myBoardComment.getBoard().getHome().getId();
+        }
+        List<BoardAllDto> boardAllDtos = myBoardComments.stream().map(myBoardComment -> new BoardAllDto(myBoardComment.getBoard(), myBoardComment.getBoard().getHome()))
+                .collect(Collectors.toList());
         return boardAllDtos;
     }
 }

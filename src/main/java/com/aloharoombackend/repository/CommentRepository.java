@@ -19,4 +19,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @EntityGraph(attributePaths = {"user", "board"})
     List<Comment> findAllByGroupId(Long groupId);
+
+    @EntityGraph(attributePaths = {"board", "communityBoard"})
+    List<Comment> findAllByUserId(Long userId);
 }

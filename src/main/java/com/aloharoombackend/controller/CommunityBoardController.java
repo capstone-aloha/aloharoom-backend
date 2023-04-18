@@ -107,4 +107,10 @@ public class CommunityBoardController {
 
         return ResponseEntity.ok("");
     }
+
+    //내가 댓글 단 커뮤니티 조회
+    @GetMapping("/my/comment")
+    public ResponseEntity getCommunityComment(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(communityBoardService.getCommunityComment(principalDetails.getUser().getId()));
+    }
 }

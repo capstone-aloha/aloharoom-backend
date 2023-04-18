@@ -2,6 +2,7 @@ package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityEditDto;
+import com.aloharoombackend.model.Comment;
 import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.CommunityImage;
 import com.aloharoombackend.repository.CommunityBoardRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +21,7 @@ import java.util.List;
 public class CommunityBoardService{
     private final CommunityBoardRepository communityBoardRepository;
     private final CommunitySearchRepository communitySearchRepository;
+    private final CommentService commentService;
 
     @Transactional
     public CommunityBoard create(CommunityBoard communityBoard) {
@@ -85,6 +88,17 @@ public class CommunityBoardService{
         for (int i = 0; i < communityBoards.size(); i++) {
             communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
         }
+        return communityAllDtos;
+    }
+
+    //내가 댓글 단 커뮤니티 조회
+    public List<CommunityAllDto> getCommunityComment(Long userId) { //매개변수 나중에 DTO로 변환 => userId만 받는
+        List<Comment> myComments = commentService.findMyComment(userId);
+        List<Comment> myCommunityComments = myComments.stream().filter(myComment ->
+                myComment.getBoard() == null).collect(Collectors.toList());
+        List<CommunityAllDto> communityAllDtos = myCommunityComments.stream()
+                .map(myCommunityComment -> new CommunityAllDto(myCommunityComment.getCommunityBoard()))
+                .collect(Collectors.toList());
         return communityAllDtos;
     }
 }
