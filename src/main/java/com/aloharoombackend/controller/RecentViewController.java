@@ -33,16 +33,4 @@ public class RecentViewController {
 
         return ResponseEntity.ok(boards);
     }
-
-    //내가 쓴 방 조회
-    @GetMapping("/board")
-    public ResponseEntity getMyBoard(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok(boardService.getMyBoard(principalDetails.getUser().getId()));
-    }
-
-    //내가 쓴 커뮤니티 조회
-    @GetMapping("/community")
-    public ResponseEntity getMyCommunity(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok(communityBoardService.getMyCommunity(principalDetails.getUser().getId()));
-    }
 }

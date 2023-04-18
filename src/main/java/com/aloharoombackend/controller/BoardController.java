@@ -107,6 +107,12 @@ public class BoardController {
         return ResponseEntity.ok("");
     }
 
+    //내가 쓴 방 조회
+    @GetMapping("/my/board")
+    public ResponseEntity getMyBoard(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(boardService.getMyBoard(principalDetails.getUser().getId()));
+    }
+
     //내가 댓글 단 방 조회
     @GetMapping("/my/comment")
     public ResponseEntity getBoardComment(@AuthenticationPrincipal PrincipalDetails principalDetails) {

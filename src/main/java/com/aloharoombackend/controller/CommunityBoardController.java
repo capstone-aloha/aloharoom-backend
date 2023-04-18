@@ -108,6 +108,12 @@ public class CommunityBoardController {
         return ResponseEntity.ok("");
     }
 
+    //내가 쓴 커뮤니티 조회
+    @GetMapping("/my/community")
+    public ResponseEntity getMyCommunity(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(communityBoardService.getMyCommunity(principalDetails.getUser().getId()));
+    }
+
     //내가 댓글 단 커뮤니티 조회
     @GetMapping("/my/comment")
     public ResponseEntity getCommunityComment(@AuthenticationPrincipal PrincipalDetails principalDetails) {
