@@ -63,7 +63,7 @@ public class CommentService {
         String title;
         if(flag==0) {
             writerId = board.getUser().getId();
-            title = board.getTitle();
+            title = board.getHome().getAddress(); //오류 터지나?
         }
         else {
             writerId = communityBoard.getUser().getId();

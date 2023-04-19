@@ -1,5 +1,6 @@
 package com.aloharoombackend.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,10 +8,9 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor //초기 데이터용
 public class BoardAddDto {
-    private String title;
     private String contents;
-    private Integer count; //구하는 인원
     private Integer roomCount;
     private String address;
     private String homeType;

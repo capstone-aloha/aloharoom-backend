@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class BoardAllDto {
 
     private Long boardId;
-    private String title;
     private String address;
     private Integer rent;
     private Integer flat;
@@ -27,9 +26,8 @@ public class BoardAllDto {
 
     public BoardAllDto(Board board, Home home) {
         this.boardId = board.getId();
-        this.title = board.getTitle();
         this.address = home.getAddress();
-        this.rent = home.getPrice();
+        this.rent = home.getRent();
         this.flat = home.getFlat();
         this.roomCount = home.getRoomCount();
         this.nickname = board.getUser().getNickname();

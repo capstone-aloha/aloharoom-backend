@@ -13,9 +13,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class BoardOneDto {
-    private String title;
     private String contents;
-    private Integer count; //구하는 인원
     private Integer roomCount;
     private String address;
     private String homeType;
@@ -39,9 +37,7 @@ public class BoardOneDto {
     private List<String> product;
 
     public BoardOneDto(Board board, Home home, User user) {
-        this.title = board.getTitle();
         this.contents = board.getContents();
-        this.count = board.getCount();
         this.address = home.getAddress();
         this.maintenance = home.getMaintenance();
         this.flat = home.getFlat();
@@ -64,9 +60,7 @@ public class BoardOneDto {
     }
 
     public BoardOneDto(Board board, Home home) {
-        this.title = board.getTitle();
         this.contents = board.getContents();
-        this.count = board.getCount();
         this.address = home.getAddress();
         this.maintenance = home.getMaintenance();
         this.flat = home.getFlat();

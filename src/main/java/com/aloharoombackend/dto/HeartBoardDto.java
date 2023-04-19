@@ -12,7 +12,6 @@ import java.util.List;
 public class HeartBoardDto {
 
     private Long boardId;
-    private String title;
     private String address;
     private Integer rent;
     private Integer flat;
@@ -25,7 +24,6 @@ public class HeartBoardDto {
     public HeartBoardDto(Board board) {
         Home home = board.getHome();
         this.boardId = board.getId();
-        this.title = board.getTitle();
         this.address = board.getHome().getAddress();
         this.rent = home.getPrice();
         this.flat = home.getFlat();
