@@ -20,7 +20,7 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final NotificationRepository notificationRepository;
     private final CommunityBoardRepository communityBoardRepository;
-    private final CommunityBoardService s;
+
     //댓글 추가
     @Transactional
     public CommentDto addComment(AddCommentDto addCommentDto) {
