@@ -32,7 +32,6 @@ public class BoardOneDto {
     //private String facilities;
     //글쓴이, 해시태그, 가전제품
     private String nickname;
-    private String tendency;
     private List<String> hashtag;
     private List<String> product;
 
@@ -52,7 +51,6 @@ public class BoardOneDto {
         this.imgUrls = home.getHomeImages().stream()
                 .map(homeImage -> homeImage.getImgUrl()).collect(Collectors.toList());
         this.nickname = user.getNickname();
-        this.tendency = user.getTendency();
         this.hashtag = user.getMyHashtags().stream()
                 .map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());
         this.product = user.getMyProducts().stream()

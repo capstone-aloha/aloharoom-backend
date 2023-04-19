@@ -16,7 +16,6 @@ public class SignUpDto {
     //private String name;
     private Integer age;
     private String gender;
-    private String tendency;
 
     private List<String> likeHashtags;
 
@@ -32,7 +31,6 @@ public class SignUpDto {
         this.nickname = user.getNickname();
         this.age = user.getAge();
         this.gender = user.getGender();
-        this.tendency = user.getTendency();
     }
 
     //test용

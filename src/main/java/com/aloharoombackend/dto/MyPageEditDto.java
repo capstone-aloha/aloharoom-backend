@@ -17,7 +17,6 @@ public class MyPageEditDto {
     private String nickname;
     private Integer age;
     private String gender;
-    private String tendency;
     private String profileUrl;
     private List<String> likeHashtags;     //likeHash
     private List<String> likeProducts;    //likeProduct
@@ -29,7 +28,6 @@ public class MyPageEditDto {
         this.nickname = user.getNickname();
         this.age = user.getAge();
         this.gender = user.getGender();
-        this.tendency = user.getTendency();
         this.profileUrl = user.getProfileUrl();
         this.likeHashtags = user.getLikeHashtags().stream().map(likeHashtag -> likeHashtag.getHash()).collect(Collectors.toList());
         this.likeProducts = user.getLikeProducts().stream().map(likeProduct -> likeProduct.getName()).collect(Collectors.toList());

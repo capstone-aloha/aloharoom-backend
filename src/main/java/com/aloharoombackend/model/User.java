@@ -49,9 +49,6 @@ public class User {
     @Column(name = "role")
     private String role;
 
-    @Column(name = "tendency", length = 1000)
-    private String tendency;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<LikeProduct> likeProducts = new ArrayList<>();
 
@@ -70,7 +67,6 @@ public class User {
         this.nickname = signUpDto.getNickname();
         this.age = signUpDto.getAge();
         this.gender = signUpDto.getGender();
-        this.tendency = signUpDto.getTendency();
     }
 
     public User edit(MyPageEditDto myPageEditDto, String profileUrl) {
@@ -78,7 +74,6 @@ public class User {
         this.nickname = myPageEditDto.getNickname();
         this.age = myPageEditDto.getAge();
         this.gender = myPageEditDto.getGender();
-        this.tendency = myPageEditDto.getTendency();
         this.profileUrl = "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/" + profileUrl;
         return this;
     }
