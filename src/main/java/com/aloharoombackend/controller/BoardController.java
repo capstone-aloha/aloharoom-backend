@@ -14,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,8 +61,14 @@ public class BoardController {
         return ResponseEntity.ok("");
     }
 
-    //게시물 수정
-    @PatchMapping(path = {"/{boardId}"},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    //방 수정 화면
+    @GetMapping("/edit/{boardId}")
+    public ResponseEntity editBoardForm(@PathVariable Long boardId) {
+        return ResponseEntity.ok(boardService.findOneEditForm(boardId));
+    }
+
+    //방 수정
+    @PatchMapping(path = {"/edit/{boardId}"},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity editBoard(@RequestPart BoardEditDto boardEditDto,
                                     @RequestPart List<MultipartFile> imgFiles,
                                     @PathVariable Long boardId) {

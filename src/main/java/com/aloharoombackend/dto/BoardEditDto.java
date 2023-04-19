@@ -1,5 +1,7 @@
 package com.aloharoombackend.dto;
 
+import com.aloharoombackend.model.Board;
+import com.aloharoombackend.model.Home;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +24,22 @@ public class BoardEditDto {
     private Integer floor;
     private Integer totalFloor;
     private LocalDate startDate;
-    private Double x; //위도
-    private Double y; //경도
+    private Double x;
+    private Double y;
+
+    public BoardEditDto(Board board, Home home) {
+        this.contents = board.getContents();
+        this.roomCount = home.getRoomCount();
+        this.address = home.getAddress();
+        this.homeType = home.getHomeType();
+        this.tradeType = home.getTradeType();
+        this.price = home.getPrice();
+        this.deposit = home.getDeposit();
+        this.rent = home.getPrice();
+        this.flat = home.getFlat();
+        this.maintenance = home.getMaintenance();
+        this.floor = home.getFloor();
+        this.totalFloor = home.getTotalFloor();
+        this.startDate = home.getStartDate();
+    }
 }

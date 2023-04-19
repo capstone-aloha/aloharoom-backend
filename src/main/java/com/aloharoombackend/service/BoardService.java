@@ -30,7 +30,13 @@ public class BoardService {
         return boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
     }
-    
+
+    public BoardEditDto findOneEditForm(Long boardId) {
+        Board board = findOne(boardId);
+        //이떄, Home 조회 쿼리 따로 나가면 안됨. => 나중에 확인
+        return new BoardEditDto(board, board.getHome());
+    }
+
     @Transactional //최근 본 글 때문에 추가
     public BoardOneDto findOneNew(Long boardId, Long loginUserId) {
         RecentView recentView = new RecentView(boardId, loginUserId);
