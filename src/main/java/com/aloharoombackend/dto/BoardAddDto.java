@@ -25,5 +25,7 @@ public class BoardAddDto {
     private LocalDate startDate;
     private Double x;
     private Double y;
+    private Integer minAge;
+    private Integer maxAge;
 
 }

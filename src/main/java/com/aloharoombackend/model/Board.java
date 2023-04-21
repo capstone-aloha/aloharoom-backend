@@ -26,6 +26,10 @@ public class Board extends BaseEntity{
     @JoinColumn(name = "home_id")
     private Home home;
 
+    private Integer minAge;
+
+    private Integer maxAge;
+
     @Column(name = "contents")
     private String contents;
 
@@ -39,6 +43,8 @@ public class Board extends BaseEntity{
         this.home = home; //나중에 연관관계 메서드
         this.contents = boardAddDto.getContents();
         this.user = user;
+        this.minAge = boardAddDto.getMinAge();
+        this.maxAge = boardAddDto.getMaxAge();
     }
 
     public Board change(BoardEditDto boardEditDto) {
