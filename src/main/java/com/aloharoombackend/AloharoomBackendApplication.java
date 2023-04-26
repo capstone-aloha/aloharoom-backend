@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,21 +31,22 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 	EntityManager em;
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@Override
 	@Transactional
 	public void run(String... args) throws Exception {
 		//Home 생성
-		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.",3,"서울특별시 성북구 삼선교로16길 116","apartment","매매",2000,
-				10,25,30,15,8,20,LocalDate.now(),37.582812,127.010233, 20,25);
+		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.", 3, "서울특별시 성북구 삼선교로16길 116", "apartment", "매매", 2000,
+				10, 25, 30, 15, 8, 20, LocalDate.now(), 37.582812, 127.010233, Arrays.asList(new Integer[]{20, 25}));
 		Home h1 = new Home(b1);
-		BoardAddDto b2 = new BoardAddDto("방 게시물2 내용입니다.",3,"서울특별시 영등포구 당산동5가 42","apartment","매매",2000,
-				10,30,38,15,2,25,LocalDate.now(),37.531854,126.902958,22,25);
+		BoardAddDto b2 = new BoardAddDto("방 게시물2 내용입니다.", 3, "서울특별시 영등포구 당산동5가 42", "apartment", "매매", 2000,
+				10, 30, 38, 15, 2, 25, LocalDate.now(), 37.531854, 126.902958, Arrays.asList(new Integer[]{22, 25}));
 		Home h2 = new Home(b2);
-		BoardAddDto b3 = new BoardAddDto("방 게시물3 내용입니다.",3,"서울특별시 강동구 강동구 고덕로390","apartment","매매",2000,
-				10,29,20,15,2,25,LocalDate.now(),37.555031,127.168604,26,28);
+		BoardAddDto b3 = new BoardAddDto("방 게시물3 내용입니다.", 3, "서울특별시 강동구 강동구 고덕로390", "apartment", "매매", 2000,
+				10, 29, 20, 15, 2, 25, LocalDate.now(), 37.555031, 127.168604, Arrays.asList(new Integer[]{26, 28}));
 		Home h3 = new Home(b3);
-		BoardAddDto b4 = new BoardAddDto("방 게시물4 내용입니다.",3,"서울특별시 강서구 공항대로 247","apartment","매매",2000,
-				10,40,34,15,2,25,LocalDate.now(),37.559246,126.834986,29,29);
+		BoardAddDto b4 = new BoardAddDto("방 게시물4 내용입니다.", 3, "서울특별시 강서구 공항대로 247", "apartment", "매매", 2000,
+				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.559246, 126.834986, Arrays.asList(new Integer[]{29, 29}));
 		Home h4 = new Home(b4);
 
 		//방 사진 등록

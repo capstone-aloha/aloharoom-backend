@@ -43,8 +43,8 @@ public class Board extends BaseEntity{
         this.home = home; //나중에 연관관계 메서드
         this.contents = boardAddDto.getContents();
         this.user = user;
-        this.minAge = boardAddDto.getMinAge();
-        this.maxAge = boardAddDto.getMaxAge();
+        this.minAge = boardAddDto.getAgeRange().get(0);
+        this.maxAge = boardAddDto.getAgeRange().get(1);
     }
 
     public Board change(BoardEditDto boardEditDto) {

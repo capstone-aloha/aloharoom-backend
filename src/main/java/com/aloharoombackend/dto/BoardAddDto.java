@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,7 +26,5 @@ public class BoardAddDto {
     private LocalDate startDate;
     private Double x;
     private Double y;
-    private Integer minAge;
-    private Integer maxAge;
-
+    private List<Integer> ageRange;
 }
