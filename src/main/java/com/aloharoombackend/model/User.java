@@ -78,6 +78,11 @@ public class User {
         return this;
     }
 
+    //초기 데이터용
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
     //Test용
     public User(String username, String password) {
         this.username = username;
