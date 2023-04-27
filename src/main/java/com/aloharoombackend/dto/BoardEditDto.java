@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -29,6 +30,7 @@ public class BoardEditDto {
     private Double x;
     private Double y;
     private List<Integer> ageRange;
+    private List<String> imgUrls;
 
     public BoardEditDto(Board board, Home home) {
         this.contents = board.getContents();
@@ -45,5 +47,7 @@ public class BoardEditDto {
         this.totalFloor = home.getTotalFloor();
         this.startDate = home.getStartDate();
         this.ageRange = Arrays.asList(board.getMinAge(), board.getMaxAge());
+        this.imgUrls = home.getHomeImages().stream().map(homeImage -> homeImage.getImgUrl())
+                .collect(Collectors.toList());
     }
 }
