@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +28,7 @@ public class BoardEditDto {
     private LocalDate startDate;
     private Double x;
     private Double y;
+    private List<Integer> ageRange;
 
     public BoardEditDto(Board board, Home home) {
         this.contents = board.getContents();
@@ -41,5 +44,6 @@ public class BoardEditDto {
         this.floor = home.getFloor();
         this.totalFloor = home.getTotalFloor();
         this.startDate = home.getStartDate();
+        this.ageRange = Arrays.asList(board.getMinAge(), board.getMaxAge());
     }
 }
