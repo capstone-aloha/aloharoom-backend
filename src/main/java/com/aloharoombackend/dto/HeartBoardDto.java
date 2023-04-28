@@ -16,7 +16,9 @@ public class HeartBoardDto {
     private Integer rent;
     private Integer flat;
     private Integer roomCount;
+    private String homeType;
     private String nickname;
+    private String profileImgUrl;
     private String startDate;
     private String imgUrl;
     private Integer commentNum; //댓글 갯수
@@ -28,7 +30,9 @@ public class HeartBoardDto {
         this.rent = home.getPrice();
         this.flat = home.getFlat();
         this.roomCount = home.getRoomCount();
+        this.homeType = board.getHome().getHomeType();
         this.nickname = board.getUser().getNickname();
+        this.profileImgUrl = board.getUser().getProfileUrl();
         this.startDate = home.getStartDate().toString().replace('-', '.');
         this.imgUrl = board.getHome().getHomeImages().get(0).getImgUrl();
         this.commentNum = board.getComments().size();
