@@ -51,8 +51,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//방 사진 등록
 		List<String> imgUrls = new ArrayList<>(
-				List.of(new String[]{"71558773-1fb0-41eb-af08-2f54efa3de23.jpg", "887b846d-d269-4012-a456-15b5d5c553b5.jpg",
-						"965242e2-a5b4-4e00-997c-9a3449eac583.jpg", "4eec3956-b0dc-4815-8861-57839d3574e9.jpg"}));
+				List.of(new String[]{"29449f0c-0efb-40b6-8243-5f4aece74ecb.jpg", "bd3da1a7-aff8-47f2-96c5-bab11cc2a5c5.jpg",
+						"ccbc422e-6f4d-47c9-bcb4-9d37110293be.jpg", "e727acff-fa2c-4bbf-8686-276cb85c0cec.jpg"}));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList());
@@ -66,13 +66,13 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		//User 생성
 		String encodePw = bCryptPasswordEncoder.encode("1234");
 		SignUpDto su1 = new SignUpDto("admin1@naver.com", encodePw, 20, "male");
-		su1.setNickname("admin1"); User u1 = new User(su1); u1.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/2ae4e876-3ee4-49a1-a1e9-c197534e9445.png");
+		su1.setNickname("admin1"); User u1 = new User(su1); u1.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		SignUpDto su2 = new SignUpDto("admin2@naver.com", encodePw, 21, "female");
-		su2.setNickname("admin2"); User u2 = new User(su2); u2.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/2ae4e876-3ee4-49a1-a1e9-c197534e9445.png");
+		su2.setNickname("admin2"); User u2 = new User(su2); u2.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		SignUpDto su3 = new SignUpDto("admin3@naver.com", encodePw, 22, "male");
-		su3.setNickname("admin3"); User u3 = new User(su3); u3.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/2ae4e876-3ee4-49a1-a1e9-c197534e9445.png");
+		su3.setNickname("admin3"); User u3 = new User(su3); u3.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		SignUpDto su4 = new SignUpDto("admin4@naver.com", encodePw, 23, "male");
-		su4.setNickname("admin4"); User u4 = new User(su4); u4.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/2ae4e876-3ee4-49a1-a1e9-c197534e9445.png");
+		su4.setNickname("admin4"); User u4 = new User(su4); u4.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		em.persist(u1);
 		em.persist(u2);
 		em.persist(u3);
