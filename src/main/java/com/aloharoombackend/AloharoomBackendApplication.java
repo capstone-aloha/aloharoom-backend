@@ -1,6 +1,8 @@
 package com.aloharoombackend;
 
 import com.aloharoombackend.dto.BoardAddDto;
+import com.aloharoombackend.dto.CommunityAllDto;
+import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +117,47 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(myHashtag10);
 		em.persist(myHashtag11);
 		em.persist(myHashtag12);
+
+		//Community 생성
+		CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
+		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 2);
+		CommunityBoardDto c3 = new CommunityBoardDto("제목2(방자랑)", "방자랑2", 1);
+		CommunityBoardDto c4 = new CommunityBoardDto("제목1(자유)", "자유1", 3);
+		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 2);
+		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 3);
+		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
+		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);
+
+		CommunityBoard communityBoard1 = new CommunityBoard(u1, c1);
+		CommunityBoard communityBoard2 = new CommunityBoard(u1, c2);
+		CommunityBoard communityBoard3 = new CommunityBoard(u2, c3);
+		CommunityBoard communityBoard4 = new CommunityBoard(u2, c4);
+		CommunityBoard communityBoard5 = new CommunityBoard(u3, c5);
+		CommunityBoard communityBoard6 = new CommunityBoard(u3, c6);
+		CommunityBoard communityBoard7 = new CommunityBoard(u4, c7);
+		CommunityBoard communityBoard8 = new CommunityBoard(u4, c8);
+
+		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
+		List<String> CommunityImgUrls = new ArrayList<>(
+				List.of(new String[]{"33.jpg", "71558773-1fb0-41eb-af08-2f54efa3de23.jpg", "887b846d-d269-4012-a456-15b5d5c553b5.jpg",
+						"965242e2-a5b4-4e00-997c-9a3449eac583.jpg", "4eec3956-b0dc-4815-8861-57839d3574e9.jpg"}));
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard1, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard2, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard3, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard4, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard5, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard6, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard7, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard8, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+
+		em.persist(communityBoard1);
+		em.persist(communityBoard2);
+		em.persist(communityBoard3);
+		em.persist(communityBoard4);
+		em.persist(communityBoard5);
+		em.persist(communityBoard6);
+		em.persist(communityBoard7);
+		em.persist(communityBoard8);
 
 		em.flush(); em.clear();
 	}

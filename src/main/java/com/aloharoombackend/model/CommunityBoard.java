@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,7 +39,7 @@ public class CommunityBoard {
     private List<CommunityComment> communityComments;
 
     @OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL)
-    private List<CommunityImage> communityImages;
+    private List<CommunityImage> communityImages = new ArrayList<>();
 
     public CommunityBoard(User user, CommunityBoardDto communityBoardDto) {
         this.user = user;
