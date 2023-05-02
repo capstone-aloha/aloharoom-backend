@@ -50,6 +50,11 @@ public class CommunityBoardService{
         return findCommunityId;
     }
 
+    //수정 시 초기화면
+    public CommunityAllDto findOneEdit(Long communityId) {
+        CommunityBoard communityBoard = findOne(communityId);
+        return new CommunityAllDto(communityBoard);
+    }
 
     @Transactional
     public CommunityBoard update(Long communityId, CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {

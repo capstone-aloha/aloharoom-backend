@@ -20,6 +20,7 @@ public class CommunityImage {
     private String imgUrl;
 
     public CommunityImage(CommunityBoard communityBoard, String imgUrl) {
+        communityBoard.getCommunityImages().add(this);
         this.communityBoard = communityBoard;
         this.imgUrl = "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/" + imgUrl;
     }
