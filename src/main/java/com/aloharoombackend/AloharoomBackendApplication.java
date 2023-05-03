@@ -53,8 +53,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//방 사진 등록
 		List<String> imgUrls = new ArrayList<>(
-				List.of(new String[]{"29449f0c-0efb-40b6-8243-5f4aece74ecb.jpg", "bd3da1a7-aff8-47f2-96c5-bab11cc2a5c5.jpg",
-						"ccbc422e-6f4d-47c9-bcb4-9d37110293be.jpg", "e727acff-fa2c-4bbf-8686-276cb85c0cec.jpg"}));
+				List.of(new String[]{"d896fedd-fb35-4106-99f1-ac3292eefcad.jpg", "7be53b4d-6fb8-4597-8f11-a3bb48e263d0.jpg",
+						"685bb471-d3cc-436b-9b0e-39fb85663157.jpg", "3af5e9ae-1ab8-4eef-aaa1-53659c5415dc.jpg"}));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList());
@@ -139,8 +139,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
 		List<String> CommunityImgUrls = new ArrayList<>(
-				List.of(new String[]{"33.jpg", "71558773-1fb0-41eb-af08-2f54efa3de23.jpg", "887b846d-d269-4012-a456-15b5d5c553b5.jpg",
-						"965242e2-a5b4-4e00-997c-9a3449eac583.jpg", "4eec3956-b0dc-4815-8861-57839d3574e9.jpg"}));
+				List.of(new String[]{"d896fedd-fb35-4106-99f1-ac3292eefcad.jpg", "7be53b4d-6fb8-4597-8f11-a3bb48e263d0.jpg",
+						"685bb471-d3cc-436b-9b0e-39fb85663157.jpg", "3af5e9ae-1ab8-4eef-aaa1-53659c5415dc.jpg"}));
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard1, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard2, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard3, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
