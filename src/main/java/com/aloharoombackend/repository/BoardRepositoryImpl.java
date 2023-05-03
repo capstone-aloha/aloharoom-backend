@@ -24,6 +24,13 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
 
     @Override
     public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
+        Integer minAge = searchFilterDto.getAgeRange().get(0);
+        Integer maxAge = searchFilterDto.getAgeRange().get(1);
+        Integer minFlat = searchFilterDto.getFlatRange().get(0);
+        Integer maxFlat = searchFilterDto.getFlatRange().get(1);
+        Integer minRent = searchFilterDto.getRentRange().get(0);
+        Integer maxRent = searchFilterDto.getRentRange().get(1);
+
         Set<String> loginUserTagSet = new HashSet<>();
         //User 쿼리 (필터를 만족하는 사용자 추출)
         List<User> users = queryFactory
@@ -32,8 +39,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                 .leftJoin(user.board, board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
                 .where(
                         board.isNotNull(),
-                        user.age.goe(searchFilterDto.getMinAge()), //user.age >= minAge
-                        user.age.loe(searchFilterDto.getMaxAge()), //user.age <= maxAge
+                        user.age.goe(minAge), //user.age >= minAge
+                        user.age.loe(maxAge), //user.age <= maxAge
                         user.gender.eq(searchFilterDto.getGender()) //user.gender == gender
                 )
                 .fetch();
@@ -79,12 +86,12 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                 .join(board.user, user)
                 .where(
                         user.id.in(userIds),
-                        home.flat.goe(searchFilterDto.getMinFlat()), //home.flat >= minFlat
-                        home.flat.loe(searchFilterDto.getMaxFlat()), //home.flat <= maxFlat
+                        home.flat.goe(minFlat), //home.flat >= minFlat
+                        home.flat.loe(maxFlat), //home.flat <= maxFlat
                         home.roomCount.eq(searchFilterDto.getRoomCount()), //home.roomCount === roomCount
                         home.homeType.eq(searchFilterDto.getHomeType()), //home.homeType === homeType
-                        home.rent.goe(searchFilterDto.getMinRent()), //home.rent >= minRent
-                        home.rent.loe(searchFilterDto.getMaxRent()) //home.rent <= maxRent
+                        home.rent.goe(minRent), //home.rent >= minRent
+                        home.rent.loe(maxRent) //home.rent <= maxRent
                 )
                 .fetch();
 

@@ -98,8 +98,8 @@ public class CommentService {
         return commentDtos;
     }
     public List<CommentDto> getCommunityComment(Long boardId) {
-        List<Comment> homeComments = commentRepository.findAllByCommunityBoardId(boardId);
-        List<CommentDto> commentDtos = commentSort(homeComments);
+        List<Comment> communityComments = commentRepository.findAllByCommunityBoardId(boardId);
+        List<CommentDto> commentDtos = commentSort(communityComments);
         return commentDtos;
     }
 
