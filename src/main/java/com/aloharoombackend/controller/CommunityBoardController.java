@@ -48,6 +48,7 @@ public class CommunityBoardController {
     @GetMapping("/{communityId}")
     public CommunityAllDto getOneCommunity(@PathVariable Long communityId) {
         CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
+        communityBoardService.updateViews(communityId);
         CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
         return communityAllDto;
 

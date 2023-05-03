@@ -55,4 +55,10 @@ public class CommunityBoard {
         this.communityImages = communityImages;
         return this;
     }
+
+    //조회수 증가
+    public CommunityBoard updateViews(Integer views){
+        this.views = views + 1;
+        return this;
+    }
 }

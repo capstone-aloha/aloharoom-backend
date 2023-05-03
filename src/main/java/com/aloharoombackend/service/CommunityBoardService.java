@@ -50,6 +50,14 @@ public class CommunityBoardService{
         return findCommunityId;
     }
 
+    //조회수 증가
+    @Transactional
+    public CommunityBoard updateViews(Long id) {
+        CommunityBoard communityBoard = communityBoardRepository.findById(id).get();
+        communityBoard.updateViews(communityBoard.getViews());
+        return communityBoard;
+    }
+
     //수정 시 초기화면
     public CommunityAllDto findOneEdit(Long communityId) {
         CommunityBoard communityBoard = findOne(communityId);
