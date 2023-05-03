@@ -46,9 +46,11 @@ public class CommunityBoardController {
 
     //커뮤니티 단건 조회
     @GetMapping("/{communityId}")
-    public CommunityAllDto getOneCommunity(@PathVariable Long communityId) {
+    public CommunityAllDto getOneCommunity(@PathVariable Long communityId,
+                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
         CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
-        communityBoardService.updateViews(communityId);
+        Long userId = principalDetails.getUser().getId();
+        communityBoardService.updateViews(communityId, userId);
         CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
         return communityAllDto;
 
