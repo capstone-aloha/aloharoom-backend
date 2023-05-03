@@ -1,9 +1,9 @@
 package com.aloharoombackend.controller;
 
+import com.aloharoombackend.auth.PrincipalDetails;
 import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.CommunityEditDto;
-import com.aloharoombackend.dto.UserIdDto;
 import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.CommunityImage;
 import com.aloharoombackend.model.User;
@@ -14,6 +14,7 @@ import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -56,8 +57,8 @@ public class CommunityBoardController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityBoardDto addCommunity(@RequestPart CommunityBoardDto communityBoardDto,
                                           @RequestPart List<MultipartFile> imgFiles,
-                                          @RequestPart UserIdDto userIdDto) {
-        User user = userService.findOne(userIdDto.getUserId());
+                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = userService.findOne(principalDetails.getUser().getId());
         CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
 
         //MultipartFile을 s3에 저장 후 해당 주소로 CommunityImages 생성
@@ -115,13 +116,13 @@ public class CommunityBoardController {
 
     //내가 쓴 커뮤니티 조회
     @GetMapping("/my/community")
-    public ResponseEntity getMyCommunity(@RequestPart UserIdDto userIdDto) {
-        return ResponseEntity.ok(communityBoardService.getMyCommunity(userIdDto.getUserId()));
+    public ResponseEntity getMyCommunity(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(communityBoardService.getMyCommunity(principalDetails.getUser().getId()));
     }
 
     //내가 댓글 단 커뮤니티 조회
     @GetMapping("/my/comment")
-    public ResponseEntity getCommunityComment(@RequestPart UserIdDto userIdDto) {
-        return ResponseEntity.ok(communityBoardService.getCommunityComment(userIdDto.getUserId()));
+    public ResponseEntity getCommunityComment(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(communityBoardService.getCommunityComment(principalDetails.getUser().getId()));
     }
 }
