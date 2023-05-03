@@ -72,8 +72,14 @@ public class CommunityBoardController {
         return communityBoardDto;
     }
 
+    //커뮤니티 수정 시 초기화면
+    @GetMapping("/edit/{communityId}")
+    public ResponseEntity editCommunityForm(@PathVariable Long communityId) {
+        return ResponseEntity.ok(communityBoardService.findOneEdit(communityId));
+    }
+
     //커뮤니티 글 수정
-    @PatchMapping(path = {"/{communityId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PatchMapping(path = {"/edit/{communityId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityEditDto editCommunity(@RequestPart CommunityEditDto communityEditDto,
                                           @RequestPart List<MultipartFile> imgFiles,
                                           @PathVariable Long communityId) {
