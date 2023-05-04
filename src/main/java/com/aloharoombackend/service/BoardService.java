@@ -61,7 +61,9 @@ public class BoardService {
         Home home = homeService.findOne(board.getHome().getId());
         Long userId = board.getUser().getId();
         User user = userService.findOneFetch(userId);
-        return new BoardOneDto(board, home, user);
+
+        Boolean isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+        return new BoardOneDto(board, home, user, isHeart);
     }
 
     public List<BoardAllDto> findAll() {

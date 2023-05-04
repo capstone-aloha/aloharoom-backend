@@ -40,4 +40,10 @@ public class HeartService {
     public List<HeartBoardDto> findByHeartBoard(Long userId) {
         return heartRepository.findByHeartBoard(userId);
     }
+
+    public Boolean findByBoardIdAndUserId(Long boardId, Long loginUserId) {
+        if(heartRepository.findByBoardIdAndUserId(boardId, loginUserId) == null)
+            return false;
+        return true;
+    }
 }
