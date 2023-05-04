@@ -49,6 +49,9 @@ public class Board extends BaseEntity{
 
     public Board change(BoardEditDto boardEditDto) {
         this.contents = boardEditDto.getContents();
+        List<Integer> ageRange = boardEditDto.getAgeRange();
+        this.minAge = ageRange.get(0);
+        this.maxAge = ageRange.get(1);
         return this;
     }
 }
