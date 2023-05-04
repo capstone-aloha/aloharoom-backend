@@ -46,6 +46,8 @@ public class BoardEditDto {
         this.floor = home.getFloor();
         this.totalFloor = home.getTotalFloor();
         this.startDate = home.getStartDate();
+        this.x = home.getX();
+        this.y = home.getY();
         this.ageRange = Arrays.asList(board.getMinAge(), board.getMaxAge());
         this.imgUrls = home.getHomeImages().stream().map(homeImage -> homeImage.getImgUrl())
                 .collect(Collectors.toList());
