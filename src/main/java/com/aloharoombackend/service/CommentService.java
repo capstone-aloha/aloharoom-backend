@@ -166,6 +166,11 @@ public class CommentService {
         return new CommentDto(homeComment);
     }
 
+    @Transactional
+    public void deleteByBoardId(Long boardId) {
+        commentRepository.deleteByBoardId(boardId);
+    }
+
     public List<Comment> findMyComment(Long userId) {
         return commentRepository.findAllByUserId(userId);
     }

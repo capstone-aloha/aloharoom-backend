@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HeartRepository extends JpaRepository<Heart, HeartId>, HeartRepositoryCustom {
+    void deleteByBoardId(Long boardId);
 }

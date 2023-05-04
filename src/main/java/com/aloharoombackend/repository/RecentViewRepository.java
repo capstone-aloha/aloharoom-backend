@@ -46,4 +46,11 @@ public class RecentViewRepository {
                         recentView.createdDate.eq(lastTime)
                 ).execute();
     }
+
+    public void deleteByBoardId(Long boardId) {
+        queryFactory
+                .delete(recentView)
+                .where(recentView.boardId.eq(boardId))
+                .execute();
+    }
 }

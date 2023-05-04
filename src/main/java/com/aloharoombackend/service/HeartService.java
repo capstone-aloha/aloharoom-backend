@@ -32,6 +32,11 @@ public class HeartService {
         heartRepository.delete(heart);
     }
 
+    @Transactional
+    public void deleteByBoardId(Long boardId) {
+        heartRepository.deleteByBoardId(boardId);
+    }
+
     public List<HeartBoardDto> findByHeartBoard(Long userId) {
         return heartRepository.findByHeartBoard(userId);
     }

@@ -23,6 +23,7 @@ public class BoardService {
     private final CommentService commentService;
     private final AwsS3Service awsS3Service;
     private final HomeImageService homeImageService;
+    private final HeartService heartService;
 
     @Transactional
     public String create(BoardAddDto boardAddDto, List<MultipartFile> imgFiles, Long loginUserId) {
@@ -110,15 +111,20 @@ public class BoardService {
 
     @Transactional
     public String delete(Long boardId) {
-        //board, home, homeImage 삭제
         Board board = findOne(boardId);
         Home home = homeService.findOne(board.getHome().getId());
         List<HomeImage> homeImages = home.getHomeImages();
 
         List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
         deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
-        homeService.delete(home); //Home이 HomeImage의 생명주기를 관리하므로 Home을 삭제하면 연관된 HomeImage들도 삭제된다.
+
+        commentService.deleteByBoardId(boardId); //해당 글의 댓글 삭제
+        heartService.deleteByBoardId(boardId); //해당 글의 좋아요 삭제
+        recentViewService.deleteByBoardId(boardId); //해당 글의 최근 본 글 삭제
+
         boardRepository.delete(board);
+        homeService.delete(home); //Home이 HomeImage의 생명주기를 관리하므로 Home을 삭제하면 연관된 HomeImage들도 삭제된다.
+
         return "방 삭제 완료";
     }
 
