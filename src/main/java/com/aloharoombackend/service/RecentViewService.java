@@ -57,4 +57,9 @@ public class RecentViewService {
 
         return recentViews;
     }
+
+    @Transactional
+    public void deleteByBoardId(Long boardId) {
+        recentViewRepository.deleteByBoardId(boardId);
+    }
 }

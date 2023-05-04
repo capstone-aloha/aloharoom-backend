@@ -36,8 +36,9 @@ public class BoardOneDto {
     private List<String> hashtag;
     private List<String> product;
     private String preferAgeRange; //선호하는 연령층
+    private Boolean isHeart; //좋아요 눌렀는 지 판단
 
-    public BoardOneDto(Board board, Home home, User user) {
+    public BoardOneDto(Board board, Home home, User user, Boolean isHeart) {
         this.contents = board.getContents();
         this.address = home.getAddress();
         this.maintenance = home.getMaintenance();
@@ -66,6 +67,7 @@ public class BoardOneDto {
         if(board.getMinAge() == board.getMaxAge())
             this.preferAgeRange = board.getMinAge().toString();
         else this.preferAgeRange = board.getMinAge() + " ~ " + board.getMaxAge();
+        this.isHeart = isHeart;
     }
 
     public BoardOneDto(Board board, Home home) {

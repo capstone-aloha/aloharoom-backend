@@ -6,6 +6,7 @@ import com.aloharoombackend.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,23 @@ public class BoardService {
     private final UserService userService;
     private final RecentViewService recentViewService;
     private final CommentService commentService;
+    private final AwsS3Service awsS3Service;
+    private final HomeImageService homeImageService;
+    private final HeartService heartService;
 
     @Transactional
-    public Board create(Board board) {
-        return boardRepository.save(board);
+    public String create(BoardAddDto boardAddDto, List<MultipartFile> imgFiles, Long loginUserId) {
+        Home home = new Home(boardAddDto);
+        User user = userService.findOne(loginUserId);
+        Board board = new Board(home, user, boardAddDto);
+
+        //MultipartFile을 s3에 저장 후 해당 주소로 HomeImage 생성
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
+
+        homeService.create(home);
+        boardRepository.save(board);
+        return "방 작성 완료";
     }
 
     public Board findOne(Long boardId) {
@@ -47,7 +61,9 @@ public class BoardService {
         Home home = homeService.findOne(board.getHome().getId());
         Long userId = board.getUser().getId();
         User user = userService.findOneFetch(userId);
-        return new BoardOneDto(board, home, user);
+
+        Boolean isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+        return new BoardOneDto(board, home, user, isHeart);
     }
 
     public List<BoardAllDto> findAll() {
@@ -74,8 +90,44 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(Board board) {
+    public String updateNew(BoardEditDto boardEditDto, List<MultipartFile> imgFiles, Long boardId) {
+        Long homeId = findOne(boardId).getHome().getId();
+
+        //home에 있는 이미지 삭제 => aws 삭제, HomeImage 삭제
+        Home home1 = homeService.findOne(homeId);
+        List<HomeImage> homeImages = home1.getHomeImages();
+        homeImages.forEach(homeImageService::delete); // HomeImage 삭제
+        List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+
+        //업데이트
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home1, imgUrl)).collect(Collectors.toList());
+
+        homeService.update(homeId, boardEditDto, newHomeImages);
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+        board.change(boardEditDto);
+        return "방 수정 완료";
+    }
+
+    @Transactional
+    public String delete(Long boardId) {
+        Board board = findOne(boardId);
+        Home home = homeService.findOne(board.getHome().getId());
+        List<HomeImage> homeImages = home.getHomeImages();
+
+        List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+
+        commentService.deleteByBoardId(boardId); //해당 글의 댓글 삭제
+        heartService.deleteByBoardId(boardId); //해당 글의 좋아요 삭제
+        recentViewService.deleteByBoardId(boardId); //해당 글의 최근 본 글 삭제
+
         boardRepository.delete(board);
+        homeService.delete(home); //Home이 HomeImage의 생명주기를 관리하므로 Home을 삭제하면 연관된 HomeImage들도 삭제된다.
+
+        return "방 삭제 완료";
     }
 
     public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
