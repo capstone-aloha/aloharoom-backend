@@ -105,10 +105,11 @@ public class UserController {
     }
 
     //회원 수정
-    @PatchMapping(path = {"/myPage/{userId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PatchMapping(path = {"/myPage/edit"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public MyPageEditDto myPageEdit(@RequestPart(value = "myPageEditDto") MyPageEditDto myPageEditDto,
                                     @RequestPart MultipartFile profileImg,
-                                    @PathVariable Long userId) {
+                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
         User findUser = userService.findOneFetchAll(userId); //프록시 -> 실객체
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
         List<LikeProduct> likeProducts = findUser.getLikeProducts();
