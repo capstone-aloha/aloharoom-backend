@@ -97,6 +97,13 @@ public class UserController {
         return findUserDto;
     }
 
+    //회원 수정 초기 화면
+    @GetMapping("/myPage/edit")
+    public ResponseEntity myPageEditForm(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
+        return ResponseEntity.ok(userService.findUserEdit(userId));
+    }
+
     //회원 수정
     @PatchMapping(path = {"/myPage/{userId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public MyPageEditDto myPageEdit(@RequestPart(value = "myPageEditDto") MyPageEditDto myPageEditDto,

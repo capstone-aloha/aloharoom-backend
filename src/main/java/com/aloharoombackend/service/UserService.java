@@ -1,5 +1,6 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.MyPageDto;
 import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.UserRepository;
@@ -16,9 +17,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    /**
-     * 회원가입
-     */
     @Transactional
     public Long join(User user) {
         //validateDuplicateMember(user);
@@ -66,6 +64,12 @@ public class UserService {
         findUser.getLikeProducts().stream().
                 forEach(likeProduct -> likeProduct.getName());
         return findUser;
+    }
+
+    //유저 수정 시 초기 화면
+    public MyPageDto findUserEdit(Long userId) {
+        User findUser = findOne(userId);
+        return new MyPageDto(findUser);
     }
 
     //유저 수정
