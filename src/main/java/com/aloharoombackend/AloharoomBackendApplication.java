@@ -1,9 +1,6 @@
 package com.aloharoombackend;
 
-import com.aloharoombackend.dto.BoardAddDto;
-import com.aloharoombackend.dto.CommunityAllDto;
-import com.aloharoombackend.dto.CommunityBoardDto;
-import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.dto.*;
 import com.aloharoombackend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -159,6 +156,15 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(communityBoard7);
 		em.persist(communityBoard8);
 
+		Comment cm1 = new Comment(u1, board1, new AddCommentDto(1L, 1L, 1L, 0, "댓글1", null, 0, null));
+		Comment cm2 = new Comment(u2, board1, new AddCommentDto(2L, 2L, 1L, 0, "댓글2", null, 0, null));
+		Comment cm3 = new Comment(u3, board1, new AddCommentDto(3L, 1L, 1L, 0, "댓글1-1", "댓글1", 1, 1L));
+		Comment cm4 = new Comment(u3, board1, new AddCommentDto(3L, 1L, 1L, 0, "댓글1-2", "댓글1", 1, 1L));
+
+		em.persist(cm1);
+		em.persist(cm2);
+		em.persist(cm3);
+		em.persist(cm4);
 		em.flush(); em.clear();
 	}
 }
