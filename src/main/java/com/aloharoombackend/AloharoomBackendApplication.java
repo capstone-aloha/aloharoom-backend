@@ -1,9 +1,6 @@
 package com.aloharoombackend;
 
-import com.aloharoombackend.dto.BoardAddDto;
-import com.aloharoombackend.dto.CommunityAllDto;
-import com.aloharoombackend.dto.CommunityBoardDto;
-import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.dto.*;
 import com.aloharoombackend.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -53,8 +50,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//방 사진 등록
 		List<String> imgUrls = new ArrayList<>(
-				List.of(new String[]{"d896fedd-fb35-4106-99f1-ac3292eefcad.jpg", "7be53b4d-6fb8-4597-8f11-a3bb48e263d0.jpg",
-						"685bb471-d3cc-436b-9b0e-39fb85663157.jpg", "3af5e9ae-1ab8-4eef-aaa1-53659c5415dc.jpg"}));
+				List.of(new String[]{"68043a45-0d64-4697-bfef-42e93ffb716f.jpg","7a7d702c-d271-4c56-ae79-6c9001aef93a.jpg",
+						"ca83ad2d-adc1-45fe-8478-be42b19ed7a7.jpg", "d238188f-999a-4733-8668-e067798630ef.jpg"}));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList());
@@ -139,8 +136,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
 		List<String> CommunityImgUrls = new ArrayList<>(
-				List.of(new String[]{"d896fedd-fb35-4106-99f1-ac3292eefcad.jpg", "7be53b4d-6fb8-4597-8f11-a3bb48e263d0.jpg",
-						"685bb471-d3cc-436b-9b0e-39fb85663157.jpg", "3af5e9ae-1ab8-4eef-aaa1-53659c5415dc.jpg"}));
+				List.of(new String[]{"68043a45-0d64-4697-bfef-42e93ffb716f.jpg","7a7d702c-d271-4c56-ae79-6c9001aef93a.jpg",
+						"ca83ad2d-adc1-45fe-8478-be42b19ed7a7.jpg", "d238188f-999a-4733-8668-e067798630ef.jpg"}));
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard1, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard2, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard3, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
@@ -159,6 +156,15 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(communityBoard7);
 		em.persist(communityBoard8);
 
+		Comment cm1 = new Comment(u1, board1, new AddCommentDto(1L, 1L, 1L, 0, "댓글1", null, 0, null));
+		Comment cm2 = new Comment(u2, board1, new AddCommentDto(2L, 2L, 1L, 0, "댓글2", null, 0, null));
+		Comment cm3 = new Comment(u3, board1, new AddCommentDto(3L, 1L, 1L, 0, "댓글1-1", "댓글1", 1, 1L));
+		Comment cm4 = new Comment(u3, board1, new AddCommentDto(3L, 1L, 1L, 0, "댓글1-2", "댓글1", 1, 1L));
+
+		em.persist(cm1);
+		em.persist(cm2);
+		em.persist(cm3);
+		em.persist(cm4);
 		em.flush(); em.clear();
 	}
 }
