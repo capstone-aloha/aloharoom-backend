@@ -17,8 +17,9 @@ public class HeartService {
     private final HeartRepository heartRepository;
 
     @Transactional
-    public Heart save(Heart like) {
-        return heartRepository.save(like);
+    public String save(Long boardId, Long loginUserId) {
+        heartRepository.save(new Heart(boardId, loginUserId));
+        return "좋아요 추가 완료";
     }
 
     public Heart findById(HeartId heartId) {
@@ -27,9 +28,10 @@ public class HeartService {
     }
 
     @Transactional
-    public void delete(HeartId heartId) {
-        Heart heart = findById(heartId);
+    public String delete(Long boardId, Long loginUserId) {
+        Heart heart = findById(new HeartId(boardId, loginUserId));
         heartRepository.delete(heart);
+        return "좋아요 삭제 완료";
     }
 
     @Transactional
@@ -37,8 +39,8 @@ public class HeartService {
         heartRepository.deleteByBoardId(boardId);
     }
 
-    public List<HeartBoardDto> findByHeartBoard(Long userId) {
-        return heartRepository.findByHeartBoard(userId);
+    public List<HeartBoardDto> findByHeartBoard(Long loginUserId) {
+        return heartRepository.findByHeartBoard(loginUserId);
     }
 
     public Boolean findByBoardIdAndUserId(Long boardId, Long loginUserId) {
