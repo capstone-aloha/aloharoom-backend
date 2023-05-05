@@ -14,6 +14,7 @@ public class CommunityAllDto {
     private Long communityId;
     private String title;
     private String contents;
+    private Integer views;
     private Integer code;
     private List<String> imgUrls;
 
@@ -21,6 +22,7 @@ public class CommunityAllDto {
         this.communityId = communityBoard.getId();
         this.title = communityBoard.getTitle();
         this.contents = communityBoard.getContents();
+        this.views = communityBoard.getViews();
         this.code = communityBoard.getCode();
         this.imgUrls = communityBoard.getCommunityImages().stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
     }

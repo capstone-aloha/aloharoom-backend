@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +24,7 @@ public class CommunityBoardService{
     private final CommunityBoardRepository communityBoardRepository;
     private final CommunitySearchRepository communitySearchRepository;
     private final CommentService commentService;
+    private Map<Long, List<Long>> viewsMap = new HashMap<>();
 
     @Transactional
     public CommunityBoard create(CommunityBoard communityBoard) {
@@ -48,6 +51,17 @@ public class CommunityBoardService{
         findCommunityId.getCommunityImages().stream().
                 forEach(CommunityImage::getImgUrl);
         return findCommunityId;
+    }
+
+    //조회수 증가
+    @Transactional
+    public void updateViews(Long id, Long userId) {
+        CommunityBoard communityBoard = communityBoardRepository.findById(id).get();
+        List<Long> userIdList = viewsMap.computeIfAbsent(id, k -> new ArrayList<>());
+        if (!userIdList.contains(userId)) {
+            userIdList.add(userId);
+            communityBoard.updateViews(communityBoard.getViews());
+        }
     }
 
     //수정 시 초기화면

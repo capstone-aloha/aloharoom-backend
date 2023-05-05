@@ -46,8 +46,11 @@ public class CommunityBoardController {
 
     //커뮤니티 단건 조회
     @GetMapping("/{communityId}")
-    public CommunityAllDto getOneCommunity(@PathVariable Long communityId) {
+    public CommunityAllDto getOneCommunity(@PathVariable Long communityId,
+                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
         CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
+        Long userId = principalDetails.getUser().getId();
+        communityBoardService.updateViews(communityId, userId);
         CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
         return communityAllDto;
 
@@ -56,8 +59,8 @@ public class CommunityBoardController {
     //커뮤니티 글 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityBoardDto addCommunity(@RequestPart CommunityBoardDto communityBoardDto,
-                                            @RequestPart List<MultipartFile> imgFiles,
-                                            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+                                          @RequestPart List<MultipartFile> imgFiles,
+                                          @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = userService.findOne(principalDetails.getUser().getId());
         CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
 
