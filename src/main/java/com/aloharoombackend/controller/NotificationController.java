@@ -18,13 +18,11 @@ public class NotificationController {
 
     @GetMapping
     public ResponseEntity getNotificationList(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long userId = principalDetails.getUser().getId();
-        return ResponseEntity.ok(notificationService.getNotificationList(userId));
+        return ResponseEntity.ok(notificationService.getNotificationList(principalDetails.getUser().getId()));
     }
 
     @GetMapping("/{notificationId}")
     public ResponseEntity checkNotification(@PathVariable Long notificationId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long loginUserId = principalDetails.getUser().getId();
-        return ResponseEntity.ok(notificationService.checkNotification(notificationId, loginUserId));
+        return ResponseEntity.ok(notificationService.checkNotification(notificationId, principalDetails.getUser().getId()));
     }
 }
