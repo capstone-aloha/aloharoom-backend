@@ -26,10 +26,6 @@ public class SearchController {
     @GetMapping
     public ResponseEntity<List<BoardAllDto>> searchFilter(@RequestBody SearchFilterDto searchFilterDto,
                                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long userId = principalDetails.getUser().getId();
-        User user = userService.findOne(userId);
-        searchFilterDto.setUser(user);
-
-        return ResponseEntity.ok(boardService.searchFilter(searchFilterDto));
+        return ResponseEntity.ok(boardService.searchFilter(principalDetails.getUser().getId(), searchFilterDto));
     }
 }
