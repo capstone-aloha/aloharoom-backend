@@ -71,18 +71,20 @@ public class Home {
     }
 
     public Home change(BoardEditDto boardEditDto, List<HomeImage> homeImages) {
-        this.roomCount = boardEditDto.getRoomCount();
         this.address = boardEditDto.getAddress();
+        this.rent = boardEditDto.getRent();
+        this.maintenance = boardEditDto.getMaintenance();
+        this.flat = boardEditDto.getFlat();
+        this.roomCount = boardEditDto.getRoomCount();
         this.homeType = boardEditDto.getHomeType();
         this.tradeType = boardEditDto.getTradeType();
         this.price = boardEditDto.getPrice();
         this.deposit = boardEditDto.getDeposit();
-        this.flat = boardEditDto.getFlat();
-        this.maintenance = boardEditDto.getMaintenance();
         this.floor = boardEditDto.getFloor();
         this.totalFloor = boardEditDto.getTotalFloor();
         this.startDate = boardEditDto.getStartDate();
-        this.homeImages = homeImages;
+        this.x = boardEditDto.getX();
+        this.y = boardEditDto.getY();
         return this;
     }
 }
