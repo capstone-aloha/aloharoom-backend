@@ -1,15 +1,19 @@
 package com.aloharoombackend.service;
 
+import com.aloharoombackend.dto.HeartBoardDto;
 import com.aloharoombackend.model.RecentView;
+import com.aloharoombackend.repository.BoardRepository;
 import com.aloharoombackend.repository.RecentViewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -17,6 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecentViewService {
     private final RecentViewRepository recentViewRepository;
+//    private final BoardService boardService;
+    private final BoardRepository boardRepository;
 
     @Transactional
     public void create(RecentView recentView) {
@@ -43,7 +49,7 @@ public class RecentViewService {
         recentViewRepository.deleteLastView(userId);
     }
 
-    public List<RecentView> findByUserId(Long userId) {
+    public List<HeartBoardDto> findByUserId(Long userId) {
         List<RecentView> recentViews = recentViewRepository.findByUserId(userId);
 
         Collections.sort(recentViews, new Comparator<RecentView>() {
@@ -55,7 +61,17 @@ public class RecentViewService {
             }
         });
 
-        return recentViews;
+        List<Long> boardIds = recentViews.stream().map(recentView -> recentView.getBoardId()).collect(Collectors.toList());
+//        List<HeartBoardDto> boards = boardService.findByboardIds(boardIds);
+        List<HeartBoardDto> heartBoardDtos = boardRepository.recentViewBoard(boardIds);
+        List<HeartBoardDto> heartBoardDtosSort = new ArrayList<>();
+
+        for (int i = 0; i < heartBoardDtos.size(); i++) {
+            for (int j = 0; j < heartBoardDtos.size(); j++) {
+                if(boardIds.get(i) == heartBoardDtos.get(j).getBoardId()) heartBoardDtosSort.add(heartBoardDtos.get(j));
+            }
+        }
+        return heartBoardDtosSort;
     }
 
     @Transactional

@@ -26,11 +26,6 @@ public class RecentViewController {
 
     @GetMapping
     public ResponseEntity getRecentView(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long userId = principalDetails.getUser().getId();
-        List<RecentView> recentViews = recentViewService.findByUserId(userId);
-        List<Long> boardIds = recentViews.stream().map(recentView -> recentView.getBoardId()).collect(Collectors.toList());
-        List<HeartBoardDto> boards = boardService.findByboardIds(boardIds);
-
-        return ResponseEntity.ok(boards);
+        return ResponseEntity.ok(recentViewService.findByUserId(principalDetails.getUser().getId()));
     }
 }
