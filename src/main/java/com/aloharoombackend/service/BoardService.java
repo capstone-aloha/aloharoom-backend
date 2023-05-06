@@ -131,7 +131,7 @@ public class BoardService {
     }
 
     public List<BoardAllDto> searchFilter(Long loginUserId, SearchFilterDto searchFilterDto) {
-        searchFilterDto.setUser(userService.findOne(loginUserId));
+//        searchFilterDto.setUser(userService.findOne(loginUserId));
         return boardRepository.searchFilter(searchFilterDto);
     }
 
