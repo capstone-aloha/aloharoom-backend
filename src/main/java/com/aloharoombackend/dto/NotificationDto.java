@@ -17,13 +17,21 @@ public class NotificationDto {
     private Long boardId;
     private String content;
     private String createdDate;
+    private Integer flag;
     private Boolean isCheck;
 
     public NotificationDto(Notification notification) {
         this.notificationId = notification.getId();
-        this.boardId = notification.getId();
         this.content = notification.getContent();
         this.isCheck = notification.getIsCheck();
+        if(notification.getBoard() != null) {
+            this.boardId = notification.getBoard().getId();
+            this.flag = 0;
+        } else {
+            this.boardId = notification.getCommunityBoard().getId();
+            this.flag = 1;
+        }
+
         LocalDateTime startDT = notification.getCreatedDate();
         LocalDateTime endDT = LocalDateTime.now();
         Period p = Period.between(startDT.toLocalDate(), endDT.toLocalDate());

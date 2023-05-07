@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    @EntityGraph(attributePaths = {"user","board"})
+    @EntityGraph(attributePaths = {"user","board", "communityBoard"})
     List<Notification> findAllByUserId(Long userId);
 }
