@@ -1,7 +1,9 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.BoardOneDto;
+import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.NotificationDto;
+import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.Notification;
 import com.aloharoombackend.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class NotificationService {
     private final NotificationRepository notificationRepository;
     private final BoardService boardService;
+    private final CommunityBoardService communityBoardService;
 
     public void createNotification(Notification notification) {
         notificationRepository.save(notification);
@@ -42,7 +45,7 @@ public class NotificationService {
 
     //알림 확인
     @Transactional
-    public BoardOneDto checkNotification(Long notificationId, Long loginUserId) {
+    public Object checkNotification(Long notificationId, Long loginUserId) {
         Notification notification = notificationRepository.findById(notificationId)
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("찾는 알림이 없습니다.");
@@ -50,8 +53,12 @@ public class NotificationService {
         //알림 확인
         notification.check();
 
-        if()
-        //해당 게시물 정보 조회
-        return boardService.findOneNew(notification.getBoard().getId(), loginUserId);
+        if(notification.getBoard() != null)
+            return boardService.findOneNew(notification.getBoard().getId(), loginUserId);
+        else {
+            CommunityBoard communityBoard = communityBoardService.findOneFetch(notification.getCommunityBoard().getId());
+            return new CommunityAllDto(communityBoard);
+        }
+
     }
 }
