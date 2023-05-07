@@ -165,6 +165,16 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(cm2);
 		em.persist(cm3);
 		em.persist(cm4);
+
+		Notification n1 = new Notification(u1, board1, "내 게시글 \"서울특별시 성북...\" 글에 admin2님이 댓글을 남겼습니다.");
+		Notification n2 = new Notification(u1, board1, "내 댓글 \"댓글1\"에 admin3님이 댓글을 남겼습니다.");
+		Notification n3 = new Notification(u1, board1, "내 댓글 \"댓글1\"에 admin3님이 댓글을 남겼습니다.");
+		Notification n4 = new Notification(u1, board1, "내 댓글 \"댓글1\"에 admin3님이 댓글을 남겼습니다.");
+		Notification n5 = new Notification(u1, board1, "내 댓글 \"댓글1\"에 admin3님이 댓글을 남겼습니다.");
+		em.persist(n1); em.persist(n2);
+		em.persist(n3); em.persist(n4);
+		em.persist(n5);
+
 		em.flush(); em.clear();
 	}
 }

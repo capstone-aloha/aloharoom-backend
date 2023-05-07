@@ -50,6 +50,7 @@ public class NotificationService {
         //알림 확인
         notification.check();
 
+        if()
         //해당 게시물 정보 조회
         return boardService.findOneNew(notification.getBoard().getId(), loginUserId);
     }
