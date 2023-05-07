@@ -1,11 +1,8 @@
 package com.aloharoombackend.controller;
 
 import com.aloharoombackend.auth.PrincipalDetails;
-import com.aloharoombackend.dto.BoardEditDto;
-import com.aloharoombackend.dto.BoardOneDto;
+import com.aloharoombackend.dto.*;
 import com.aloharoombackend.service.*;
-import com.aloharoombackend.dto.BoardAddDto;
-import com.aloharoombackend.dto.BoardAllDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +18,15 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
 
-    //모든 게시물 조회
+    /* 해당 영역의 모든 방 조회 */
     @GetMapping
-    public ResponseEntity<List<BoardAllDto>> getAllBoard() {
-        return ResponseEntity.ok(boardService.findAll());
+    public ResponseEntity<List<BoardAllDto>> findAllByRange(
+            @RequestParam Double southWestLatitude,
+            @RequestParam Double southWestLongitude,
+            @RequestParam Double northEastLatitude,
+            @RequestParam Double northEastLongitude
+    ) {
+        return ResponseEntity.ok(boardService.findAllByRange(new RangeDto(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude)));
     }
 
     //게시물 단건 조회

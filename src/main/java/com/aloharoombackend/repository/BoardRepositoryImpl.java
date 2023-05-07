@@ -2,6 +2,7 @@ package com.aloharoombackend.repository;
 
 import com.aloharoombackend.dto.BoardAllDto;
 import com.aloharoombackend.dto.HeartBoardDto;
+import com.aloharoombackend.dto.RangeDto;
 import com.aloharoombackend.dto.SearchFilterDto;
 import com.aloharoombackend.model.*;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import static com.aloharoombackend.model.QBoard.*;
 import static com.aloharoombackend.model.QHome.home;
+import static com.aloharoombackend.model.QHomeImage.*;
 import static com.aloharoombackend.model.QMyHashtag.myHashtag;
 import static com.aloharoombackend.model.QUser.user;
 
@@ -24,11 +26,17 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     @Override
-    public List<Board> findAll() {
-        return queryFactory
-                .selectFrom(board)
+    public List<Board> findAllByRange(RangeDto rangeDto) {
+        return  queryFactory
+                .selectFrom(board).distinct()
                 .join(board.user, user).fetchJoin()
-                .where(board.activation.eq(true))
+                .join(board.home, home).fetchJoin()
+                .join(home.homeImages, homeImage).fetchJoin()
+                .where(
+                        board.activation.eq(true),
+                        home.x.between(rangeDto.getSouthWestLatitude(), rangeDto.getNorthEastLatitude()),
+                        home.y.between(rangeDto.getSouthWestLongitude(), rangeDto.getNorthEastLongitude())
+                )
                 .fetch();
     }
 

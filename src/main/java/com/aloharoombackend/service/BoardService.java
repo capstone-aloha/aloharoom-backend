@@ -66,9 +66,8 @@ public class BoardService {
         return new BoardOneDto(board, home, user, isHeart);
     }
 
-    public List<BoardAllDto> findAll() {
-        List<Board> boards = boardRepository.findAll();
-        List<Home> homes = homeService.findAll();
+    public List<BoardAllDto> findAllByRange(RangeDto rangeDto) {
+        List<Board> boards = boardRepository.findAllByRange(rangeDto);
 
         //HomeComment 초기화
         boards.stream().forEach(board -> {
@@ -77,7 +76,7 @@ public class BoardService {
 
         List<BoardAllDto> boardAllDtos = new ArrayList<>();
         for (int i = 0; i < boards.size(); i++) {
-            boardAllDtos.add(new BoardAllDto(boards.get(i), homes.get(i)));
+            boardAllDtos.add(new BoardAllDto(boards.get(i), boards.get(i).getHome()));
         }
         return boardAllDtos;
     }
