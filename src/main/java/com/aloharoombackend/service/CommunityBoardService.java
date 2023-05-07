@@ -1,15 +1,19 @@
 package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.CommunityAllDto;
+import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.CommunityEditDto;
 import com.aloharoombackend.model.Comment;
 import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.CommunityImage;
+import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.CommunityBoardRepository;
 import com.aloharoombackend.repository.CommunitySearchRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,14 +25,30 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CommunityBoardService{
+    private final UserService userService;
+    private final AwsS3Service awsS3Service;
+    private final CommunityImageService communityImageService;
     private final CommunityBoardRepository communityBoardRepository;
     private final CommunitySearchRepository communitySearchRepository;
     private final CommentService commentService;
     private Map<Long, List<Long>> viewsMap = new HashMap<>();
 
+
+    //커뮤니티 생성
     @Transactional
-    public CommunityBoard create(CommunityBoard communityBoard) {
-        return communityBoardRepository.save(communityBoard);
+    public CommunityBoardDto create(CommunityBoardDto communityBoardDto, List<MultipartFile> imgFiles, Long userId) {
+        User user = userService.findOne(userId);
+        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
+
+        //imgFiles -> s3 저장 ->  그 주소로 CommunityImages 생성
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        List<CommunityImage> communityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
+
+        //DB 저장
+        communityBoardRepository.save(communityBoard);
+        communityImageService.create(communityImages);
+
+        return communityBoardDto;
     }
 
     public CommunityBoard findOne(Long communityId) {
@@ -36,13 +56,18 @@ public class CommunityBoardService{
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
     }
 
-    public List<CommunityBoard> findAll() {
+    public List<CommunityAllDto> findAll() {
         List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
                     .forEach(communityImage -> communityImage.getId());
         });
-        return communityBoards;
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
     }
 
     public CommunityBoard findOneFetch(Long id) { // 프록시->실객체 생성
@@ -51,6 +76,14 @@ public class CommunityBoardService{
         findCommunityId.getCommunityImages().stream().
                 forEach(CommunityImage::getImgUrl);
         return findCommunityId;
+    }
+
+    //상세 보기
+    @Transactional
+    public CommunityAllDto findCommunityOne(Long communityId, Long userId) {
+        CommunityBoard communityBoard = findOneFetch(communityId);
+        updateViews(communityId, userId);
+        return new CommunityAllDto(communityBoard);
     }
 
     //조회수 증가
@@ -71,15 +104,31 @@ public class CommunityBoardService{
     }
 
     @Transactional
-    public CommunityBoard update(Long communityId, CommunityEditDto communityEditDto, List<CommunityImage> communityImages) {
-        CommunityBoard communityBoard = communityBoardRepository.findById(communityId)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
-        return communityBoard.change(communityEditDto, communityImages);
+    public CommunityEditDto update(Long communityId, CommunityEditDto communityEditDto, List<MultipartFile> imgFiles) {
+        CommunityBoard communityBoard = findOneFetch(communityId);
+
+        //이미지 삭제
+        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+        communityImages.forEach(communityImageService::delete);
+        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage);
+
+        //업데이트
+        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
+        List<CommunityImage> newCommunityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
+        communityBoard.change(communityEditDto, newCommunityImages);
+        return communityEditDto;
     }
 
     @Transactional
-    public void delete(CommunityBoard communityBoard) {
+    public String delete(Long communityId) {
+        CommunityBoard communityBoard = findOneFetch(communityId);
+        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        deleteImgUrls.forEach(awsS3Service::deleteImage);
+
         communityBoardRepository.delete(communityBoard);
+        return "커뮤니티 삭제 완료";
     }
 
     public List<CommunityBoard> searchCommunity(String keyword) {
