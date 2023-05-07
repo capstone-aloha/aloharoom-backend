@@ -15,9 +15,9 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardReposi
     @EntityGraph(attributePaths = {"home"})
     Optional<Board> findById(Long boardId);
 
-    @Override
-    @EntityGraph(attributePaths = {"user"})
-    List<Board> findAll();
+//    @Override
+//    @EntityGraph(attributePaths = {"user"})
+//    List<Board> findAll();
 
     List<Board> findAllByUserId(Long userId);
 }

@@ -147,6 +147,22 @@ public class BoardService {
         return heartBoardDtosSort;
     }
 
+    /* 방 비활성화 (매칭완료) */
+    @Transactional
+    public String deactivate(Long boardId) {
+        findOne(boardId).deactivate();
+        heartService.deleteByBoardId(boardId);
+        recentViewService.deleteByBoardId(boardId);
+        return "방 비활성화 완료";
+    }
+
+    /* 방 활성화 */
+    @Transactional
+    public String activate(Long boardId) {
+        findOne(boardId).activate();
+        return "방 활성화 완료";
+    }
+
     //내가 쓴 방 조회
     public List<BoardOneDto> getMyBoard(Long userId) {
         Board board = boardRepository.findById(userId)

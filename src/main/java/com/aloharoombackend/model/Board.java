@@ -39,12 +39,15 @@ public class Board extends BaseEntity{
     @OneToMany(mappedBy = "board")
     private List<Comment> comments;
 
+    private Boolean activation; //활성화
+
     public Board(Home home, User user, BoardAddDto boardAddDto) {
         this.home = home; //나중에 연관관계 메서드
         this.contents = boardAddDto.getContents();
         this.user = user;
         this.minAge = boardAddDto.getAgeRange().get(0);
         this.maxAge = boardAddDto.getAgeRange().get(1);
+        this.activation = true;
     }
 
     public Board change(BoardEditDto boardEditDto) {
@@ -53,5 +56,13 @@ public class Board extends BaseEntity{
         this.minAge = ageRange.get(0);
         this.maxAge = ageRange.get(1);
         return this;
+    }
+
+    public void deactivate() {
+        this.activation = false;
+    }
+
+    public void activate() {
+        this.activation = true;
     }
 }

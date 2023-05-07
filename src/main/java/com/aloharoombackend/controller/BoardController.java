@@ -61,6 +61,19 @@ public class BoardController {
         return ResponseEntity.ok(boardService.delete(boardId));
     }
 
+    //방 비활성화 (매칭완료)
+    @PostMapping("/deactivate/{boardId}")
+    public ResponseEntity deactivateBoard(@PathVariable Long boardId) {
+        //Board에 속성 하나 추가하면 될듯 => 전체 글 뿌려줄 때 필터 => 촤근 본 글, 좋아요한 글에서도 없어져야함.
+        return ResponseEntity.ok(boardService.deactivate(boardId));
+    }
+
+    //방 활성화
+    @PostMapping("/activate/{boardId}")
+    public ResponseEntity activateBoard(@PathVariable Long boardId) {
+        return ResponseEntity.ok(boardService.activate(boardId));
+    }
+
     //내가 쓴 방 조회
     @GetMapping("/my/board")
     public ResponseEntity getMyBoard(@AuthenticationPrincipal PrincipalDetails principalDetails) {

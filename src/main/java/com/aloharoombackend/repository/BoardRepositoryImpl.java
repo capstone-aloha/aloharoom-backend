@@ -24,6 +24,15 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
     }
 
     @Override
+    public List<Board> findAll() {
+        return queryFactory
+                .selectFrom(board)
+                .join(board.user, user).fetchJoin()
+                .where(board.activation.eq(true))
+                .fetch();
+    }
+
+    @Override
     public List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto) {
         Integer minAge = searchFilterDto.getAgeRange().get(0);
         Integer maxAge = searchFilterDto.getAgeRange().get(1);
