@@ -28,51 +28,28 @@ import java.util.stream.Collectors;
 public class CommunityBoardController {
 
     public final CommunityBoardService communityBoardService;
-    public final CommunityImageService communityImageService;
-    public final UserService userService;
-    public final AwsS3Service awsS3Service;
 
     //커뮤니티 전체 조회
     @GetMapping
-    public List<CommunityAllDto> getAllCommunity() {
-        List<CommunityBoard> communityBoards = communityBoardService.findAll();
-
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (int i = 0; i < communityBoards.size(); i++) {
-            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
-        }
-        return communityAllDtos;
+    public ResponseEntity<List<CommunityAllDto>> getAllCommunity() {
+        return ResponseEntity.ok(communityBoardService.findAll());
     }
 
-    //커뮤니티 단건 조회
+    //커뮤니티 상세 보기
     @GetMapping("/{communityId}")
-    public CommunityAllDto getOneCommunity(@PathVariable Long communityId,
+    public ResponseEntity<CommunityAllDto> getOneCommunity(@PathVariable Long communityId,
                                            @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId);
         Long userId = principalDetails.getUser().getId();
-        communityBoardService.updateViews(communityId, userId);
-        CommunityAllDto communityAllDto = new CommunityAllDto(communityBoard);
-        return communityAllDto;
-
+        return ResponseEntity.ok(communityBoardService.findCommunityOne(communityId, userId));
     }
 
     //커뮤니티 글 작성
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public CommunityBoardDto addCommunity(@RequestPart CommunityBoardDto communityBoardDto,
+    public ResponseEntity addCommunity(@RequestPart CommunityBoardDto communityBoardDto,
                                           @RequestPart List<MultipartFile> imgFiles,
                                           @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        User user = userService.findOne(principalDetails.getUser().getId());
-        CommunityBoard communityBoard = new CommunityBoard(user, communityBoardDto);
-
-        //MultipartFile을 s3에 저장 후 해당 주소로 CommunityImages 생성
-        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
-        List<CommunityImage> communityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
-
-        //DB 저장
-        communityBoardService.create(communityBoard);
-        communityImageService.create(communityImages);
-
-        return communityBoardDto;
+        Long userId = principalDetails.getUser().getId();
+        return ResponseEntity.ok(communityBoardService.create(communityBoardDto, imgFiles, userId));
     }
 
     //커뮤니티 수정 시 초기화면
@@ -84,37 +61,15 @@ public class CommunityBoardController {
     //커뮤니티 글 수정
     @PatchMapping(path = {"/edit/{communityId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public CommunityEditDto editCommunity(@RequestPart CommunityEditDto communityEditDto,
-                                          @RequestPart List<MultipartFile> imgFiles,
-                                          @PathVariable Long communityId) {
-        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId); //프록시 초기화
-
-        //이미지 삭제
-        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
-        communityImages.forEach(communityImageService::delete);
-        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
-        deleteImgUrls.forEach(awsS3Service::deleteImage);
-
-        //업데이트
-        List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
-        List<CommunityImage> newCommunityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
-
-        communityBoardService.update(communityId, communityEditDto, newCommunityImages);
-        communityImageService.create(newCommunityImages);
-        return communityEditDto;
+                                                        @RequestPart List<MultipartFile> imgFiles,
+                                                        @PathVariable Long communityId) {
+        return ResponseEntity.ok(communityBoardService.update(communityId, communityEditDto, imgFiles)).getBody();
     }
 
     //커뮤니티 글 삭제
     @DeleteMapping("/{communityId}")
     public ResponseEntity deleteCommunity(@PathVariable Long communityId) {
-        CommunityBoard communityBoard = communityBoardService.findOneFetch(communityId); //프록시 초기화
-        List<CommunityImage> communityImages = communityBoard.getCommunityImages();
-        communityImages.forEach(communityImageService::delete);
-
-        List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
-        deleteImgUrls.forEach(awsS3Service::deleteImage);
-        communityBoardService.delete(communityBoard);
-
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(communityBoardService.delete(communityId));
     }
 
     //내가 쓴 커뮤니티 조회

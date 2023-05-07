@@ -33,8 +33,9 @@ public class UserController {
     private final AwsS3Service awsS3Service;
 
     //해시태그, 가전제품(like) 조회
-    @GetMapping("/{userId}/home")
-    public UserInfoDto getUserInfo(@PathVariable Long userId) {
+    @GetMapping("/home")
+    public UserInfoDto getUserInfo(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
         User findUser = userService.findOneFetchAll(userId);
         UserInfoDto userInfoDto = new UserInfoDto(findUser);
         return userInfoDto;
@@ -90,8 +91,9 @@ public class UserController {
     }
 
     //회원 조회
-    @GetMapping("/myPage/{userId}")
-    public MyPageDto myPage(@PathVariable Long userId) {
+    @GetMapping("/myPage")
+    public MyPageDto myPage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
         User findUser = userService.findOneFetchAll(userId);
         MyPageDto findUserDto = new MyPageDto(findUser);
         return findUserDto;
@@ -148,8 +150,9 @@ public class UserController {
     }
 
     //회원 탈퇴
-    @DeleteMapping("/myPage/{userId}")
-    public ResponseEntity deleteUser(@PathVariable Long userId) {
+    @DeleteMapping("/myPage")
+    public ResponseEntity deleteUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
         User user = userService.findOneFetchAll(userId);
         userService.delete(user);
 
