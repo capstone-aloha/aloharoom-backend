@@ -1,18 +1,13 @@
 package com.aloharoombackend.service;
 
-import com.aloharoombackend.dto.BoardOneDto;
-import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.NotificationDto;
-import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.model.Notification;
 import com.aloharoombackend.repository.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,22 +38,26 @@ public class NotificationService {
                 .collect(Collectors.toList());
     }
 
+    /* 안 읽은 알림 갯수 조회 */
+    public Map getNotificationCount(Long loginUserId) {
+        Map<String, Integer> map = new HashMap<>();
+        final int[] count = {0};
+        notificationRepository.findAllByUserId(loginUserId).stream()
+                        .forEach(notification -> {
+                            if(!notification.getIsCheck()) count[0]++;
+                        });
+        map.put("notificationCount", count[0]);
+        return map;
+    }
+
     //알림 확인
     @Transactional
-    public Object checkNotification(Long notificationId, Long loginUserId) {
+    public String checkNotification(Long notificationId) {
         Notification notification = notificationRepository.findById(notificationId)
                 .orElseThrow(() -> {
                     throw new IllegalArgumentException("찾는 알림이 없습니다.");
                 });
-        //알림 확인
         notification.check();
-
-        if(notification.getBoard() != null)
-            return boardService.findOneNew(notification.getBoard().getId(), loginUserId);
-        else {
-            CommunityBoard communityBoard = communityBoardService.findOneFetch(notification.getCommunityBoard().getId());
-            return new CommunityAllDto(communityBoard);
-        }
-
+        return "알림 확인 완료";
     }
 }

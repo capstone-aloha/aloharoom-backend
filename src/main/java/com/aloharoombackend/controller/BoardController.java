@@ -33,7 +33,10 @@ public class BoardController {
     @GetMapping("/{boardId}")
     public ResponseEntity<BoardOneDto> getBoardOne(@PathVariable Long boardId, 
                                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok(boardService.findOneNew(boardId, principalDetails.getUser().getId()));
+        if(principalDetails == null)
+            return ResponseEntity.ok(boardService.findOneNew(boardId, null));
+        else
+            return ResponseEntity.ok(boardService.findOneNew(boardId, principalDetails.getUser().getId()));
     }
 
     //게시물 작성
