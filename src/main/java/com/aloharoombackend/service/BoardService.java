@@ -53,16 +53,19 @@ public class BoardService {
 
     @Transactional //최근 본 글 때문에 추가
     public BoardOneDto findOneNew(Long boardId, Long loginUserId) {
-        RecentView recentView = new RecentView(boardId, loginUserId);
-        recentViewService.create(recentView);
-
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
-        Home home = homeService.findOne(board.getHome().getId());
+        Home home = homeService.findOne(board.getHome().getId()); //이 쿼리가 나가지 않음.
+        System.out.println("Images = " + home.getHomeImages().get(0)); //이걸 해야만 HomeImage가 실객체로 변환됨.
+
         Long userId = board.getUser().getId();
         User user = userService.findOneFetch(userId);
-
-        Boolean isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+        Boolean isHeart = false;
+        if(loginUserId != null) {
+            RecentView recentView = new RecentView(boardId, loginUserId);
+            recentViewService.create(recentView);
+            isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+        }
         return new BoardOneDto(board, home, user, isHeart);
     }
 
