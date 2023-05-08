@@ -21,6 +21,11 @@ public class NotificationController {
         return ResponseEntity.ok(notificationService.getNotificationList(principalDetails.getUser().getId()));
     }
 
+    @GetMapping("/count")
+    ResponseEntity getNotificationCount(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(notificationService.getNotificationCount(principalDetails.getUser().getId()));
+    }
+
     @GetMapping("/{notificationId}")
     public ResponseEntity checkNotification(@PathVariable Long notificationId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         return ResponseEntity.ok(notificationService.checkNotification(notificationId, principalDetails.getUser().getId()));

@@ -10,9 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +39,18 @@ public class NotificationService {
         });
         return notifications.stream().map(notification -> new NotificationDto(notification))
                 .collect(Collectors.toList());
+    }
+
+    /* 안 읽은 알림 갯수 조회 */
+    public Map getNotificationCount(Long loginUserId) {
+        Map<String, Integer> map = new HashMap<>();
+        final int[] count = {0};
+        notificationRepository.findAllByUserId(loginUserId).stream()
+                        .forEach(notification -> {
+                            if(!notification.getIsCheck()) count[0]++;
+                        });
+        map.put("notificationCount", count[0]);
+        return map;
     }
 
     //알림 확인
