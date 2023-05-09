@@ -10,7 +10,6 @@ import com.aloharoombackend.model.User;
 import com.aloharoombackend.repository.CommunityBoardRepository;
 import com.aloharoombackend.repository.CommunitySearchRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -70,6 +69,7 @@ public class CommunityBoardService{
         return communityAllDtos;
     }
 
+    //커뮤니티 code로 전체 조회
     public List<CommunityAllDto> findAllByCode(Integer code) {
         List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
 
