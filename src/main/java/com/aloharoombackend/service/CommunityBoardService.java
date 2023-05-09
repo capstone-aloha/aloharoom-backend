@@ -117,7 +117,7 @@ public class CommunityBoardService{
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
         List<CommunityImage> newCommunityImages = imgUrls.stream().map(imgUrl -> new CommunityImage(communityBoard, imgUrl)).collect(Collectors.toList());
         communityBoard.change(communityEditDto, newCommunityImages);
-        return communityEditDto;
+        return new CommunityEditDto(communityBoard);
     }
 
     @Transactional
