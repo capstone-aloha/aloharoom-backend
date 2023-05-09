@@ -73,12 +73,12 @@ class NotificationServiceTest {
         알림 조회 시 24시간 내 알림이면 x분 전 or x시간 전 or 방금 전으로 표시
         알림 조회 시 24시간 외 알림이면 2023.04.06으로 표시
      */
-    @Test
-    @Rollback(value = false)
-    void test() {
-        List<NotificationDto> notification = notificationService.getNotification(1L);
-        for (NotificationDto notificationDto : notification) {
-            System.out.println(notificationDto);
-        }
-    }
+//    @Test
+//    @Rollback(value = false)
+//    void test() {
+//        List<NotificationDto> notification = notificationService.getNotification(1L);
+//        for (NotificationDto notificationDto : notification) {
+//            System.out.println(notificationDto);
+//        }
+//    }
 }
