@@ -29,12 +29,28 @@ public class CommunityBoardController {
 
     public final CommunityBoardService communityBoardService;
 
-    //커뮤니티 전체 조회
-    @GetMapping
-    public ResponseEntity<List<CommunityAllDto>> getAllCommunity() {
-        return ResponseEntity.ok(communityBoardService.findAll());
+    /*//커뮤니티 code1 조회
+    @GetMapping("/1")
+    public ResponseEntity<List<CommunityAllDto>> getCode1(@RequestParam Integer code1) {
+        return ResponseEntity.ok(communityBoardService.findAllByCode(code1));
     }
 
+    //커뮤니티 code2 조회
+    @GetMapping("/2")
+    public ResponseEntity<List<CommunityAllDto>> getCode2(@RequestParam Integer code2) {
+        return ResponseEntity.ok(communityBoardService.findAllByCode(code2));
+    }
+
+    //커뮤니티 code3 조회
+    @GetMapping("/3")
+    public ResponseEntity<List<CommunityAllDto>> getCode3(@RequestParam Integer code3) {
+        return ResponseEntity.ok(communityBoardService.findAllByCode(code3));
+    }*/
+
+    @GetMapping("code/{code}")
+    public ResponseEntity<List<CommunityAllDto>> getAllByCode(@PathVariable Integer code) {
+        return ResponseEntity.ok(communityBoardService.findAllByCode(code));
+    }
     //커뮤니티 상세 보기
     @GetMapping("/{communityId}")
     public ResponseEntity<CommunityAllDto> getOneCommunity(@PathVariable Long communityId,

@@ -70,6 +70,21 @@ public class CommunityBoardService{
         return communityAllDtos;
     }
 
+    public List<CommunityAllDto> findAllByCode(Integer code) {
+        List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
+
+        //code가 동일한 CommunityBoard만 필터링
+        communityBoards = communityBoards.stream()
+                .filter(communityBoard -> communityBoard.getCode() == code)
+                .collect(Collectors.toList());
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (CommunityBoard communityBoard : communityBoards) {
+            communityAllDtos.add(new CommunityAllDto(communityBoard));
+        }
+        return communityAllDtos;
+    }
+
     public CommunityBoard findOneFetch(Long id) { // 프록시->실객체 생성
         CommunityBoard findCommunityId = communityBoardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
