@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class CommunityAllDto {
+    private Long userId;
+    private String nickname;
     private Long communityId;
     private String title;
     private String contents;
@@ -19,6 +21,8 @@ public class CommunityAllDto {
     private List<String> imgUrls;
 
     public CommunityAllDto(CommunityBoard communityBoard) {
+        this.userId = communityBoard.getUser().getId();
+        this.nickname = communityBoard.getUser().getNickname();
         this.communityId = communityBoard.getId();
         this.title = communityBoard.getTitle();
         this.contents = communityBoard.getContents();

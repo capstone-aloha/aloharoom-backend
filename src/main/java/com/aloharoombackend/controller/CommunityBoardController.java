@@ -4,13 +4,7 @@ import com.aloharoombackend.auth.PrincipalDetails;
 import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.CommunityEditDto;
-import com.aloharoombackend.model.CommunityBoard;
-import com.aloharoombackend.model.CommunityImage;
-import com.aloharoombackend.model.User;
-import com.aloharoombackend.service.AwsS3Service;
 import com.aloharoombackend.service.CommunityBoardService;
-import com.aloharoombackend.service.CommunityImageService;
-import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/communityboard")
@@ -30,9 +22,9 @@ public class CommunityBoardController {
     public final CommunityBoardService communityBoardService;
 
     //커뮤니티 전체 조회
-    @GetMapping
-    public ResponseEntity<List<CommunityAllDto>> getAllCommunity() {
-        return ResponseEntity.ok(communityBoardService.findAll());
+    @GetMapping("code/{code}")
+    public ResponseEntity<List<CommunityAllDto>> getAllByCode(@PathVariable Integer code) {
+        return ResponseEntity.ok(communityBoardService.findAllByCode(code));
     }
 
     //커뮤니티 상세 보기

@@ -2,26 +2,66 @@ package com.aloharoombackend.service;
 
 import com.aloharoombackend.dto.MyPageDto;
 import com.aloharoombackend.dto.MyPageEditDto;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.dto.SignUpDto;
+import com.aloharoombackend.dto.UserInfoDto;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
-
+    private final LikeProductService likeProductService;
+    private final MyProductService myProductService;
+    private final LikeHashtagService likeHashtagService;
+    private final MyHashtagService myHashtagService;
+    private final AwsS3Service awsS3Service;
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
-    public Long join(User user) {
-        //validateDuplicateMember(user);
+    public String signUp(SignUpDto signUpDto) {
+        User user = new User(signUpDto);
+        user.setRole("ROLE_USER");
+        user.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png");
+        String rawPassword = user.getPassword(); //입력받은 pw
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
+        user.setPassword(encPassword);
+
+        List<LikeProduct> likeProducts = signUpDto.getLikeProducts()
+                .stream().map(likeProduct -> new LikeProduct(likeProduct, user)).collect(Collectors.toList());
+        List<MyProduct> myProducts = signUpDto.getMyProducts()
+                .stream().map(myProduct -> new MyProduct(myProduct, user)).collect(Collectors.toList());
+        List<LikeHashtag> likeHashtags = signUpDto.getLikeHashtags()
+                .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, user)).collect(Collectors.toList());
+        List<MyHashtag> myHashtags = signUpDto.getMyHashtags()
+                .stream().map(myHashtag -> new MyHashtag(myHashtag, user)).collect(Collectors.toList());
+
         userRepository.save(user);
-        return user.getId();
+        likeProductService.create(likeProducts);
+        myProductService.create(myProducts);
+        likeHashtagService.create(likeHashtags);
+        myHashtagService.create(myHashtags);
+        return "회원가입 완료";
+    }
+
+    //username 중복 체크
+    public boolean checkUsernameDuplicate(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    //nickname 중복 체크
+    public boolean checkNicknameDuplicate(String nickname) {
+        return userRepository.existsByNickname(nickname);
     }
 
     private void validateDuplicateMember(User user) {
@@ -56,44 +96,96 @@ public class UserService {
         User findUser = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
         findUser.getMyHashtags().stream().
-                forEach(myHashtag -> myHashtag.getHash());
+                forEach(MyHashtag::getHash);
         findUser.getMyProducts().stream().
-                forEach(myProduct -> myProduct.getName());
+                forEach(MyProduct::getName);
         findUser.getLikeHashtags().stream().
-                forEach(likeHashtag -> likeHashtag.getHash());
+                forEach(LikeHashtag::getHash);
         findUser.getLikeProducts().stream().
-                forEach(likeProduct -> likeProduct.getName());
+                forEach(LikeProduct::getName);
         return findUser;
     }
 
-    //유저 수정 시 초기 화면
+    //회원 조회
+    public MyPageDto findUser(Long userId) {
+        User findUser = findOneFetchAll(userId);
+        return new MyPageDto(findUser);
+    }
+
+    //회원의 해시태그, 가전제품 조회
+    public UserInfoDto findOneInfo(Long userId) {
+        User findUser = findOneFetchAll(userId);
+        return new UserInfoDto(findUser);
+    }
+
+    //회원 수정 시 초기 화면
     public MyPageDto findUserEdit(Long userId) {
         User findUser = findOne(userId);
         return new MyPageDto(findUser);
     }
 
-    //유저 수정
+    //영속성 컨텍스트
+    public User getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    //회원 수정
     @Transactional
-    public User update(Long userId, MyPageEditDto myPageEditDto, String profileUrl) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 사용자는 존재하지 않습니다."));
+    public String update(Long userId, MyPageEditDto myPageEditDto, MultipartFile profileImg) {
+        User findUser = getUserById(userId);
+        String profileUrl = awsS3Service.uploadProfile(profileImg);
+        String rawPassword = myPageEditDto.getPassword(); //입력받은 pw
+        String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
+        myPageEditDto.setPassword(encPassword);
 
-        user.edit(myPageEditDto, profileUrl);
-        return user.edit(myPageEditDto, profileUrl);
-    }
+        //삭제
+        List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
+        List<LikeProduct> likeProducts = findUser.getLikeProducts();
+        List<MyHashtag> myHashtags = findUser.getMyHashtags();
+        List<MyProduct> myProducts = findUser.getMyProducts();
 
-    //username 중복 체크
-    public boolean checkUsernameDuplicate(String username) {
-        return userRepository.existsByUsername(username);
-    }
+        likeProducts.forEach(likeProductService::delete);
+        myProducts.forEach(myProductService::delete);
+        likeHashtags.forEach(likeHashtagService::delete);
+        myHashtags.forEach(myHashtagService::delete);
 
-    //nickname 중복 체크
-    public boolean checkNicknameDuplicate(String nickname) {
-        return userRepository.existsByNickname(nickname);
+        //새로 생성
+        List<LikeProduct> newLikeProducts = myPageEditDto.getLikeProducts()
+                .stream().map(likeProduct -> new LikeProduct(likeProduct, findUser)).collect(Collectors.toList());
+        List<MyProduct> newMyProducts = myPageEditDto.getMyProducts()
+                .stream().map(myProduct -> new MyProduct(myProduct, findUser)).collect(Collectors.toList());
+        List<LikeHashtag> newLikeHashtags = myPageEditDto.getLikeHashtags()
+                .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, findUser)).collect(Collectors.toList());
+        List<MyHashtag> newMyHashtags = myPageEditDto.getMyHashtags()
+                .stream().map(myHashtag -> new MyHashtag(myHashtag, findUser)).collect(Collectors.toList());
+
+        //업데이트
+        findUser.edit(myPageEditDto, profileUrl);
+        likeProductService.create(newLikeProducts);
+        myProductService.create(newMyProducts);
+        likeHashtagService.create(newLikeHashtags);
+        myHashtagService.create(newMyHashtags);
+        return "수정 성공";
     }
 
     @Transactional
-    public void delete(User user) {
-        userRepository.delete(user);
+    public String delete(Long userId) {
+        User findUser = getUserById(userId);
+        List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
+        List<LikeProduct> likeProducts = findUser.getLikeProducts();
+        List<MyHashtag> myHashtags = findUser.getMyHashtags();
+        List<MyProduct> myProducts = findUser.getMyProducts();
+
+        likeProducts.forEach(likeProductService::delete);
+        myProducts.forEach(myProductService::delete);
+        likeHashtags.forEach(likeHashtagService::delete);
+        myHashtags.forEach(myHashtagService::delete);
+        userRepository.delete(findUser);
+        return "회원 탈퇴 완료";
     }
 }
