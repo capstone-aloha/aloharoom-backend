@@ -146,22 +146,32 @@ public class CommunityBoardService{
         return "커뮤니티 삭제 완료";
     }
 
-    public List<CommunityBoard> searchCommunity(String keyword) {
+    public List<CommunityAllDto> searchCommunity(String keyword) {
         List<CommunityBoard> communityBoards = communityBoardRepository.findByTitleContaining(keyword);
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
                     .forEach(communityImage -> communityImage.getId());
         });
-        return communityBoards;
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
     }
 
-    public List<CommunityBoard> searchCommunityByNickName(String nickname) {
+    public List<CommunityAllDto> searchCommunityByNickName(String nickname) {
         List<CommunityBoard> communityBoards = communitySearchRepository.searchByNickName(nickname);
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
                     .forEach(communityImage -> communityImage.getId());
         });
-        return communityBoards;
+
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (int i = 0; i < communityBoards.size(); i++) {
+            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
+        }
+        return communityAllDtos;
     }
 
     //내가 쓴 커뮤니티 조회
