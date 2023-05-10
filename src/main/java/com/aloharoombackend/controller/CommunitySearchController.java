@@ -1,13 +1,11 @@
 package com.aloharoombackend.controller;
 
 import com.aloharoombackend.dto.CommunityAllDto;
-import com.aloharoombackend.model.CommunityBoard;
 import com.aloharoombackend.service.CommunityBoardService;
-import com.aloharoombackend.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,27 +13,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunitySearchController {
     private final CommunityBoardService communityBoardService;
-    private final UserService userService;
 
     @GetMapping
-    public List<CommunityAllDto> searchCommunity(@RequestParam String keyword) {
-        List<CommunityBoard> communityBoards = communityBoardService.searchCommunity(keyword);
-
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (int i = 0; i < communityBoards.size(); i++) {
-            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
-        }
-        return communityAllDtos;
+    public ResponseEntity<List<CommunityAllDto>> searchCommunity(@RequestParam String keyword,
+                                                                 @RequestParam Integer code) {
+        return ResponseEntity.ok(communityBoardService.searchCommunity(keyword, code));
     }
 
     @GetMapping("/nickname")
-    public List<CommunityAllDto> searchCommunityByNickName(@RequestParam String nickname) {
-        List<CommunityBoard> communityBoards = communityBoardService.searchCommunityByNickName(nickname);
-
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (int i = 0; i < communityBoards.size(); i++) {
-            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
-        }
-        return communityAllDtos;
+    public ResponseEntity<List<CommunityAllDto>> searchCommunityByNickName(@RequestParam String nickname,
+                                                                           @RequestParam Integer code) {
+        return ResponseEntity.ok(communityBoardService.searchCommunityByNickName(nickname, code));
     }
 }

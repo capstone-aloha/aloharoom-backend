@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface CommunityBoardRepository extends JpaRepository<CommunityBoard, Long> {
     List<CommunityBoard> findByTitleContaining(String keyword);
+    List<CommunityBoard> findByTitleContainingAndCode(String keyword, Integer code);
     List<CommunityBoard> findAllByUserId(Long userId);
 }
