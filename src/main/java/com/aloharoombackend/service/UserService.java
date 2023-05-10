@@ -32,6 +32,7 @@ public class UserService {
     public String signUp(SignUpDto signUpDto) {
         User user = new User(signUpDto);
         user.setRole("ROLE_USER");
+        user.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png");
         String rawPassword = user.getPassword(); //입력받은 pw
         String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
         user.setPassword(encPassword);
