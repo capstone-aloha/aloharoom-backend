@@ -15,11 +15,12 @@ public class CommunitySearchRepository {
 
     private final EntityManager em;
 
-    public List<CommunityBoard> searchByNickName(String nickname) {
+    public List<CommunityBoard> searchByNickNameAndCode(String nickname, Integer code) {
 
-        String jpql = "select c from CommunityBoard c where c.user.nickname = :nickname";
+        String jpql = "select c from CommunityBoard c where c.user.nickname = :nickname and c.code = :code";
         List<CommunityBoard> list = em.createQuery(jpql, CommunityBoard.class)
                 .setParameter("nickname", nickname)
+                .setParameter("code", code)
                 .getResultList();
         return list;
     }

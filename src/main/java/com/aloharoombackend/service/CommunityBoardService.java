@@ -145,9 +145,14 @@ public class CommunityBoardService{
         communityBoardRepository.delete(communityBoard);
         return "커뮤니티 삭제 완료";
     }
-
-    public List<CommunityAllDto> searchCommunity(String keyword) {
-        List<CommunityBoard> communityBoards = communityBoardRepository.findByTitleContaining(keyword);
+    
+    public List<CommunityAllDto> searchCommunity(String keyword, Integer code) {
+        List<CommunityBoard> communityBoards;
+        if (code != null) {
+            communityBoards = communityBoardRepository.findByTitleContainingAndCode(keyword, code);
+        } else {
+            communityBoards = communityBoardRepository.findByTitleContaining(keyword);
+        }
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
                     .forEach(communityImage -> communityImage.getId());
@@ -160,8 +165,8 @@ public class CommunityBoardService{
         return communityAllDtos;
     }
 
-    public List<CommunityAllDto> searchCommunityByNickName(String nickname) {
-        List<CommunityBoard> communityBoards = communitySearchRepository.searchByNickName(nickname);
+    public List<CommunityAllDto> searchCommunityByNickName(String nickname, Integer code) {
+        List<CommunityBoard> communityBoards = communitySearchRepository.searchByNickNameAndCode(nickname, code);
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
                     .forEach(communityImage -> communityImage.getId());
