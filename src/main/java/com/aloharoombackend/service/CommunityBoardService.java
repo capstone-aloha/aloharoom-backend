@@ -138,6 +138,7 @@ public class CommunityBoardService{
     @Transactional
     public String delete(Long communityId) {
         CommunityBoard communityBoard = findOneFetch(communityId);
+        commentService.deleteByCommunityBoardId(communityBoard.getId());
         List<CommunityImage> communityImages = communityBoard.getCommunityImages();
         List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
         deleteImgUrls.forEach(awsS3Service::deleteImage);

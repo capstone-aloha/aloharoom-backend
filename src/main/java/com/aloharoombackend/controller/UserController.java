@@ -81,6 +81,12 @@ public class UserController {
         Long userId = principalDetails.getUser().getId();
         return ResponseEntity.ok(userService.delete(userId));
     }
+
+    /* 로그인 사용자 식별자 조회 */
+    @GetMapping("/userId")
+    public ResponseEntity findUserId(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        return ResponseEntity.ok(principalDetails.getUser().getId());
+    }
 }
 
 

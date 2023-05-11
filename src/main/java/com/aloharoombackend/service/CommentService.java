@@ -170,6 +170,11 @@ public class CommentService {
     public void deleteByBoardId(Long boardId) {
         commentRepository.deleteByBoardId(boardId);
     }
+    @Transactional
+    public void deleteByCommunityBoardId(Long boardId) {
+        commentRepository.deleteByCommunityBoardId(boardId);
+    }
+
 
     public List<Comment> findMyComment(Long userId) {
         return commentRepository.findAllByUserId(userId);
