@@ -36,7 +36,7 @@ public class UserController {
     }
 
     //username 중복 체크
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity checkUsernameDuplicate(@PathVariable String username) {
         boolean check = userService.checkUsernameDuplicate(username);
         if(check)
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     //nickname 중복 체크
-    @GetMapping("/{nickname}")
+    @GetMapping("/nickname/{nickname}")
     public ResponseEntity checkNicknameDuplicate(@PathVariable String nickname) {
         boolean check = userService.checkNicknameDuplicate(nickname);
         if(check)
