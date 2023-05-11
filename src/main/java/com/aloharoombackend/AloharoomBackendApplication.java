@@ -123,7 +123,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 2);
 		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 3);
 		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
-		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);
+		CommunityBoardDto c8 = new CommunityBoardDto("title", "정보공유3", 2);
+		/*CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);*/
 
 		CommunityBoard communityBoard1 = new CommunityBoard(u1, c1);
 		CommunityBoard communityBoard2 = new CommunityBoard(u1, c2);
