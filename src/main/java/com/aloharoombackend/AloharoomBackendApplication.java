@@ -125,8 +125,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//방 사진 등록
 		List<String> imgUrls = new ArrayList<>(
-				List.of(new String[]{"68043a45-0d64-4697-bfef-42e93ffb716f.jpg","7a7d702c-d271-4c56-ae79-6c9001aef93a.jpg",
-						"ca83ad2d-adc1-45fe-8478-be42b19ed7a7.jpg", "d238188f-999a-4733-8668-e067798630ef.jpg"}));
+				List.of(new String[]{"efdded1a-a0c8-4018-bfd6-a9389087bbb4.jpg","dca186b1-c4b2-452d-a4ec-22f039951754.jpg",
+						"78207f64-5aa1-458d-a6ad-43106806a632.jpg", "2dc5fbd5-c916-405c-bba3-1b22f2c2c39a.jpg"}));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h4, imgUrl)).collect(Collectors.toList());
 		imgUrls.stream().map(imgUrl -> new HomeImage(h5, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h6, imgUrl)).collect(Collectors.toList());
@@ -270,8 +270,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
 		List<String> CommunityImgUrls = new ArrayList<>(
-				List.of(new String[]{"68043a45-0d64-4697-bfef-42e93ffb716f.jpg","7a7d702c-d271-4c56-ae79-6c9001aef93a.jpg",
-						"ca83ad2d-adc1-45fe-8478-be42b19ed7a7.jpg", "d238188f-999a-4733-8668-e067798630ef.jpg"}));
+				List.of(new String[]{"efdded1a-a0c8-4018-bfd6-a9389087bbb4.jpg","dca186b1-c4b2-452d-a4ec-22f039951754.jpg",
+						"78207f64-5aa1-458d-a6ad-43106806a632.jpg", "2dc5fbd5-c916-405c-bba3-1b22f2c2c39a.jpg"}));
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard1, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard2, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
 		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard3, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
