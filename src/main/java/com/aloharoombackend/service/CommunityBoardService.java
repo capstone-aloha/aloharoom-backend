@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -148,11 +150,12 @@ public class CommunityBoardService{
     }
     
     public List<CommunityAllDto> searchCommunity(String keyword, Integer code) {
+        String decoded = URLDecoder.decode(keyword, StandardCharsets.UTF_8); //제목이 한글일 때 디코딩
         List<CommunityBoard> communityBoards;
         if (code != null) {
-            communityBoards = communityBoardRepository.findByTitleContainingAndCode(keyword, code);
+            communityBoards = communityBoardRepository.findByTitleContainingAndCode(decoded, code);
         } else {
-            communityBoards = communityBoardRepository.findByTitleContaining(keyword);
+            communityBoards = communityBoardRepository.findByTitleContaining(decoded);
         }
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
