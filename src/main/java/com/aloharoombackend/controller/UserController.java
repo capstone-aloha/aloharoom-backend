@@ -85,11 +85,12 @@ public class UserController {
         return ResponseEntity.ok(userService.delete(userId));
     }
 
-    /* 로그인 사용자 식별자 조회 */
+    /* 로그인 사용자 식별자, 닉네임 조회 */
     @GetMapping("/userId")
     public ResponseEntity findUserId(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Map<String, Long> map = new HashMap<>();
-        map.put("loginUserId", principalDetails.getUser().getId());
+        Map<String, String> map = new HashMap<>();
+        map.put("loginUserId", principalDetails.getUser().getId().toString());
+        map.put("nickname", principalDetails.getUser().getNickname());
         return ResponseEntity.ok(map);
     }
 }
