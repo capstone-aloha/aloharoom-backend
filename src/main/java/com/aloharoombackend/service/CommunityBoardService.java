@@ -16,10 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +69,7 @@ public class CommunityBoardService{
     }
 
     //커뮤니티 code로 전체 조회
-    public List<CommunityAllDto> findAllByCode(Integer code) {
+    /*public List<CommunityAllDto> findAllByCode(Integer code) {
         List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
 
         //code가 동일한 CommunityBoard만 필터링
@@ -85,6 +82,31 @@ public class CommunityBoardService{
             communityAllDtos.add(new CommunityAllDto(communityBoard));
         }
         return communityAllDtos;
+    }*/
+
+    //커뮤니티 code로 전체 조회 + Top3
+    public List[] findAllByCode(Integer code) {
+        List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
+
+        // code가 동일한 CommunityBoard만 필터링
+        List<CommunityBoard> filteredCommunityBoards = communityBoards.stream()
+                .filter(communityBoard -> communityBoard.getCode() == code)
+                .collect(Collectors.toList());
+
+        // 모든 CommunityBoard
+        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
+        for (CommunityBoard communityBoard : filteredCommunityBoards) {
+            communityAllDtos.add(new CommunityAllDto(communityBoard));
+        }
+
+        // 조회수 Top3 CommunityBoard
+        List<CommunityAllDto> topViewCommunityDtos = filteredCommunityBoards.stream()
+                .sorted(Comparator.comparing(CommunityBoard::getViews).reversed())
+                .limit(3)
+                .map(CommunityAllDto::new)
+                .collect(Collectors.toList());
+
+        return new List[]{communityAllDtos, topViewCommunityDtos};
     }
 
     public CommunityBoard findOneFetch(Long id) { // 프록시->실객체 생성

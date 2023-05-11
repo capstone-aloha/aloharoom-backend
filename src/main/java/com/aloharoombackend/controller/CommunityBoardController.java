@@ -21,10 +21,17 @@ public class CommunityBoardController {
 
     public final CommunityBoardService communityBoardService;
 
-    //커뮤니티 전체 조회
-    @GetMapping("code/{code}")
+    //커뮤니티 code로 전체 조회
+    /*@GetMapping("code/{code}")
     public ResponseEntity<List<CommunityAllDto>> getAllByCode(@PathVariable Integer code) {
         return ResponseEntity.ok(communityBoardService.findAllByCode(code));
+    }*/
+
+    //커뮤니티 code로 전체 조회 + Top3
+    @GetMapping("code/{code}")
+    public ResponseEntity<List[]> getAllByCode(@PathVariable Integer code) {
+        List[] result = communityBoardService.findAllByCode(code);
+        return ResponseEntity.ok(result);
     }
 
     //커뮤니티 상세 보기
