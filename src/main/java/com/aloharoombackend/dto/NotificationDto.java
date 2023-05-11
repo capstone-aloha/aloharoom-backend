@@ -16,6 +16,7 @@ public class NotificationDto {
     private Long notificationId;
     private Long boardId;
     private String content;
+    private String profileUrl;
     private String createdDate;
     private Integer flag;
     private Boolean isCheck;
@@ -23,6 +24,7 @@ public class NotificationDto {
     public NotificationDto(Notification notification) {
         this.notificationId = notification.getId();
         this.content = notification.getContent();
+        this.profileUrl = notification.getProfileUrl();
         this.isCheck = notification.getIsCheck();
         if(notification.getBoard() != null) {
             this.boardId = notification.getBoard().getId();

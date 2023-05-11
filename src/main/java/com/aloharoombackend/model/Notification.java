@@ -27,18 +27,22 @@ public class Notification extends BaseEntity{
 
     private String content;
 
+    private String profileUrl;
+
     private Boolean isCheck;
 
-    public Notification(User user, Board board, String content) {
+    public Notification(User user, String profileUrl, Board board, String content) {
         this.user = user;
         this.board = board;
         this.content = content;
+        this.profileUrl = profileUrl;
         this.isCheck = false;
     }
-    public Notification(User user, CommunityBoard communityBoard, String content) {
+    public Notification(User user, String profileUrl, CommunityBoard communityBoard, String content) {
         this.user = user;
         this.communityBoard = communityBoard;
         this.content = content;
+        this.profileUrl = profileUrl;
         this.isCheck = false;
     }
     

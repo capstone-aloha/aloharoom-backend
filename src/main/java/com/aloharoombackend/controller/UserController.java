@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -85,7 +88,9 @@ public class UserController {
     /* 로그인 사용자 식별자 조회 */
     @GetMapping("/userId")
     public ResponseEntity findUserId(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        return ResponseEntity.ok(principalDetails.getUser().getId());
+        Map<String, Long> map = new HashMap<>();
+        map.put("loginUserId", principalDetails.getUser().getId());
+        return ResponseEntity.ok(map);
     }
 }
 
