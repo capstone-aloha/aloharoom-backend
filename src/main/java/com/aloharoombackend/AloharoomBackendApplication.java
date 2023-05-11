@@ -116,23 +116,41 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(myHashtag12);
 
 		//Community 생성
-		CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
+		/*CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
 		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 2);
 		CommunityBoardDto c3 = new CommunityBoardDto("제목2(방자랑)", "방자랑2", 1);
 		CommunityBoardDto c4 = new CommunityBoardDto("제목1(자유)", "자유1", 3);
 		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 2);
 		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 3);
 		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
-		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);
+		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);*/
+        CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
+		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 1);
+		CommunityBoardDto c3 = new CommunityBoardDto("제목2(방자랑)", "방자랑2", 1);
+		CommunityBoardDto c4 = new CommunityBoardDto("제목1(자유)", "자유1", 1);
+		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 1);
+		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 1);
+		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
+		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 1);
 
 		CommunityBoard communityBoard1 = new CommunityBoard(u1, c1);
 		CommunityBoard communityBoard2 = new CommunityBoard(u1, c2);
-		CommunityBoard communityBoard3 = new CommunityBoard(u2, c3);
-		CommunityBoard communityBoard4 = new CommunityBoard(u2, c4);
+        CommunityBoard communityBoard3 = new CommunityBoard(u2, c3);
+        CommunityBoard communityBoard4 = new CommunityBoard(u2, c4);
 		CommunityBoard communityBoard5 = new CommunityBoard(u3, c5);
 		CommunityBoard communityBoard6 = new CommunityBoard(u3, c6);
 		CommunityBoard communityBoard7 = new CommunityBoard(u4, c7);
 		CommunityBoard communityBoard8 = new CommunityBoard(u4, c8);
+
+        //강제 조회수 증가
+        communityBoard1.updateViews(3);
+        communityBoard2.updateViews(4);
+        communityBoard3.updateViews(2);
+        communityBoard4.updateViews(5);
+        communityBoard5.updateViews(1);
+        communityBoard6.updateViews(7);
+        communityBoard7.updateViews(10);
+        communityBoard8.updateViews(9);
 
 		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
 		List<String> CommunityImgUrls = new ArrayList<>(
