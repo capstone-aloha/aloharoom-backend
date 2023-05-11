@@ -13,6 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -80,6 +83,15 @@ public class UserController {
     public ResponseEntity deleteUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Long userId = principalDetails.getUser().getId();
         return ResponseEntity.ok(userService.delete(userId));
+    }
+
+    /* 로그인 사용자 식별자, 닉네임 조회 */
+    @GetMapping("/userId")
+    public ResponseEntity findUserId(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Map<String, String> map = new HashMap<>();
+        map.put("loginUserId", principalDetails.getUser().getId().toString());
+        map.put("nickname", principalDetails.getUser().getNickname());
+        return ResponseEntity.ok(map);
     }
 }
 
