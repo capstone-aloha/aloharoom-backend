@@ -200,7 +200,7 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		Board board3 = new Board(h3, u3, b3); Board board4 = new Board(h4, u4, b4);
 		Board board5 = new Board(h5, u5, b5); Board board6 = new Board(h6, u6, b6);
 		Board board7 = new Board(h7, u7, b7); Board board8 = new Board(h8, u8, b8);
-		Board board9 = new Board(h9, u9, b9); Board board10 = new Board(h10, u21, b10);
+		Board board9 = new Board(h9, u9, b9); Board board10 = new Board(h10, u10, b10);
 		Board board11 = new Board(h11, u11, b11); Board board12 = new Board(h12, u12, b12);
 		Board board13 = new Board(h13, u13, b13); Board board14 = new Board(h14, u14, b14);
 		Board board15 = new Board(h15, u15, b15); Board board16 = new Board(h16, u16, b16);
