@@ -172,12 +172,11 @@ public class CommunityBoardService{
     }
     
     public List<CommunityAllDto> searchCommunity(String keyword, Integer code) {
-        String decoded = URLDecoder.decode(keyword, StandardCharsets.UTF_8); //제목이 한글일 때 디코딩
         List<CommunityBoard> communityBoards;
         if (code != null) {
-            communityBoards = communityBoardRepository.findByTitleContainingAndCode(decoded, code);
+            communityBoards = communityBoardRepository.findByTitleContainingAndCode(keyword, code);
         } else {
-            communityBoards = communityBoardRepository.findByTitleContaining(decoded);
+            communityBoards = communityBoardRepository.findByTitleContaining(keyword);
         }
         communityBoards.stream().forEach(communityBoard -> {
             communityBoard.getCommunityImages().stream()
