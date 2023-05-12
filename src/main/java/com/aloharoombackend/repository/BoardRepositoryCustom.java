@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface BoardRepositoryCustom {
     List<Board> findAllByRange(RangeDto rangeDto);
-    List<BoardAllDto> searchFilter(SearchFilterDto searchFilterDto);
+    List<BoardAllDto> searchFilter(RangeDto rangeDto, SearchFilterDto searchFilterDto);
     List<HeartBoardDto> recentViewBoard(List<Long> userIds);
 }
