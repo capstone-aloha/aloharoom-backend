@@ -48,6 +48,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         Integer maxFlat = searchFilterDto.getFlatRange().get(1);
         Integer minRent = searchFilterDto.getRentRange().get(0);
         Integer maxRent = searchFilterDto.getRentRange().get(1);
+        Integer roomCount = searchFilterDto.getRoomCount();
+        String homeType = searchFilterDto.getHomeType();
         String gender = searchFilterDto.getGender();
 
         Set<String> loginUserTagSet = new HashSet<>();
@@ -108,8 +110,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         home.y.between(rangeDto.getSouthWestLongitude(), rangeDto.getNorthEastLongitude()),
                         home.flat.goe(minFlat), //home.flat >= minFlat
                         home.flat.loe(maxFlat), //home.flat <= maxFlat
-                        home.roomCount.eq(searchFilterDto.getRoomCount()), //home.roomCount === roomCount
-                        home.homeType.eq(searchFilterDto.getHomeType()), //home.homeType === homeType
+                        eqRoomCount(roomCount), //home.roomCount === roomCount
+                        eqHomeType(homeType), //home.homeType === homeType
                         home.rent.goe(minRent), //home.rent >= minRent
                         home.rent.loe(maxRent) //home.rent <= maxRent
                 )
@@ -125,6 +127,20 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         if(gender.equals("male")) return user.gender.eq("male");
         else if(gender.equals("female")) return user.gender.eq("female");
         else return user.gender.in("male", "female");
+    }
+
+    public BooleanExpression eqRoomCount(Integer roomCount) {
+        if(roomCount == 1) return home.roomCount.eq(1);
+        else if(roomCount == 2) return home.roomCount.eq(2);
+        else if(roomCount == 3) return home.roomCount.eq(3);
+        else return home.roomCount.in(1, 2, 3);
+    }
+
+    public BooleanExpression eqHomeType(String homeType) {
+        if(homeType.equals("officetel")) return home.homeType.eq("officetel");
+        else if(homeType.equals("villa")) return home.homeType.eq("villa");
+        else if(homeType.equals("apartment")) return home.homeType.eq("apartment");
+        else return home.homeType.in("officetel", "villa", "apartment");
     }
 
     @Override
