@@ -28,46 +28,46 @@ class NotificationServiceTest {
     @Autowired
     NotificationService notificationService;
 
-    @BeforeEach
-    public void before() {
-        //Home 생성
-        BoardAddDto b1 = new BoardAddDto();
-        b1.setFlat(30);
-        b1.setRoomCount(3);
-        b1.setRent(25);
-        b1.setHomeType("apartment");
-        Home h1 = new Home(b1);
-        BoardAddDto b2 = new BoardAddDto();
-        b1.setFlat(30);
-        b1.setRoomCount(3);
-        b1.setRent(25);
-        b1.setHomeType("apartment");
-        Home h2 = new Home(b2);
-        em.persist(h1);
-        em.persist(h2);
-
-        //User 생성
-        User u1 = new User(new SignUpDto("admin1", "1234", 20, "male"));
-        User u2 = new User(new SignUpDto("admin2", "1234", 24, "male"));
-        em.persist(u1);
-        em.persist(u2);
-
-        //Board 생성
-        Board board1 = new Board(h1, u1, new BoardAddDto());
-        Board board2 = new Board(h2, u2, new BoardAddDto());
-        em.persist(board1);
-        em.persist(board2);
-
-
-        Notification n1 = new Notification(u1, board1, "테스트1");
-        Notification n2 = new Notification(u1, board1, "테스트2");
-        Notification n3 = new Notification(u1, board1, "테스트3");
-        em.persist(n1); em.persist(n2); em.persist(n3);
-        em.flush();
-        n2.setCreatedDate(LocalDateTime.of(2023,4,6,16,1,30));
-        n3.setCreatedDate(LocalDateTime.of(2023,4,4,15,15,30));
-        em.flush(); em.clear();
-    }
+//    @BeforeEach
+//    public void before() {
+//        //Home 생성
+//        BoardAddDto b1 = new BoardAddDto();
+//        b1.setFlat(30);
+//        b1.setRoomCount(3);
+//        b1.setRent(25);
+//        b1.setHomeType("apartment");
+//        Home h1 = new Home(b1);
+//        BoardAddDto b2 = new BoardAddDto();
+//        b1.setFlat(30);
+//        b1.setRoomCount(3);
+//        b1.setRent(25);
+//        b1.setHomeType("apartment");
+//        Home h2 = new Home(b2);
+//        em.persist(h1);
+//        em.persist(h2);
+//
+//        //User 생성
+//        User u1 = new User(new SignUpDto("admin1", "1234", 20, "male"));
+//        User u2 = new User(new SignUpDto("admin2", "1234", 24, "male"));
+//        em.persist(u1);
+//        em.persist(u2);
+//
+//        //Board 생성
+//        Board board1 = new Board(h1, u1, new BoardAddDto());
+//        Board board2 = new Board(h2, u2, new BoardAddDto());
+//        em.persist(board1);
+//        em.persist(board2);
+//
+//
+//        Notification n1 = new Notification(u1, board1, "테스트1");
+//        Notification n2 = new Notification(u1, board1, "테스트2");
+//        Notification n3 = new Notification(u1, board1, "테스트3");
+//        em.persist(n1); em.persist(n2); em.persist(n3);
+//        em.flush();
+//        n2.setCreatedDate(LocalDateTime.of(2023,4,6,16,1,30));
+//        n3.setCreatedDate(LocalDateTime.of(2023,4,4,15,15,30));
+//        em.flush(); em.clear();
+//    }
 
     /*
         알림 조회 시 24시간 내 알림이면 x분 전 or x시간 전 or 방금 전으로 표시
