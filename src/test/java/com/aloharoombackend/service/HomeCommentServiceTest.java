@@ -74,27 +74,27 @@ class HomeCommentServiceTest {
 //        em.flush(); em.clear();
 //    }
 
-//    @Test
-//    void getComment() {
-//        List<CommentDto> comment = homeCommentService.getHomeComment(1L);
-//        for (CommentDto commentDto : comment) {
-//            System.out.println(commentDto);
-//        }
-//        System.out.println("================================================");
-//        comment = homeCommentService.getHomeComment(2L);
-//        for (CommentDto commentDto : comment) {
-//            System.out.println(commentDto);
-//        }
-//    }
-//
-//    @Test
-//    void deleteComment() {
-//        homeCommentService.deleteComment(1L);
-//        List<CommentDto> commentDtos = homeCommentService.getHomeComment(1L);
-//        for (CommentDto commentDto : commentDtos) {
-//            System.out.println("commentDto = " + commentDto);
-//        }
-//        Assertions.assertThat(commentDtos.get(0).getContent()).isEqualTo("삭제된 댓글입니다.");
-//    }
+    @Test
+    void getComment() {
+        List<CommentDto> comment = homeCommentService.getHomeComment(1L);
+        for (CommentDto commentDto : comment) {
+            System.out.println(commentDto);
+        }
+        System.out.println("================================================");
+        comment = homeCommentService.getHomeComment(2L);
+        for (CommentDto commentDto : comment) {
+            System.out.println(commentDto);
+        }
+    }
+
+    @Test
+    void deleteComment() {
+        homeCommentService.deleteComment(1L);
+        List<CommentDto> commentDtos = homeCommentService.getHomeComment(1L);
+        for (CommentDto commentDto : commentDtos) {
+            System.out.println("commentDto = " + commentDto);
+        }
+        Assertions.assertThat(commentDtos.get(0).getContent()).isEqualTo("삭제된 댓글입니다.");
+    }
 
 }

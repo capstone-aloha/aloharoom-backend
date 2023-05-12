@@ -54,8 +54,8 @@ public class CommentService {
                 targetContent += "...";
             }
             String content = "내 댓글 \"" + targetContent + "\"에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
-            if(flag==0) notificationRepository.save(new Notification(targetUser, user.getProfileUrl(), board, content));
-            else notificationRepository.save(new Notification(targetUser, user.getProfileUrl(), communityBoard, content));
+            if(flag==0) notificationRepository.save(new Notification(targetUser, board, content));
+            else notificationRepository.save(new Notification(targetUser, communityBoard, content));
         }
 
         //댓글, 대댓글이면 게시물 사용자 알림 (han님이 댓글을 남겼습니다.)
@@ -71,7 +71,7 @@ public class CommentService {
         }
         if(writerId != addCommentDto.getTargetUserId()) { //댓글 주인이 작성자인 경우 위 알림만 발생
             if (addCommentDto.getUserId() != writerId) { //내 댓글에 알림 안 받도록
-                User writer = userRepository.findById(writerId) //글쓴이
+                User writer = userRepository.findById(writerId)
                         .orElseThrow(() -> new IllegalArgumentException("찾는 회원이 존재하지 않습니다."));
                 //내 게시글 "안녕하세요..." 글에 xx님이 댓글을 남겼습니다.
                 if (title.length() > 8) {
@@ -79,8 +79,8 @@ public class CommentService {
                     title += "...";
                 }
                 String content = "내 게시글 \"" + title + "\" 글에 " + user.getNickname() + "님이 댓글을 남겼습니다.";
-                if(flag==0) notificationRepository.save(new Notification(writer, user.getProfileUrl(), board, content));
-                else notificationRepository.save(new Notification(writer, user.getProfileUrl(), communityBoard, content));
+                if(flag==0) notificationRepository.save(new Notification(writer, board, content));
+                else notificationRepository.save(new Notification(writer, communityBoard, content));
             }
         }
 
@@ -170,11 +170,6 @@ public class CommentService {
     public void deleteByBoardId(Long boardId) {
         commentRepository.deleteByBoardId(boardId);
     }
-    @Transactional
-    public void deleteByCommunityBoardId(Long boardId) {
-        commentRepository.deleteByCommunityBoardId(boardId);
-    }
-
 
     public List<Comment> findMyComment(Long userId) {
         return commentRepository.findAllByUserId(userId);
