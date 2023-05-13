@@ -5,6 +5,8 @@ import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.dto.UserInfoDto;
 import com.aloharoombackend.model.*;
+import com.aloharoombackend.repository.CommentRepository;
+import com.aloharoombackend.repository.CommunityBoardRepository;
 import com.aloharoombackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +29,10 @@ public class UserService {
     private final AwsS3Service awsS3Service;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    //회원 탈퇴 시 순환참조로 인해 선언
+    private final CommunityBoardRepository communityBoardRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public String signUp(SignUpDto signUpDto) {
@@ -180,6 +186,18 @@ public class UserService {
         List<LikeProduct> likeProducts = findUser.getLikeProducts();
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
         List<MyProduct> myProducts = findUser.getMyProducts();
+
+        // userId에 해당하는 모든 communityBoard 데이터를 삭제
+        List<CommunityBoard> communityBoards = communityBoardRepository.findAllByUserId(userId);
+        for (CommunityBoard communityBoard : communityBoards) {
+            Long boardId = communityBoard.getId();
+            commentRepository.deleteByCommunityBoardId(boardId);
+            List<CommunityImage> communityImages = communityBoard.getCommunityImages();
+            List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+            deleteImgUrls.forEach(awsS3Service::deleteImage);
+        }
+        // userId에 해당하는 모든 communityBoard 데이터를 삭제
+        communityBoardRepository.deleteAll(communityBoards);
 
         likeProducts.forEach(likeProductService::delete);
         myProducts.forEach(myProductService::delete);
