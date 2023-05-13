@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class BoardOneDto {
+    private Long userId;
     private String contents;
     private String address;
     private Integer roomCount;
@@ -40,6 +41,7 @@ public class BoardOneDto {
     private Boolean isHeart; //좋아요 눌렀는 지 판단
 
     public BoardOneDto(Board board, Home home, User user, Boolean isHeart) {
+        this.userId = user.getId();
         this.contents = board.getContents();
         this.address = home.getAddress();
         this.maintenance = home.getMaintenance();
