@@ -31,6 +31,7 @@ public class BoardOneDto {
     private Double y;
     private String nickname;
     private String profileImgUrl;
+    private String openChatUrl;
     private Integer age;
     private String gender;
     private List<String> hashtag;
@@ -58,6 +59,7 @@ public class BoardOneDto {
         this.y = home.getY();
         this.nickname = user.getNickname();
         this.profileImgUrl = user.getProfileUrl();
+        this.openChatUrl = board.getOpenChatUrl();
         this.age = user.getAge();
         this.gender = user.getGender();
         this.hashtag = user.getMyHashtags().stream()

@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor //초기 데이터용
 public class BoardAddDto {
     private String contents;
+    private String openChatUrl;
     private Integer roomCount;
     private String address;
     private String homeType;

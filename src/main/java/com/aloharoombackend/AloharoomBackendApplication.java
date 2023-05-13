@@ -35,78 +35,78 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... args) throws Exception {
 		//Home 생성
-		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.", 3, "서울특별시 성북구 삼선교로16길 116", "villa", "매매", 2000,
+		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.", "https://open.kakao.com/o/saQor8jf",3, "서울특별시 성북구 삼선교로16길 116", "villa", "매매", 2000,
 				10, 25, 30, 15, 8, 20, LocalDate.now(), 37.582812, 127.010233, Arrays.asList(new Integer[]{20, 25}));
 		Home h1 = new Home(b1);
-		BoardAddDto b2 = new BoardAddDto("방 게시물2 내용입니다.", 3, "서울특별시 영등포구 당산동5가 42", "officetel", "매매", 2000,
+		BoardAddDto b2 = new BoardAddDto("방 게시물2 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 영등포구 당산동5가 42", "officetel", "매매", 2000,
 				10, 30, 38, 15, 2, 25, LocalDate.now(), 37.531854, 126.902958, Arrays.asList(new Integer[]{22, 25}));
 		Home h2 = new Home(b2);
-		BoardAddDto b3 = new BoardAddDto("방 게시물3 내용입니다.", 3, "서울특별시 강동구 강동구 고덕로390", "apartment", "매매", 2000,
+		BoardAddDto b3 = new BoardAddDto("방 게시물3 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 강동구 강동구 고덕로390", "apartment", "매매", 2000,
 				10, 29, 20, 15, 2, 25, LocalDate.now(), 37.555031, 127.168604, Arrays.asList(new Integer[]{26, 28}));
 		Home h3 = new Home(b3);
-		BoardAddDto b4 = new BoardAddDto("방 게시물4 내용입니다.", 3, "서울특별시 강서구 공항대로 247", "villa", "매매", 2000,
+		BoardAddDto b4 = new BoardAddDto("방 게시물4 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 강서구 공항대로 247", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.559246, 126.834986, Arrays.asList(new Integer[]{29, 29}));
 		Home h4 = new Home(b4);
-		BoardAddDto b5 = new BoardAddDto("방 게시물5 내용입니다.", 3, "서울특별시 강남구 언주로103길 43", "apartment", "매매", 2000,
+		BoardAddDto b5 = new BoardAddDto("방 게시물5 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 강남구 언주로103길 43", "apartment", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.505775, 127.036566, Arrays.asList(new Integer[]{29, 29}));
 		Home h5 = new Home(b5);
-		BoardAddDto b6 = new BoardAddDto("방 게시물6 내용입니다.", 3, "서울특별시 동작구 흑석동 204-38", "villa", "매매", 2000,
+		BoardAddDto b6 = new BoardAddDto("방 게시물6 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 동작구 흑석동 204-38", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.507155, 126.957409, Arrays.asList(new Integer[]{29, 29}));
 		Home h6 = new Home(b6);
-		BoardAddDto b7 = new BoardAddDto("방 게시물7 내용입니다.", 3, "서울특별시 용산구 이촌로87길 13", "officetel", "매매", 2000,
+		BoardAddDto b7 = new BoardAddDto("방 게시물7 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 이촌로87길 13", "officetel", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.519233, 126.977466, Arrays.asList(new Integer[]{29, 29}));
 		Home h7 = new Home(b7);
-		BoardAddDto b8 = new BoardAddDto("방 게시물8 내용입니다.", 3, "서울특별시 용산구 동빙고동 251-9", "villa", "매매", 2000,
+		BoardAddDto b8 = new BoardAddDto("방 게시물8 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 동빙고동 251-9", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.523249, 126.994172, Arrays.asList(new Integer[]{29, 29}));
 		Home h8 = new Home(b8);
-		BoardAddDto b9 = new BoardAddDto("방 게시물9 내용입니다.", 3, "서울특별시 서초구 방배동 782-33", "villa", "매매", 2000,
+		BoardAddDto b9 = new BoardAddDto("방 게시물9 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 서초구 방배동 782-33", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.492939, 126.983640, Arrays.asList(new Integer[]{29, 29}));
 		Home h9 = new Home(b9);
-		BoardAddDto b10 = new BoardAddDto("방 게시물10 내용입니다.", 3, "서울특별시 마포구 만리재로 41", "officetel", "매매", 2000,
+		BoardAddDto b10 = new BoardAddDto("방 게시물10 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 마포구 만리재로 41", "officetel", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.545287, 126.955292, Arrays.asList(new Integer[]{29, 29}));
 		Home h10 = new Home(b10);
 
-		BoardAddDto b11 = new BoardAddDto("방 게시물11 내용입니다.", 3, "서울특별시 중구 신당동 290-46", "villa", "매매", 2000,
+		BoardAddDto b11 = new BoardAddDto("방 게시물11 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 중구 신당동 290-46", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.562099, 127.016063, Arrays.asList(new Integer[]{29, 29}));
 		Home h11 = new Home(b11);
 
-		BoardAddDto b12 = new BoardAddDto("방 게시물12 내용입니다.", 1, "서울특별시 서대문구 창천동 465", "apartment", "매매", 2000,
+		BoardAddDto b12 = new BoardAddDto("방 게시물12 내용입니다.", "https://open.kakao.com/o/saQor8jf", 1, "서울특별시 서대문구 창천동 465", "apartment", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.560398, 126.927488, Arrays.asList(new Integer[]{29, 29}));
 		Home h12 = new Home(b12);
 
-		BoardAddDto b13 = new BoardAddDto("방 게시물13 내용입니다.", 3, "서울특별시 용산구 용산동2가 37-8", "officetel", "매매", 2000,
+		BoardAddDto b13 = new BoardAddDto("방 게시물13 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 용산동2가 37-8", "officetel", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.542970, 126.987038, Arrays.asList(new Integer[]{29, 29}));
 		Home h13 = new Home(b13);
 
-		BoardAddDto b14 = new BoardAddDto("방 게시물14 내용입니다.", 3, "서울특별시 서초구 반포동 551-6", "villa", "매매", 2000,
+		BoardAddDto b14 = new BoardAddDto("방 게시물14 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 서초구 반포동 551-6", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.498003, 127.000882, Arrays.asList(new Integer[]{29, 29}));
 		Home h14 = new Home(b14);
 
-		BoardAddDto b15 = new BoardAddDto("방 게시물15 내용입니다.", 3, "서울특별시 용산구 서빙고로65길 18", "officetel", "매매", 2000,
+		BoardAddDto b15 = new BoardAddDto("방 게시물15 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 서빙고로65길 18", "officetel", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.520979, 126.994425, Arrays.asList(new Integer[]{29, 29}));
 		Home h15 = new Home(b15);
 
-		BoardAddDto b16 = new BoardAddDto("방 게시물16 내용입니다.", 3, "서울특별시 영등포구 버드나루로11길 5", "villa", "매매", 2000,
+		BoardAddDto b16 = new BoardAddDto("방 게시물16 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 영등포구 버드나루로11길 5", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.524566, 126.908684, Arrays.asList(new Integer[]{29, 29}));
 		Home h16 = new Home(b16);
 
-		BoardAddDto b17 = new BoardAddDto("방 게시물17 내용입니다.", 3, "서울특별시 영등포구 양평동4가 317-3", "apartment", "매매", 2000,
+		BoardAddDto b17 = new BoardAddDto("방 게시물17 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 영등포구 양평동4가 317-3", "apartment", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.538441, 126.897458, Arrays.asList(new Integer[]{29, 29}));
 		Home h17 = new Home(b17);
 
-		BoardAddDto b18 = new BoardAddDto("방 게시물18 내용입니다.", 3, "서울특별시 동작구 노량진동 205-55", "villa", "매매", 2000,
+		BoardAddDto b18 = new BoardAddDto("방 게시물18 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 동작구 노량진동 205-55", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.511967, 126.947980, Arrays.asList(new Integer[]{29, 29}));
 		Home h18 = new Home(b18);
 
-		BoardAddDto b19 = new BoardAddDto("방 게시물19 내용입니다.", 3, "서울특별시 용산구 원효로81길 20-30", "villa", "매매", 2000,
+		BoardAddDto b19 = new BoardAddDto("방 게시물19 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 원효로81길 20-30", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.539469, 126.966294, Arrays.asList(new Integer[]{29, 29}));
 		Home h19 = new Home(b19);
 
-		BoardAddDto b20 = new BoardAddDto("방 게시물20 내용입니다.", 3, "서울특별시 서초구 서초대로54길 48-20", "officetel", "매매", 2000,
+		BoardAddDto b20 = new BoardAddDto("방 게시물20 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 서초구 서초대로54길 48-20", "officetel", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.492062, 127.015781, Arrays.asList(new Integer[]{29, 29}));
 		Home h20 = new Home(b20);
 
-		BoardAddDto b21 = new BoardAddDto("방 게시물21 내용입니다.", 3, "서울특별시 강남구 역삼동 725-11", "villa", "매매", 2000,
+		BoardAddDto b21 = new BoardAddDto("방 게시물21 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 강남구 역삼동 725-11", "villa", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.499602, 127.039329, Arrays.asList(new Integer[]{29, 29}));
 		Home h21 = new Home(b21);
 

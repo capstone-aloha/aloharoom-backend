@@ -30,6 +30,8 @@ public class Board extends BaseEntity{
 
     private Integer maxAge;
 
+    private String openChatUrl;
+
     @Column(name = "contents")
     private String contents;
 
@@ -42,11 +44,12 @@ public class Board extends BaseEntity{
     private Boolean activation; //활성화
 
     public Board(Home home, User user, BoardAddDto boardAddDto) {
-        this.home = home; //나중에 연관관계 메서드
+        this.home = home;
         this.contents = boardAddDto.getContents();
         this.user = user;
         this.minAge = boardAddDto.getAgeRange().get(0);
         this.maxAge = boardAddDto.getAgeRange().get(1);
+        this.openChatUrl = boardAddDto.getOpenChatUrl();
         this.activation = true;
     }
 
