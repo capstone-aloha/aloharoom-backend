@@ -48,13 +48,14 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         Integer maxFlat = searchFilterDto.getFlatRange().get(1);
         Integer minRent = searchFilterDto.getRentRange().get(0);
         Integer maxRent = searchFilterDto.getRentRange().get(1);
+        Integer roomCount = searchFilterDto.getRoomCount();
+        String homeType = searchFilterDto.getHomeType();
         String gender = searchFilterDto.getGender();
 
-        Set<String> loginUserTagSet = new HashSet<>();
         //User 쿼리 (필터를 만족하는 사용자 추출)
         List<User> users = queryFactory
                 .selectFrom(user).distinct()
-//                .join(user.myHashtags, myHashtag).fetchJoin()
+                .join(user.myHashtags, myHashtag).fetchJoin()
                 .leftJoin(user.board, board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
                 .where(
                         board.isNotNull(),
@@ -63,37 +64,32 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         eqGender(gender) //user.gender == gender
                 )
                 .fetch();
-        System.out.println("=====users개수===== " + users.size()); //21
-        //해시태그 필터링 주석
-        //해시태그 개수로 필터링
-//        List<User> newUsers = new ArrayList<>();
-//        users.stream().forEach(user -> {
-//            if (user.getMyHashtags().size() == searchFilterDto.getLikeHashtags().size())
-//                newUsers.add(user);
-//        });
+        System.out.println("=====users개수===== " + users.size());
 
-//        //로그인 사용자 해시태그 Set에 저장
-//        List<String> loginUserTags = searchFilterDto.getLikeHashtags();
-//        loginUserTags.stream()
-//                        .forEach(likeHashtag -> loginUserTagSet.add(likeHashtag));
-//
-//        users.clear();
-//        //해시태그 필터링 => 이진탐색, 로그인 사용자 값 map 만들고 없으면 바로 짤
-//        for (User user : newUsers) {
-//            List<MyHashtag> myHashtags = user.getMyHashtags();
-//            boolean flag = false;
-//            for (MyHashtag myHashtag : myHashtags) {
-//                if(!loginUserTagSet.contains(myHashtag.getHash())) {
-//                    flag = true; break;
-//                }
-//            }
-//            //해시태그 + 가전제품 필터를 통과한 User만 저장
-//            if(!flag) users.add(user);
-//        }
+        List<User> hashtagPassUsers = new ArrayList<>();
+        Set<String> userLikeHashtagSet = new HashSet<>();
+        List<String> selectHashtags = searchFilterDto.getLikeHashtags(); //필터링 모달에서 고른 해시태그
+        //해시태그 필터링
+        for (User user : users) {
+            List<MyHashtag> myHashtags = user.getMyHashtags();
+            myHashtags.stream()
+                    .forEach(myHashtag -> userLikeHashtagSet.add(myHashtag.getHash()));
+            boolean flag = false;
+            for(String selectHashtag : selectHashtags) {
+                if(!userLikeHashtagSet.contains(selectHashtag)) {
+                    flag = true; break;
+                }
+            }
+            //해시태그 + 가전제품 필터를 통과한 User만 저장
+            if(!flag) hashtagPassUsers.add(user);
+            userLikeHashtagSet.clear();
+        }
+        System.out.println("=====hashtagPassUsers개수===== " + hashtagPassUsers.size());
+
         //userId값 추줄
-        List<Long> userIds = users.stream()
+        List<Long> userIds = hashtagPassUsers.stream()
                 .map(user -> user.getId()).collect(Collectors.toList());
-        System.out.println("=====userIds개수===== " + userIds.size()); //21
+        System.out.println("=====userIds개수===== " + userIds.size());
 
         //해시태그 필터링 완료된 사용자에 대한 집 필터링 쿼리
         List<Board> boards = queryFactory
@@ -108,23 +104,37 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         home.y.between(rangeDto.getSouthWestLongitude(), rangeDto.getNorthEastLongitude()),
                         home.flat.goe(minFlat), //home.flat >= minFlat
                         home.flat.loe(maxFlat), //home.flat <= maxFlat
-                        home.roomCount.eq(searchFilterDto.getRoomCount()), //home.roomCount === roomCount
-                        home.homeType.eq(searchFilterDto.getHomeType()), //home.homeType === homeType
+                        eqRoomCount(roomCount), //home.roomCount === roomCount
+                        eqHomeType(homeType), //home.homeType === homeType
                         home.rent.goe(minRent), //home.rent >= minRent
                         home.rent.loe(maxRent) //home.rent <= maxRent
                 )
                 .fetch();
-        System.out.println("=====boards개수===== " + boards.size()); //4
+        System.out.println("=====boards개수===== " + boards.size());
         //board로 dto 만들어서 반환
         List<BoardAllDto> boardAllDtos = boards.stream().map(board -> new BoardAllDto(board, board.getHome()))
                 .collect(Collectors.toList());
-        System.out.println("=====boardAllDtos개수===== " + boardAllDtos.size()); //4
+        System.out.println("=====boardAllDtos개수===== " + boardAllDtos.size());
         return boardAllDtos;
     }
     public BooleanExpression eqGender(String gender) {
         if(gender.equals("male")) return user.gender.eq("male");
         else if(gender.equals("female")) return user.gender.eq("female");
         else return user.gender.in("male", "female");
+    }
+
+    public BooleanExpression eqRoomCount(Integer roomCount) {
+        if(roomCount == 1) return home.roomCount.eq(1);
+        else if(roomCount == 2) return home.roomCount.eq(2);
+        else if(roomCount == 3) return home.roomCount.eq(3);
+        else return home.roomCount.in(1, 2, 3);
+    }
+
+    public BooleanExpression eqHomeType(String homeType) {
+        if(homeType.equals("officetel")) return home.homeType.eq("officetel");
+        else if(homeType.equals("villa")) return home.homeType.eq("villa");
+        else if(homeType.equals("apartment")) return home.homeType.eq("apartment");
+        else return home.homeType.in("officetel", "villa", "apartment");
     }
 
     @Override
