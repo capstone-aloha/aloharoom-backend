@@ -5,9 +5,7 @@ import com.aloharoombackend.dto.MyPageEditDto;
 import com.aloharoombackend.dto.SignUpDto;
 import com.aloharoombackend.dto.UserInfoDto;
 import com.aloharoombackend.model.*;
-import com.aloharoombackend.repository.CommentRepository;
-import com.aloharoombackend.repository.CommunityBoardRepository;
-import com.aloharoombackend.repository.UserRepository;
+import com.aloharoombackend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,9 +28,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    //회원 탈퇴 시 순환참조로 인해 선언
+    /**
+     * 회원 탈퇴 시 순환참조로 인해 선언
+     */
     private final CommunityBoardRepository communityBoardRepository;
     private final CommentRepository commentRepository;
+    private final BoardRepository boardRepository;
+    private final HomeRepository homeRepository;
+    private final HeartRepository heartRepository;
+    private final RecentViewRepository recentViewRepository;
 
     @Transactional
     public String signUp(SignUpDto signUpDto) {
@@ -187,14 +191,32 @@ public class UserService {
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
         List<MyProduct> myProducts = findUser.getMyProducts();
 
+        // userId에 해당하는 모든 Board 데이터를 삭제
+        List<Board> boards = boardRepository.findAllByUserId(userId);
+        for (Board board : boards) {
+            Long boardId = board.getId();
+            Home home = homeRepository.findById(board.getHome().getId())
+                    .orElseThrow(() -> new IllegalArgumentException("찾는 집이 존재하지 않습니다."));
+            List<HomeImage> homeImages = home.getHomeImages();
+
+            List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
+            deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+
+            commentRepository.deleteByBoardId(boardId); //해당 글의 댓글 삭제
+            heartRepository.deleteByBoardId(boardId); //해당 글의 좋아요 삭제
+            recentViewRepository.deleteByBoardId(boardId); //해당 글의 최근 본 글 삭제
+            boardRepository.deleteAll(boards);
+            homeRepository.delete(home); //Home이 HomeImage의 생명주기를 관리하므로 Home을 삭제하면 연관된 HomeImage들도 삭제된다.
+        }
+
         // userId에 해당하는 모든 communityBoard 데이터를 삭제
         List<CommunityBoard> communityBoards = communityBoardRepository.findAllByUserId(userId);
         for (CommunityBoard communityBoard : communityBoards) {
             Long boardId = communityBoard.getId();
             commentRepository.deleteByCommunityBoardId(boardId);
             List<CommunityImage> communityImages = communityBoard.getCommunityImages();
-            List<String> deleteImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
-            deleteImgUrls.forEach(awsS3Service::deleteImage);
+            List<String> deleteCommunityImgUrls = communityImages.stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+            deleteCommunityImgUrls.forEach(awsS3Service::deleteImage);
         }
         // userId에 해당하는 모든 communityBoard 데이터를 삭제
         communityBoardRepository.deleteAll(communityBoards);
@@ -203,6 +225,7 @@ public class UserService {
         myProducts.forEach(myProductService::delete);
         likeHashtags.forEach(likeHashtagService::delete);
         myHashtags.forEach(myHashtagService::delete);
+//        awsS3Service.deleteImage(findUser.getProfileUrl()); //기본 이미지일 때는 삭제 하면 안됨
         userRepository.delete(findUser);
         return "회원 탈퇴 완료";
     }
