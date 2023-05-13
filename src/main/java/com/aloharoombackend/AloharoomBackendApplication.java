@@ -70,7 +70,7 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.562099, 127.016063, Arrays.asList(new Integer[]{29, 29}));
 		Home h11 = new Home(b11);
 
-		BoardAddDto b12 = new BoardAddDto("방 게시물12 내용입니다.", 3, "서울특별시 서대문구 창천동 465", "apartment", "매매", 2000,
+		BoardAddDto b12 = new BoardAddDto("방 게시물12 내용입니다.", 1, "서울특별시 서대문구 창천동 465", "apartment", "매매", 2000,
 				10, 40, 34, 15, 2, 25, LocalDate.now(), 37.560398, 126.927488, Arrays.asList(new Integer[]{29, 29}));
 		Home h12 = new Home(b12);
 
@@ -229,12 +229,15 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		MyHashtag myHashtag6 = new MyHashtag(u2, "배달의 민족");
 
 		MyHashtag myHashtag7 = new MyHashtag(u3, "조용한");
-		MyHashtag myHashtag8 = new MyHashtag(u3, "야간형");
+		MyHashtag myHashtag8 = new MyHashtag(u3, "아침형");
 		MyHashtag myHashtag9 = new MyHashtag(u3, "배달의 민족");
+		MyHashtag myHashtag10 = new MyHashtag(u3, "배달의 민족11");
 
-		MyHashtag myHashtag10 = new MyHashtag(u21, "조용한");
-		MyHashtag myHashtag11 = new MyHashtag(u21, "아침형");
-		MyHashtag myHashtag12 = new MyHashtag(u21, "배달의 민족");
+		MyHashtag myHashtag11 = new MyHashtag(u21, "조용한");
+		MyHashtag myHashtag12 = new MyHashtag(u21, "아침형");
+		MyHashtag myHashtag13 = new MyHashtag(u21, "배달의 민족");
+
+		MyHashtag myHashtag14 = new MyHashtag(u4, "활발한");
 
 		em.persist(myHashtag1);
 		em.persist(myHashtag2);
@@ -248,6 +251,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(myHashtag10);
 		em.persist(myHashtag11);
 		em.persist(myHashtag12);
+		em.persist(myHashtag13);
+		em.persist(myHashtag14);
 
 		//Community 생성
 		CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
