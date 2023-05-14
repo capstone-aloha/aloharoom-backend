@@ -64,25 +64,45 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         eqGender(gender) //user.gender == gender
                 )
                 .fetch();
+        users.stream().forEach(user -> user.getMyHomeHashtags().stream()
+                .forEach(myHomeHashtag -> myHomeHashtag.getId())); //실객체 변환
+
         System.out.println("=====users개수===== " + users.size());
 
         List<User> hashtagPassUsers = new ArrayList<>();
         Set<String> userLikeHashtagSet = new HashSet<>();
-        List<String> selectHashtags = searchFilterDto.getLikeHashtags(); //필터링 모달에서 고른 해시태그
+        Set<String> userLikeHomeHashtagSet = new HashSet<>();
+        List<String> selectHashtags = searchFilterDto.getLikeHashtags(); //필터링 모달에서 고른 사람 해시태그
+        List<String> selectHomeHashtags = searchFilterDto.getLikeHomeHashtags(); //필터링 모달에서 고른 집 해시태그
+
         //해시태그 필터링
         for (User user : users) {
             List<MyHashtag> myHashtags = user.getMyHashtags();
+            List<MyHomeHashtag> myHomeHashtags = user.getMyHomeHashtags();
             myHashtags.stream()
                     .forEach(myHashtag -> userLikeHashtagSet.add(myHashtag.getHash()));
+            myHomeHashtags.stream()
+                    .forEach(myHomeHashtag -> userLikeHomeHashtagSet.add(myHomeHashtag.getName()));
             boolean flag = false;
             for(String selectHashtag : selectHashtags) {
                 if(!userLikeHashtagSet.contains(selectHashtag)) {
                     flag = true; break;
                 }
             }
-            //해시태그 + 가전제품 필터를 통과한 User만 저장
+            if(flag) {
+                userLikeHashtagSet.clear();
+                userLikeHomeHashtagSet.clear();
+                continue;
+            }
+            for(String selectHomeHashtag : selectHomeHashtags) {
+                if(!userLikeHomeHashtagSet.contains(selectHomeHashtag)) {
+                    flag = true; break;
+                }
+            }
+            //내 해시태그 + 집 해시태그 필터를 통과한 User만 저장
             if(!flag) hashtagPassUsers.add(user);
             userLikeHashtagSet.clear();
+            userLikeHomeHashtagSet.clear();
         }
         System.out.println("=====hashtagPassUsers개수===== " + hashtagPassUsers.size());
 
