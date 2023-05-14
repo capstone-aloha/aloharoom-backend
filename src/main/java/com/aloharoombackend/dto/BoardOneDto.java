@@ -35,8 +35,8 @@ public class BoardOneDto {
     private String openChatUrl;
     private Integer age;
     private String gender;
-    private List<String> hashtag;
-    private List<String> product;
+    private List<String> myHashtag;
+    private List<String> myHomeHashtag;
     private String preferAgeRange; //선호하는 연령층
     private Boolean isHeart; //좋아요 눌렀는 지 판단
 
@@ -64,10 +64,10 @@ public class BoardOneDto {
         this.openChatUrl = board.getOpenChatUrl();
         this.age = user.getAge();
         this.gender = user.getGender();
-        this.hashtag = user.getMyHashtags().stream()
+        this.myHashtag = user.getMyHashtags().stream()
                 .map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());
-        this.product = user.getMyProducts().stream()
-                .map(myProduct -> myProduct.getName()).collect(Collectors.toList());
+        this.myHomeHashtag = user.getMyHomeHashtags().stream()
+                .map(myHomeHashtag -> myHomeHashtag.getName()).collect(Collectors.toList());
         if(board.getMinAge() == board.getMaxAge())
             this.preferAgeRange = board.getMinAge().toString();
         else this.preferAgeRange = board.getMinAge() + " ~ " + board.getMaxAge();

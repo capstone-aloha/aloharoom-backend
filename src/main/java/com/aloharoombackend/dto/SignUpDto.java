@@ -19,11 +19,11 @@ public class SignUpDto {
 
     private List<String> likeHashtags;
 
-    private List<String> likeProducts;
+    private List<String> likeHomeHashtags;
 
     private List<String> myHashtags;
 
-    private List<String> myProducts;
+    private List<String> myHomeHashtags;
 
     public SignUpDto(User user) {
         this.username = user.getUsername();

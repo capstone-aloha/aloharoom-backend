@@ -19,9 +19,9 @@ public class MyPageEditDto {
     private String gender;
     private String profileUrl;
     private List<String> likeHashtags;     //likeHash
-    private List<String> likeProducts;    //likeProduct
+    private List<String> likeHomeHashtags;    //likeProduct
     private List<String> myHashtags;    //myHash
-    private List<String> myProducts;    //myProduct
+    private List<String> myHomeHashtags;    //myProduct
 
     public MyPageEditDto(User user) {
         this.password = user.getPassword();
@@ -30,9 +30,9 @@ public class MyPageEditDto {
         this.gender = user.getGender();
         this.profileUrl = user.getProfileUrl();
         this.likeHashtags = user.getLikeHashtags().stream().map(likeHashtag -> likeHashtag.getHash()).collect(Collectors.toList());
-        this.likeProducts = user.getLikeProducts().stream().map(likeProduct -> likeProduct.getName()).collect(Collectors.toList());
+        this.likeHomeHashtags = user.getLikeHomeHashtags().stream().map(likeHomeHashtag -> likeHomeHashtag.getName()).collect(Collectors.toList());
         this.myHashtags = user.getMyHashtags().stream().map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());
-        this.myProducts = user.getMyProducts().stream().map(myProduct -> myProduct.getName()).collect(Collectors.toList());
+        this.myHomeHashtags = user.getMyHomeHashtags().stream().map(myHomeHashtag -> myHomeHashtag.getName()).collect(Collectors.toList());
     }
 
 }

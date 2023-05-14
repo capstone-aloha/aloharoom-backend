@@ -26,13 +26,13 @@ public class MyPageDto {
     private List<String> likeHashtags;
 
     //likeProduct
-    private List<String> likeProducts;
+    private List<String> likeHomeHashtags;
 
     //myHash
     private List<String> myHashtags;
 
     //myProduct
-    private List<String> myProducts;
+    private List<String> myHomeHashtags;
 
     public MyPageDto(User user) {
         this.signupId = user.getId();
@@ -44,8 +44,8 @@ public class MyPageDto {
         this.role = user.getRole();
         this.profileUrl = user.getProfileUrl();
         this.likeHashtags = user.getLikeHashtags().stream().map(likeHashtag -> likeHashtag.getHash()).collect(Collectors.toList());
-        this.likeProducts = user.getLikeProducts().stream().map(likeProduct -> likeProduct.getName()).collect(Collectors.toList());
+        this.likeHomeHashtags = user.getLikeHomeHashtags().stream().map(likeHomeHashtag -> likeHomeHashtag.getName()).collect(Collectors.toList());
         this.myHashtags = user.getMyHashtags().stream().map(myHashtag -> myHashtag.getHash()).collect(Collectors.toList());
-        this.myProducts = user.getMyProducts().stream().map(myProduct -> myProduct.getName()).collect(Collectors.toList());
+        this.myHomeHashtags = user.getMyHomeHashtags().stream().map(myHomeHashtag -> myHomeHashtag.getName()).collect(Collectors.toList());
     }
 }

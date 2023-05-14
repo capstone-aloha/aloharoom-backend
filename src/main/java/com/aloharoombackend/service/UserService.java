@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
-    private final LikeProductService likeProductService;
-    private final MyProductService myProductService;
+    private final LikeHomeHashtagService likeHomeHashtagService;
+    private final MyHomeHashtagService myHomeHashtagService;
     private final LikeHashtagService likeHashtagService;
     private final MyHashtagService myHashtagService;
     private final AwsS3Service awsS3Service;
@@ -47,18 +47,18 @@ public class UserService {
         String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
         user.setPassword(encPassword);
 
-        List<LikeProduct> likeProducts = signUpDto.getLikeProducts()
-                .stream().map(likeProduct -> new LikeProduct(likeProduct, user)).collect(Collectors.toList());
-        List<MyProduct> myProducts = signUpDto.getMyProducts()
-                .stream().map(myProduct -> new MyProduct(myProduct, user)).collect(Collectors.toList());
+        List<LikeHomeHashtag> likeHomeHashtags = signUpDto.getLikeHomeHashtags()
+                .stream().map(likeProduct -> new LikeHomeHashtag(likeProduct, user)).collect(Collectors.toList());
+        List<MyHomeHashtag> myHomeHashtags = signUpDto.getMyHomeHashtags()
+                .stream().map(myProduct -> new MyHomeHashtag(myProduct, user)).collect(Collectors.toList());
         List<LikeHashtag> likeHashtags = signUpDto.getLikeHashtags()
                 .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, user)).collect(Collectors.toList());
         List<MyHashtag> myHashtags = signUpDto.getMyHashtags()
                 .stream().map(myHashtag -> new MyHashtag(myHashtag, user)).collect(Collectors.toList());
 
         userRepository.save(user);
-        likeProductService.create(likeProducts);
-        myProductService.create(myProducts);
+        likeHomeHashtagService.create(likeHomeHashtags);
+        myHomeHashtagService.create(myHomeHashtags);
         likeHashtagService.create(likeHashtags);
         myHashtagService.create(myHashtags);
         return "회원가입 완료";
@@ -96,7 +96,7 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
         findUser.getMyHashtags().stream().
                 forEach(myHashtag -> myHashtag.getHash());
-        findUser.getMyProducts().stream().
+        findUser.getMyHomeHashtags().stream().
                 forEach(myProduct -> myProduct.getName());
         return findUser;
     }
@@ -107,12 +107,12 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("찾는 사용자가 존재하지 않습니다."));
         findUser.getMyHashtags().stream().
                 forEach(MyHashtag::getHash);
-        findUser.getMyProducts().stream().
-                forEach(MyProduct::getName);
+        findUser.getMyHomeHashtags().stream().
+                forEach(MyHomeHashtag::getName);
         findUser.getLikeHashtags().stream().
                 forEach(LikeHashtag::getHash);
-        findUser.getLikeProducts().stream().
-                forEach(LikeProduct::getName);
+        findUser.getLikeHomeHashtags().stream().
+                forEach(LikeHomeHashtag::getName);
         return findUser;
     }
 
@@ -155,20 +155,20 @@ public class UserService {
 
         //삭제
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
-        List<LikeProduct> likeProducts = findUser.getLikeProducts();
+        List<LikeHomeHashtag> likeHomeHashtags = findUser.getLikeHomeHashtags();
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
-        List<MyProduct> myProducts = findUser.getMyProducts();
+        List<MyHomeHashtag> myHomeHashtags = findUser.getMyHomeHashtags();
 
-        likeProducts.forEach(likeProductService::delete);
-        myProducts.forEach(myProductService::delete);
+        likeHomeHashtags.forEach(likeHomeHashtagService::delete);
+        myHomeHashtags.forEach(myHomeHashtagService::delete);
         likeHashtags.forEach(likeHashtagService::delete);
         myHashtags.forEach(myHashtagService::delete);
 
         //새로 생성
-        List<LikeProduct> newLikeProducts = myPageEditDto.getLikeProducts()
-                .stream().map(likeProduct -> new LikeProduct(likeProduct, findUser)).collect(Collectors.toList());
-        List<MyProduct> newMyProducts = myPageEditDto.getMyProducts()
-                .stream().map(myProduct -> new MyProduct(myProduct, findUser)).collect(Collectors.toList());
+        List<LikeHomeHashtag> newLikeHomeHashtags = myPageEditDto.getLikeHomeHashtags()
+                .stream().map(likeProduct -> new LikeHomeHashtag(likeProduct, findUser)).collect(Collectors.toList());
+        List<MyHomeHashtag> newMyHomeHashtags = myPageEditDto.getMyHomeHashtags()
+                .stream().map(myProduct -> new MyHomeHashtag(myProduct, findUser)).collect(Collectors.toList());
         List<LikeHashtag> newLikeHashtags = myPageEditDto.getLikeHashtags()
                 .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, findUser)).collect(Collectors.toList());
         List<MyHashtag> newMyHashtags = myPageEditDto.getMyHashtags()
@@ -176,8 +176,8 @@ public class UserService {
 
         //업데이트
         findUser.edit(myPageEditDto, profileUrl);
-        likeProductService.create(newLikeProducts);
-        myProductService.create(newMyProducts);
+        likeHomeHashtagService.create(newLikeHomeHashtags);
+        myHomeHashtagService.create(newMyHomeHashtags);
         likeHashtagService.create(newLikeHashtags);
         myHashtagService.create(newMyHashtags);
         return "수정 성공";
@@ -187,9 +187,9 @@ public class UserService {
     public String delete(Long userId) {
         User findUser = getUserById(userId);
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();
-        List<LikeProduct> likeProducts = findUser.getLikeProducts();
+        List<LikeHomeHashtag> likeHomeHashtags = findUser.getLikeHomeHashtags();
         List<MyHashtag> myHashtags = findUser.getMyHashtags();
-        List<MyProduct> myProducts = findUser.getMyProducts();
+        List<MyHomeHashtag> myHomeHashtags = findUser.getMyHomeHashtags();
 
         // userId에 해당하는 모든 Board 데이터를 삭제
         List<Board> boards = boardRepository.findAllByUserId(userId);
@@ -221,8 +221,8 @@ public class UserService {
         // userId에 해당하는 모든 communityBoard 데이터를 삭제
         communityBoardRepository.deleteAll(communityBoards);
 
-        likeProducts.forEach(likeProductService::delete);
-        myProducts.forEach(myProductService::delete);
+        likeHomeHashtags.forEach(likeHomeHashtagService::delete);
+        myHomeHashtags.forEach(myHomeHashtagService::delete);
         likeHashtags.forEach(likeHashtagService::delete);
         myHashtags.forEach(myHashtagService::delete);
 //        awsS3Service.deleteImage(findUser.getProfileUrl()); //기본 이미지일 때는 삭제 하면 안됨

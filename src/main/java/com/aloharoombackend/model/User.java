@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@ToString(exclude = {"likeProducts", "myProducts", "likeHashtags", "myHashtags", "board"})
+@ToString(exclude = {"likeHomeHashtags", "myHomeHashtags", "likeHashtags", "myHashtags", "board"})
 @NoArgsConstructor
 public class User {
     @Id
@@ -50,10 +50,10 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user")
-    private List<LikeProduct> likeProducts = new ArrayList<>();
+    private List<LikeHomeHashtag> likeHomeHashtags = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<MyProduct> myProducts = new ArrayList<>();
+    private List<MyHomeHashtag> myHomeHashtags = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<LikeHashtag> likeHashtags = new ArrayList<>();

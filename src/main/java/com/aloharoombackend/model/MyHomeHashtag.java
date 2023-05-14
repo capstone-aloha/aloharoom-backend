@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class LikeProduct {
+public class MyHomeHashtag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class LikeProduct {
 
     private String name;
 
-    public LikeProduct(String name, User user) {
+    public MyHomeHashtag(String name, User user) {
         this.name = name;
         this.user = user;
     }
