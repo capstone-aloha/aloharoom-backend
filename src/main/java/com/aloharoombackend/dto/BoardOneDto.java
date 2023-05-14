@@ -22,7 +22,7 @@ public class BoardOneDto {
     private Integer flat;
     private Integer floor;
     private Integer totalFloor;
-    private Integer price;
+    private String price;
     private Integer deposit;
     private Integer maintenance;
     private Integer rent;
@@ -49,7 +49,19 @@ public class BoardOneDto {
         this.roomCount = home.getRoomCount();
         this.homeType = home.getHomeType();
         this.tradeType = home.getTradeType();
-        this.price = home.getPrice();
+        Integer price = home.getPrice();
+        Integer deposit = home.getDeposit();
+        if(deposit != null) {
+            this.price = deposit + "/" + price;
+        } else {
+            if(price<10000) this.price = price.toString();
+            else {
+                int s = price / 10000;
+                int e = price % 10000;
+                if(e==0) this.price = s + "억";
+                else this.price = s + "억" + e;
+            }
+        }
         this.deposit = home.getDeposit();
         this.rent = home.getRent();
         this.floor = home.getFloor();
@@ -82,7 +94,7 @@ public class BoardOneDto {
         this.roomCount = home.getRoomCount();
         this.homeType = home.getHomeType();
         this.tradeType = home.getTradeType();
-        this.price = home.getPrice();
+        this.price = home.getPrice().toString();
         this.deposit = home.getDeposit();
         this.floor = home.getFloor();
         this.totalFloor = home.getTotalFloor();
