@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -170,7 +168,7 @@ public class CommunityBoardService{
         communityBoardRepository.delete(communityBoard);
         return "커뮤니티 삭제 완료";
     }
-    
+
     public List<CommunityAllDto> searchCommunity(String keyword, Integer code) {
         List<CommunityBoard> communityBoards;
         if (code != null) {
