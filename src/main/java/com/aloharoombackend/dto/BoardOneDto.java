@@ -86,20 +86,4 @@ public class BoardOneDto {
         this.isHeart = isHeart;
     }
 
-    public BoardOneDto(Board board, Home home) {
-        this.contents = board.getContents();
-        this.address = home.getAddress();
-        this.maintenance = home.getMaintenance();
-        this.flat = home.getFlat();
-        this.roomCount = home.getRoomCount();
-        this.homeType = home.getHomeType();
-        this.tradeType = home.getTradeType();
-        this.price = home.getPrice().toString();
-        this.deposit = home.getDeposit();
-        this.floor = home.getFloor();
-        this.totalFloor = home.getTotalFloor();
-        this.startDate = home.getStartDate();
-        this.imgUrls = home.getHomeImages().stream()
-                .map(homeImage -> homeImage.getImgUrl()).collect(Collectors.toList());
-    }
 }
