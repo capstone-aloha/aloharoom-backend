@@ -35,8 +35,8 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... args) throws Exception {
 		//Home 생성
-		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.", "https://open.kakao.com/o/saQor8jf",3, "서울특별시 성북구 삼선교로16길 116", "villa", "매매", 2000,
-				10, 25, 30, 15, 8, 20, LocalDate.now(), 37.582812, 127.010233, Arrays.asList(new Integer[]{20, 25}));
+		BoardAddDto b1 = new BoardAddDto("방 게시물1 내용입니다.", "https://open.kakao.com/o/saQor8jf",3, "서울특별시 성북구 삼선교로16길 116", "villa", "매매", 22000,
+				null, 25, 30, 15, 8, 20, LocalDate.now(), 37.582812, 127.010233, Arrays.asList(new Integer[]{20, 25}));
 		Home h1 = new Home(b1);
 		BoardAddDto b2 = new BoardAddDto("방 게시물2 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 영등포구 당산동5가 42", "officetel", "매매", 2000,
 				10, 30, 38, 15, 2, 25, LocalDate.now(), 37.531854, 126.902958, Arrays.asList(new Integer[]{22, 25}));
@@ -236,7 +236,6 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		MyHashtag myHashtag11 = new MyHashtag(u21, "조용한");
 		MyHashtag myHashtag12 = new MyHashtag(u21, "아침형");
 		MyHashtag myHashtag13 = new MyHashtag(u21, "배달의 민족");
-
 		MyHashtag myHashtag14 = new MyHashtag(u4, "활발한");
 
 		em.persist(myHashtag1);
@@ -253,6 +252,77 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(myHashtag12);
 		em.persist(myHashtag13);
 		em.persist(myHashtag14);
+
+		//MyHomeHashtag 생성
+		MyHomeHashtag mhh2_1 = new MyHomeHashtag("숲세권1", u2); MyHomeHashtag mhh2_2 = new MyHomeHashtag("역세권", u2);
+		MyHomeHashtag mhh2_3 = new MyHomeHashtag("한강세권", u2); MyHomeHashtag mhh2_4 = new MyHomeHashtag("편세권", u2);
+		MyHomeHashtag mhh2_5 = new MyHomeHashtag("야경맛집", u2); MyHomeHashtag mhh2_6 = new MyHomeHashtag("엘리베이터", u2);
+		MyHomeHashtag mhh2_7 = new MyHomeHashtag("주차가능", u2); MyHomeHashtag mhh2_8 = new MyHomeHashtag("통창", u2);
+		MyHomeHashtag mhh2_9 = new MyHomeHashtag("남향", u2); MyHomeHashtag mhh2_10 = new MyHomeHashtag("로켓와우", u2);
+		MyHomeHashtag mhh2_11 = new MyHomeHashtag("고층", u2);
+
+		MyHomeHashtag mhh3_1 = new MyHomeHashtag("숲세권", u3); MyHomeHashtag mhh3_2 = new MyHomeHashtag("역세권", u3);
+		MyHomeHashtag mhh3_3 = new MyHomeHashtag("한강세권", u3); MyHomeHashtag mhh3_4 = new MyHomeHashtag("편세권", u3);
+		MyHomeHashtag mhh3_5 = new MyHomeHashtag("야경맛집", u3); MyHomeHashtag mhh3_6 = new MyHomeHashtag("엘리베이터", u3);
+		MyHomeHashtag mhh3_7 = new MyHomeHashtag("주차가능", u3); MyHomeHashtag mhh3_8 = new MyHomeHashtag("통창", u3);
+		MyHomeHashtag mhh3_9 = new MyHomeHashtag("남향", u3); MyHomeHashtag mhh3_10 = new MyHomeHashtag("로켓와우", u3);
+		MyHomeHashtag mhh3_11 = new MyHomeHashtag("고층", u3);
+
+		MyHomeHashtag mhh4_1 = new MyHomeHashtag("숲세권", u4); MyHomeHashtag mhh4_2 = new MyHomeHashtag("역세권", u4);
+		MyHomeHashtag mhh4_3 = new MyHomeHashtag("한강세권", u4); MyHomeHashtag mhh4_4 = new MyHomeHashtag("편세권", u4);
+		MyHomeHashtag mhh4_5 = new MyHomeHashtag("야경맛집", u4); MyHomeHashtag mhh4_6 = new MyHomeHashtag("엘리베이터", u4);
+		MyHomeHashtag mhh4_7 = new MyHomeHashtag("주차가능", u4); MyHomeHashtag mhh4_8 = new MyHomeHashtag("통창", u4);
+		MyHomeHashtag mhh4_9 = new MyHomeHashtag("남향", u4); MyHomeHashtag mhh4_10 = new MyHomeHashtag("로켓와우", u4);
+		MyHomeHashtag mhh4_11 = new MyHomeHashtag("고층", u4);
+
+		MyHomeHashtag mhh5_1 = new MyHomeHashtag("숲세권", u5); MyHomeHashtag mhh5_2 = new MyHomeHashtag("역세권", u5);
+		MyHomeHashtag mhh5_3 = new MyHomeHashtag("한강세권", u5); MyHomeHashtag mhh5_4 = new MyHomeHashtag("편세권", u5);
+		MyHomeHashtag mhh5_5 = new MyHomeHashtag("야경맛집", u5); MyHomeHashtag mhh5_6 = new MyHomeHashtag("엘리베이터", u5);
+		MyHomeHashtag mhh5_7 = new MyHomeHashtag("주차가능", u5); MyHomeHashtag mhh5_8 = new MyHomeHashtag("통창", u5);
+		MyHomeHashtag mhh5_9 = new MyHomeHashtag("남향", u5); MyHomeHashtag mhh5_10 = new MyHomeHashtag("로켓와우", u5);
+		MyHomeHashtag mhh5_11 = new MyHomeHashtag("고층", u5);
+
+		MyHomeHashtag mhh6_1 = new MyHomeHashtag("숲세권", u6); MyHomeHashtag mhh6_2 = new MyHomeHashtag("역세권", u6);
+		MyHomeHashtag mhh6_3 = new MyHomeHashtag("한강세권", u6); MyHomeHashtag mhh6_4 = new MyHomeHashtag("편세권", u6);
+		MyHomeHashtag mhh6_5 = new MyHomeHashtag("야경맛집", u6); MyHomeHashtag mhh6_6 = new MyHomeHashtag("엘리베이터", u6);
+		MyHomeHashtag mhh6_7 = new MyHomeHashtag("주차가능", u6); MyHomeHashtag mhh6_8 = new MyHomeHashtag("통창", u6);
+		MyHomeHashtag mhh6_9 = new MyHomeHashtag("남향", u6); MyHomeHashtag mhh6_10 = new MyHomeHashtag("로켓와우", u6);
+		MyHomeHashtag mhh6_11 = new MyHomeHashtag("고층", u6);
+
+		MyHomeHashtag mhh7_1 = new MyHomeHashtag("숲세권", u7); MyHomeHashtag mhh7_2 = new MyHomeHashtag("역세권", u7);
+		MyHomeHashtag mhh7_3 = new MyHomeHashtag("한강세권", u7); MyHomeHashtag mhh7_4 = new MyHomeHashtag("편세권", u7);
+		MyHomeHashtag mhh7_5 = new MyHomeHashtag("야경맛집", u7); MyHomeHashtag mhh7_6 = new MyHomeHashtag("엘리베이터", u7);
+		MyHomeHashtag mhh7_7 = new MyHomeHashtag("주차가능", u7); MyHomeHashtag mhh7_8 = new MyHomeHashtag("통창", u7);
+		MyHomeHashtag mhh7_9 = new MyHomeHashtag("남향", u7); MyHomeHashtag mhh7_10 = new MyHomeHashtag("로켓와우", u7);
+		MyHomeHashtag mhh7_11 = new MyHomeHashtag("고층", u7);
+
+		em.persist(mhh2_1); em.persist(mhh2_2); em.persist(mhh2_3); em.persist(mhh2_4); em.persist(mhh2_5);
+		em.persist(mhh2_6); em.persist(mhh2_7); em.persist(mhh2_8); em.persist(mhh2_9); em.persist(mhh2_10);  em.persist(mhh2_11);
+		em.persist(mhh3_1); em.persist(mhh3_2); em.persist(mhh3_3); em.persist(mhh3_4); em.persist(mhh3_5);
+		em.persist(mhh3_6); em.persist(mhh3_7); em.persist(mhh3_8); em.persist(mhh3_9); em.persist(mhh3_10);  em.persist(mhh3_11);
+		em.persist(mhh4_1); em.persist(mhh4_2); em.persist(mhh4_3); em.persist(mhh4_4); em.persist(mhh4_5);
+		em.persist(mhh4_6); em.persist(mhh4_7); em.persist(mhh4_8); em.persist(mhh4_9); em.persist(mhh4_10);  em.persist(mhh4_11);
+		em.persist(mhh5_1); em.persist(mhh5_2); em.persist(mhh5_3); em.persist(mhh5_4); em.persist(mhh5_5);
+		em.persist(mhh5_6); em.persist(mhh5_7); em.persist(mhh5_8); em.persist(mhh5_9); em.persist(mhh5_10);  em.persist(mhh5_11);
+		em.persist(mhh6_1); em.persist(mhh6_2); em.persist(mhh6_3); em.persist(mhh6_4); em.persist(mhh6_5);
+		em.persist(mhh6_6); em.persist(mhh6_7); em.persist(mhh6_8); em.persist(mhh6_9); em.persist(mhh6_10);  em.persist(mhh6_11);
+		em.persist(mhh7_1); em.persist(mhh7_2); em.persist(mhh7_3); em.persist(mhh7_4); em.persist(mhh7_5);
+		em.persist(mhh7_6); em.persist(mhh7_7); em.persist(mhh7_8); em.persist(mhh7_9); em.persist(mhh7_10);  em.persist(mhh7_11);
+
+		//likeHashtag
+		LikeHashtag lh1 = new LikeHashtag("배달의 민족", u1); LikeHashtag lh2 = new LikeHashtag("평일근무", u1);
+		LikeHashtag lh3 = new LikeHashtag("아침형", u1); LikeHashtag lh4 = new LikeHashtag("맛집러버", u1);
+		LikeHashtag lh5 = new LikeHashtag("요리마스터", u1); LikeHashtag lh6 = new LikeHashtag("집돌이/집순이", u1);
+		LikeHashtag lh7 = new LikeHashtag("성실한", u1);
+		em.persist(lh1); em.persist(lh2); em.persist(lh3); em.persist(lh4); em.persist(lh5);
+		em.persist(lh6); em.persist(lh7);
+		//likeHomeHashtag
+		LikeHomeHashtag lhh1 = new LikeHomeHashtag("숲세권", u1); LikeHomeHashtag lhh2 = new LikeHomeHashtag("한강세권", u1);
+		LikeHomeHashtag lhh3 = new LikeHomeHashtag("로켓와우", u1); LikeHomeHashtag lhh4 = new LikeHomeHashtag("엘리베이터", u1);
+		LikeHomeHashtag lhh5 = new LikeHomeHashtag("베란다/발코니", u1); LikeHomeHashtag lhh6 = new LikeHomeHashtag("SSG배송", u1);
+		LikeHomeHashtag lhh7 = new LikeHomeHashtag("야경맛집", u1); LikeHomeHashtag lhh8 = new LikeHomeHashtag("통창", u1);
+		em.persist(lhh1); em.persist(lhh2); em.persist(lhh3); em.persist(lhh4); em.persist(lhh5);
+		em.persist(lhh6); em.persist(lhh7); em.persist(lhh8);
 
 		//Community 생성
 		/*CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);

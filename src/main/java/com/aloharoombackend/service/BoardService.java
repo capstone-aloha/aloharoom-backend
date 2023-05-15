@@ -169,17 +169,12 @@ public class BoardService {
         return "방 활성화 완료";
     }
 
-    //내가 쓴 방 조회
-    public List<BoardOneDto> getMyBoard(Long userId) {
-        Board board = boardRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
+    //내가 쓴 방 조회(카드형식)
+    public BoardAllDto getMyBoard(Long userId) {
+        Board board = boardRepository.findByUserId(userId);
         Home home = homeService.findOne(board.getHome().getId());
-        List<Board> boards = boardRepository.findAllByUserId(userId);
-        List<BoardOneDto> boardOneDtos = new ArrayList<>();
-        for (int i = 0; i < boards.size(); i++) {
-            boardOneDtos.add(new BoardOneDto(boards.get(i), home));
-        }
-        return boardOneDtos;
+        BoardAllDto boardAllDto = new BoardAllDto(board, home);
+        return boardAllDto;
     }
 
     //내가 댓글 단 방 조회
