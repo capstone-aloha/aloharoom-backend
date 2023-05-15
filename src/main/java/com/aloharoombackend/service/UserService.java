@@ -122,7 +122,7 @@ public class UserService {
         return new MyPageDto(findUser);
     }
 
-    //회원의 해시태그, 가전제품 조회
+    //선호 해시태그, 회원의 해시태그 조회
     public UserInfoDto findOneInfo(Long userId) {
         User findUser = findOneFetchAll(userId);
         return new UserInfoDto(findUser);
