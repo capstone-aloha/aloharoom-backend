@@ -22,6 +22,7 @@ public class SearchFilterDto {
     private List<Integer> flatRange; //원하는 평수 범위
     private List<Integer> rentRange; //원하는 월세 범위
     private List<String> likeHashtags;
+    private List<String> likeHomeHashtags;
 
     public void setUser(User user) {
         this.likeHashtags = user.getLikeHashtags().stream()
