@@ -33,10 +33,11 @@ public class BoardService {
 
         //MultipartFile을 s3에 저장 후 해당 주소로 HomeImage 생성
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
-        imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
+        List<HomeImage> homeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home, imgUrl)).collect(Collectors.toList());
 
         homeService.create(home);
         boardRepository.save(board);
+        homeImages.stream().forEach(homeImage -> homeImageService.create(homeImage));
         return "방 작성 완료";
     }
 
@@ -98,14 +99,14 @@ public class BoardService {
         //home에 있는 이미지 삭제 => aws 삭제, HomeImage 삭제
         Home home1 = homeService.findOne(homeId);
         List<HomeImage> homeImages = home1.getHomeImages();
-        homeImages.forEach(homeImageService::delete); // HomeImage 삭제
         List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
         deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+        homeImages.stream().forEach(homeImage -> homeImageService.delete(homeImage));
 
         //업데이트
         List<String> imgUrls = awsS3Service.uploadImage(imgFiles);
         List<HomeImage> newHomeImages = imgUrls.stream().map(imgUrl -> new HomeImage(home1, imgUrl)).collect(Collectors.toList());
-
+        newHomeImages.stream().forEach(newHomeImage -> homeImageService.create(newHomeImage));
         homeService.update(homeId, boardEditDto, newHomeImages);
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
@@ -121,6 +122,8 @@ public class BoardService {
 
         List<String> deleteImgUrls = homeImages.stream().map(hi -> hi.getImgUrl()).collect(Collectors.toList());
         deleteImgUrls.forEach(awsS3Service::deleteImage); // aws 삭제
+
+        homeImages.stream().forEach(homeImage -> homeImageService.delete(homeImage));
 
         commentService.deleteByBoardId(boardId); //해당 글의 댓글 삭제
         heartService.deleteByBoardId(boardId); //해당 글의 좋아요 삭제

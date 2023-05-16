@@ -127,17 +127,27 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		List<String> imgUrls = new ArrayList<>(
 				List.of(new String[]{"efdded1a-a0c8-4018-bfd6-a9389087bbb4.jpg","dca186b1-c4b2-452d-a4ec-22f039951754.jpg",
 						"78207f64-5aa1-458d-a6ad-43106806a632.jpg", "2dc5fbd5-c916-405c-bba3-1b22f2c2c39a.jpg"}));
-		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h4, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h5, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h6, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h7, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h8, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h9, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h10, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h11, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h12, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h13, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h14, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h15, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h16, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h17, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h18, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h19, imgUrl)).collect(Collectors.toList()); imgUrls.stream().map(imgUrl -> new HomeImage(h20, imgUrl)).collect(Collectors.toList());
-		imgUrls.stream().map(imgUrl -> new HomeImage(h21, imgUrl)).collect(Collectors.toList());
+		imgUrls.stream().map(imgUrl -> new HomeImage(h1, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h4, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h5, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h6, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h7, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h8, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h9, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h10, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h11, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h12, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h13, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h14, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h15, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h16, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h17, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h18, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h19, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h20, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		imgUrls.stream().map(imgUrl -> new HomeImage(h21, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
 
 		//User 생성
 		String encodePw = bCryptPasswordEncoder.encode("1234");
