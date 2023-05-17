@@ -55,7 +55,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         //User 쿼리 (필터를 만족하는 사용자 추출)
         List<User> users = queryFactory
                 .selectFrom(user).distinct()
-                .join(user.myHashtags, myHashtag).fetchJoin()
+//                .join(user.myHashtags, myHashtag).fetchJoin()
                 .leftJoin(user.board, board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
                 .where(
                         board.isNotNull(),
@@ -64,6 +64,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         eqGender(gender) //user.gender == gender
                 )
                 .fetch();
+        users.stream().forEach(user -> user.getMyHashtags().stream()
+                .forEach(myHashtag -> myHashtag.getId())); //실객체 변환
         users.stream().forEach(user -> user.getMyHomeHashtags().stream()
                 .forEach(myHomeHashtag -> myHomeHashtag.getId())); //실객체 변환
 
