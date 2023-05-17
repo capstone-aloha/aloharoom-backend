@@ -135,11 +135,6 @@ public class BoardService {
         return "방 삭제 완료";
     }
 
-//    public List<BoardAllDto> searchFilter(Long loginUserId, SearchFilterDto searchFilterDto) {
-////        searchFilterDto.setUser(userService.findOne(loginUserId));
-//        return boardRepository.searchFilter(searchFilterDto);
-//    }
-
     public List<BoardAllDto> searchFilter(RangeDto rangeDto, SearchFilterDto searchFilterDto) {
         return boardRepository.searchFilter(rangeDto, searchFilterDto);
     }

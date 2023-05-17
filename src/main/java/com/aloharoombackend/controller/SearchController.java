@@ -42,8 +42,7 @@ public class SearchController {
             @RequestParam String gender, @RequestParam Integer roomCount,
             @RequestParam String homeType, @RequestParam List<Integer> ageRange,
             @RequestParam List<Integer> flatRange, @RequestParam List<Integer> rentRange,
-            @RequestParam List<String> likeHashtags, @RequestParam List<String> likeHomeHashtags,@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        List<BoardAllDto> boards = boardService.findAllByRange(new RangeDto(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude));
+            @RequestParam List<String> likeHashtags, @RequestParam List<String> likeHomeHashtags) {
         SearchFilterDto searchFilterDto = new SearchFilterDto(gender, roomCount, homeType, ageRange, flatRange, rentRange, likeHashtags, likeHomeHashtags);
         System.out.println(searchFilterDto);
         RangeDto rangeDto = new RangeDto(southWestLatitude, southWestLongitude, northEastLatitude, northEastLongitude);
