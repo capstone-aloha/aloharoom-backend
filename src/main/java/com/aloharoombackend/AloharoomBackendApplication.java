@@ -48,22 +48,22 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 				300, 40, 34, 15, 2, 25, LocalDate.now(), 37.559246, 126.834986, Arrays.asList(new Integer[]{29, 29}));
 		Home h4 = new Home(b4);
 		BoardAddDto b5 = new BoardAddDto("방 게시물5 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 강남구 언주로103길 43", "apartment", "월세", 80,
-				1000, 40, 34, 15, 2, 25, LocalDate.now(), 37.505775, 127.036566, Arrays.asList(new Integer[]{29, 29}));
+				1000, 55, 34, 15, 2, 25, LocalDate.now(), 37.505775, 127.036566, Arrays.asList(new Integer[]{29, 29}));
 		Home h5 = new Home(b5);
 		BoardAddDto b6 = new BoardAddDto("방 게시물6 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 동작구 흑석동 204-38", "villa", "월세", 80,
 				300, 40, 34, 15, 2, 25, LocalDate.now(), 37.507155, 126.957409, Arrays.asList(new Integer[]{29, 29}));
 		Home h6 = new Home(b6);
-		BoardAddDto b7 = new BoardAddDto("방 게시물7 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 이촌로87길 13", "officetel", "전세", 15000,
-				null, 40, 34, 15, 2, 25, LocalDate.now(), 37.519233, 126.977466, Arrays.asList(new Integer[]{29, 29}));
+		BoardAddDto b7 = new BoardAddDto("방 게시물7 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 이촌로87길 13", "officetel", "전세", 25000,
+				null, 50, 26, 15, 8, 12, LocalDate.now(), 37.519233, 126.977466, Arrays.asList(new Integer[]{25, 29}));
 		Home h7 = new Home(b7);
 		BoardAddDto b8 = new BoardAddDto("방 게시물8 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 용산구 동빙고동 251-9", "villa", "전세", 23000,
 				null, 40, 34, 15, 2, 25, LocalDate.now(), 37.523249, 126.994172, Arrays.asList(new Integer[]{29, 29}));
 		Home h8 = new Home(b8);
 		BoardAddDto b9 = new BoardAddDto("방 게시물9 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 서초구 방배동 782-33", "villa", "전세", 35000,
-				null, 40, 34, 15, 2, 25, LocalDate.now(), 37.492939, 126.983640, Arrays.asList(new Integer[]{29, 29}));
+				null, 45, 34, 15, 2, 25, LocalDate.now(), 37.492939, 126.983640, Arrays.asList(new Integer[]{29, 29}));
 		Home h9 = new Home(b9);
 		BoardAddDto b10 = new BoardAddDto("방 게시물10 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 마포구 만리재로 41", "officetel", "전세", 12000,
-				null, 40, 34, 15, 2, 25, LocalDate.now(), 37.545287, 126.955292, Arrays.asList(new Integer[]{29, 29}));
+				null, 25, 34, 15, 2, 25, LocalDate.now(), 37.545287, 126.955292, Arrays.asList(new Integer[]{29, 29}));
 		Home h10 = new Home(b10);
 
 		BoardAddDto b11 = new BoardAddDto("방 게시물11 내용입니다.", "https://open.kakao.com/o/saQor8jf", 3, "서울특별시 중구 신당동 290-46", "villa", "전세", 8000,
@@ -157,11 +157,18 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		imgUrls.stream().map(imgUrl -> new HomeImage(h2, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h3, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h4, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h5, "2f138a80-0530-4422-9d77-eff2958b9ef8.jpeg"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h5, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h6, "998d72f9-5030-4ffa-ad1b-0dde26aaefbf.webp"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h6, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h7, "890f256d-b485-429c-baa3-698d652b5845.avif"));
+		em.persist(new HomeImage(h7, "8ff0d89f-c523-4589-a871-d44469c4f794.avif"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h7, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h8, "0a88fdf9-e738-4d62-a90c-36b0ada25f89.jpeg"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h8, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h9, "2cf0bd2d-3b2b-4210-8239-d33b8937d223.avif"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h9, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
+		em.persist(new HomeImage(h10, "2756c04b-54b3-415e-8a13-4e5fec102eae.avif"));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h10, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h11, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
 		imgUrls.stream().map(imgUrl -> new HomeImage(h12, imgUrl)).collect(Collectors.toList()).stream().forEach(homeImage -> em.persist(homeImage));
@@ -192,11 +199,11 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		SignUpDto su4 = new SignUpDto("admin4@naver.com", encodePw, 23, "male");
 		su4.setNickname("admin4"); User u4 = new User(su4); u4.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		SignUpDto su5 = new SignUpDto("admin5@naver.com", encodePw, 23, "male");
-		su5.setNickname("admin5"); User u5 = new User(su5); u5.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
+		su5.setNickname("타락파워전사"); User u5 = new User(su5); u5.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/1344f204-b80d-424a-9578-72ae7ceac2ff.jpg");
 		SignUpDto su6 = new SignUpDto("admin6@naver.com", encodePw, 23, "male");
-		su6.setNickname("admin6"); User u6 = new User(su6); u6.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
+		su6.setNickname("동동이"); User u6 = new User(su6); u6.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/7a81e391-5592-4b09-8ae2-d2110548417d.png");
 		SignUpDto su7 = new SignUpDto("admin7@naver.com", encodePw, 23, "male");
-		su7.setNickname("admin7"); User u7 = new User(su7); u7.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
+		su7.setNickname("흐에에에"); User u7 = new User(su7); u7.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/304bfa53-be92-4805-a366-6719be627a2e.jpg");
 		SignUpDto su8 = new SignUpDto("admin8@naver.com", encodePw, 23, "male");
 		su8.setNickname("admin8"); User u8 = new User(su8); u8.setProfileUrl("https://test-aloha1.s3.ap-northeast-2.amazonaws.com/e10274e8-8001-4cdd-8b4e-f527a916eafa.png");
 		SignUpDto su9 = new SignUpDto("admin9@naver.com", encodePw, 23, "male");
@@ -303,7 +310,13 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		MyHashtag myHashtag14 = new MyHashtag(u4, "활발한");
 
-
+		MyHashtag myHashtag15 = new MyHashtag(u7, "조용한");
+		MyHashtag myHashtag16 = new MyHashtag(u7, "아침형");
+		MyHashtag myHashtag17 = new MyHashtag(u7, "평일근무");
+		MyHashtag myHashtag18 = new MyHashtag(u7, "요리마스터");
+		MyHashtag myHashtag19 = new MyHashtag(u7, "배달의 민족");
+		MyHashtag myHashtag20 = new MyHashtag(u7, "집돌이/집순이");
+		MyHashtag myHashtag21 = new MyHashtag(u7, "맛집러버");
 
 		em.persist(myHashtag1);
 		em.persist(myHashtag2);
@@ -319,6 +332,9 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(myHashtag12);
 		em.persist(myHashtag13);
 		em.persist(myHashtag14);
+		em.persist(myHashtag15); em.persist(myHashtag16); em.persist(myHashtag17);
+		em.persist(myHashtag18); em.persist(myHashtag19); em.persist(myHashtag20);
+		em.persist(myHashtag21);
 
 		//MyHomeHashtag 생성
 		MyHomeHashtag mhh2_1 = new MyHomeHashtag("숲세권1", u2); MyHomeHashtag mhh2_2 = new MyHomeHashtag("역세권", u2);
@@ -384,6 +400,13 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(lh1); em.persist(lh2); em.persist(lh3); em.persist(lh4); em.persist(lh5);
 		em.persist(lh6); em.persist(lh7);
 
+		LikeHashtag lh11 = new LikeHashtag("배달의 민족", u7); LikeHashtag lh22 = new LikeHashtag("평일근무", u7);
+		LikeHashtag lh33 = new LikeHashtag("아침형", u7); LikeHashtag lh44 = new LikeHashtag("맛집러버", u7);
+		LikeHashtag lh55 = new LikeHashtag("요리마스터", u7); LikeHashtag lh66 = new LikeHashtag("집돌이/집순이", u7);
+		LikeHashtag lh77 = new LikeHashtag("성실한", u7);
+		em.persist(lh11); em.persist(lh22); em.persist(lh33); em.persist(lh44); em.persist(lh55);
+		em.persist(lh66); em.persist(lh77);
+
 		//likeHomeHashtag
 		LikeHomeHashtag lhh1 = new LikeHomeHashtag("숲세권", u1); LikeHomeHashtag lhh2 = new LikeHomeHashtag("한강세권", u1);
 		LikeHomeHashtag lhh3 = new LikeHomeHashtag("로켓와우", u1); LikeHomeHashtag lhh4 = new LikeHomeHashtag("엘리베이터", u1);
@@ -395,6 +418,15 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(lhh1); em.persist(lhh2); em.persist(lhh3); em.persist(lhh4); em.persist(lhh5);
 		em.persist(lhh6); em.persist(lhh7); em.persist(lhh8); em.persist(lhh9); em.persist(lhh10); em.persist(lhh11);
 
+		LikeHomeHashtag lhh110 = new LikeHomeHashtag("숲세권", u7); LikeHomeHashtag lhh22 = new LikeHomeHashtag("한강세권", u7);
+		LikeHomeHashtag lhh33 = new LikeHomeHashtag("로켓와우", u7); LikeHomeHashtag lhh44 = new LikeHomeHashtag("엘리베이터", u7);
+		LikeHomeHashtag lhh55 = new LikeHomeHashtag("베란다/발코니", u7); LikeHomeHashtag lhh66 = new LikeHomeHashtag("SSG배송", u7);
+		LikeHomeHashtag lhh77 = new LikeHomeHashtag("야경맛집", u1); LikeHomeHashtag lhh88 = new LikeHomeHashtag("통창", u7);
+		LikeHomeHashtag lhh99 = new LikeHomeHashtag("샛별배송", u7); LikeHomeHashtag lhh101 = new LikeHomeHashtag("역세권", u7);
+		LikeHomeHashtag lhh111 = new LikeHomeHashtag("복층", u7);
+
+		em.persist(lhh110); em.persist(lhh22); em.persist(lhh33); em.persist(lhh44); em.persist(lhh55);
+		em.persist(lhh66); em.persist(lhh77); em.persist(lhh88); em.persist(lhh99); em.persist(lhh101); em.persist(lhh111);
 		//Community 생성
 		/*CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
 		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 2);
