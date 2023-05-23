@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class CommunityAllDto {
     private Long userId;
     private String nickname;
+    private String profile;
     private Long communityId;
     private String title;
     private String contents;
@@ -23,6 +24,7 @@ public class CommunityAllDto {
     public CommunityAllDto(CommunityBoard communityBoard) {
         this.userId = communityBoard.getUser().getId();
         this.nickname = communityBoard.getUser().getNickname();
+        this.profile = communityBoard.getUser().getProfileUrl();
         this.communityId = communityBoard.getId();
         this.title = communityBoard.getTitle();
         this.contents = communityBoard.getContents();
