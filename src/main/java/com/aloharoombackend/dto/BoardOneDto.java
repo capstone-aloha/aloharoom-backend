@@ -39,6 +39,7 @@ public class BoardOneDto {
     private List<String> myHomeHashtag;
     private String preferAgeRange; //선호하는 연령층
     private Boolean isHeart; //좋아요 눌렀는 지 판단
+    private Boolean isActivate; //활성화된 방인지 판단
 
     public BoardOneDto(Board board, Home home, User user, Boolean isHeart) {
         this.userId = user.getId();
@@ -84,22 +85,7 @@ public class BoardOneDto {
             this.preferAgeRange = board.getMinAge().toString();
         else this.preferAgeRange = board.getMinAge() + " ~ " + board.getMaxAge();
         this.isHeart = isHeart;
+        this.isActivate = board.getActivation();
     }
 
-    public BoardOneDto(Board board, Home home) {
-        this.contents = board.getContents();
-        this.address = home.getAddress();
-        this.maintenance = home.getMaintenance();
-        this.flat = home.getFlat();
-        this.roomCount = home.getRoomCount();
-        this.homeType = home.getHomeType();
-        this.tradeType = home.getTradeType();
-        this.price = home.getPrice().toString();
-        this.deposit = home.getDeposit();
-        this.floor = home.getFloor();
-        this.totalFloor = home.getTotalFloor();
-        this.startDate = home.getStartDate();
-        this.imgUrls = home.getHomeImages().stream()
-                .map(homeImage -> homeImage.getImgUrl()).collect(Collectors.toList());
-    }
 }

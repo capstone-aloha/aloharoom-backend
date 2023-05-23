@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class BoardEditDto {
 
     private String contents;
+    private String openChatUrl;
     private Integer roomCount;
     private String address;
     private String homeType;
@@ -34,6 +35,7 @@ public class BoardEditDto {
 
     public BoardEditDto(Board board, Home home) {
         this.contents = board.getContents();
+        this.openChatUrl = board.getOpenChatUrl();
         this.roomCount = home.getRoomCount();
         this.address = home.getAddress();
         this.homeType = home.getHomeType();

@@ -55,7 +55,7 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         //User 쿼리 (필터를 만족하는 사용자 추출)
         List<User> users = queryFactory
                 .selectFrom(user).distinct()
-                .join(user.myHashtags, myHashtag).fetchJoin()
+//                .join(user.myHashtags, myHashtag).fetchJoin()
                 .leftJoin(user.board, board).fetchJoin() //이래야 사용자마다 select Board 쿼리 1번씩 안 나감
                 .where(
                         board.isNotNull(),
@@ -64,6 +64,8 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         eqGender(gender) //user.gender == gender
                 )
                 .fetch();
+        users.stream().forEach(user -> user.getMyHashtags().stream()
+                .forEach(myHashtag -> myHashtag.getId())); //실객체 변환
         users.stream().forEach(user -> user.getMyHomeHashtags().stream()
                 .forEach(myHomeHashtag -> myHomeHashtag.getId())); //실객체 변환
 
@@ -122,12 +124,10 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
                         board.activation.eq(true),
                         home.x.between(rangeDto.getSouthWestLatitude(), rangeDto.getNorthEastLatitude()),
                         home.y.between(rangeDto.getSouthWestLongitude(), rangeDto.getNorthEastLongitude()),
-                        home.flat.goe(minFlat), //home.flat >= minFlat
-                        home.flat.loe(maxFlat), //home.flat <= maxFlat
                         eqRoomCount(roomCount), //home.roomCount === roomCount
                         eqHomeType(homeType), //home.homeType === homeType
-                        home.rent.goe(minRent), //home.rent >= minRent
-                        home.rent.loe(maxRent) //home.rent <= maxRent
+                        compareFlat(minFlat, maxFlat), //minFlat <= home.flat <= maxFlat
+                        compareRent(minRent, maxRent) //minRent <= home.rent <= maxRent
                 )
                 .fetch();
         System.out.println("=====boards개수===== " + boards.size());
@@ -155,6 +155,16 @@ public class BoardRepositoryImpl implements BoardRepositoryCustom {
         else if(homeType.equals("villa")) return home.homeType.eq("villa");
         else if(homeType.equals("apartment")) return home.homeType.eq("apartment");
         else return home.homeType.in("officetel", "villa", "apartment");
+    }
+
+    public BooleanExpression compareFlat(Integer minFlat, Integer maxFlat) {
+        if(maxFlat == 100) return home.flat.goe(minFlat);
+        else return home.flat.goe(minFlat).and(home.flat.loe(maxFlat));
+    }
+
+    public BooleanExpression compareRent(Integer minRent, Integer maxRent) {
+        if(maxRent == 100) return home.rent.goe(minRent);
+        else return home.rent.goe(minRent).and(home.rent.loe(maxRent));
     }
 
     @Override

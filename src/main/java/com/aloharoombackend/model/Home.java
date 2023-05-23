@@ -24,7 +24,7 @@ public class Home {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "home")
     private List<HomeImage> homeImages = new ArrayList<>();
 
     private Integer rent;
