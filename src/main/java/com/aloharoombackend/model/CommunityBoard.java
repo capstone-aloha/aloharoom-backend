@@ -36,7 +36,7 @@ public class CommunityBoard {
     private Integer views = 0;
 
     @OneToMany(mappedBy = "communityBoard")
-    private List<CommunityComment> communityComments;
+    private List<Comment> comments;
 
     @OneToMany(mappedBy = "communityBoard", cascade = CascadeType.ALL)
     private List<CommunityImage> communityImages = new ArrayList<>();

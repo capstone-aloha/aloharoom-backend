@@ -20,6 +20,7 @@ public class CommunityAllDto {
     private Integer views;
     private Integer code;
     private List<String> imgUrls;
+    private Integer commentNum; //댓글 갯수
 
     public CommunityAllDto(CommunityBoard communityBoard) {
         this.userId = communityBoard.getUser().getId();
@@ -31,5 +32,6 @@ public class CommunityAllDto {
         this.views = communityBoard.getViews();
         this.code = communityBoard.getCode();
         this.imgUrls = communityBoard.getCommunityImages().stream().map(CommunityImage::getImgUrl).collect(Collectors.toList());
+        this.commentNum = communityBoard.getComments().size();
     }
 }
