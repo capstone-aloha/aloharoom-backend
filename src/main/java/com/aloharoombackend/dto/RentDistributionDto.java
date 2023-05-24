@@ -52,7 +52,7 @@ public class RentDistributionDto {
             else if (81 <= rent && rent <= 85) s81e85 += 1;
             else if (86 <= rent && rent <= 90) s86e90 += 1;
             else if (91 <= rent && rent <= 95) s91e95 += 1;
-            else if (96 <= rent && rent <= 100) s96e100 += 1;
+            else if (96 <= rent) s96e100 += 1;
         }
     }
 }
