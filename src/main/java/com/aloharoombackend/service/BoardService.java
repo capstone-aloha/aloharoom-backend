@@ -63,9 +63,11 @@ public class BoardService {
         User user = userService.findOneFetch(userId);
         Boolean isHeart = false;
         if(loginUserId != null) {
-            RecentView recentView = new RecentView(boardId, loginUserId);
-            recentViewService.create(recentView);
-            isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+            if(board.getActivation()) {
+                RecentView recentView = new RecentView(boardId, loginUserId);
+                recentViewService.create(recentView);
+                isHeart = heartService.findByBoardIdAndUserId(boardId, loginUserId);
+            }
         }
         return new BoardOneDto(board, home, user, isHeart);
     }
