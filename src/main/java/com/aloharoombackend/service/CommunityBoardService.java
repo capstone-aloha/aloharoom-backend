@@ -110,10 +110,8 @@ public class CommunityBoardService{
     }
 
     public CommunityBoard findOneFetch(Long id) { // 프록시->실객체 생성
-        CommunityBoard findCommunityId = communityBoardRepository.findById(id)
+        CommunityBoard findCommunityId = communityBoardRepository.findById(id) //바꿔 이미지 페치조인
                 .orElseThrow(() -> new IllegalArgumentException("찾는 커뮤니티가 존재하지 않습니다."));
-        findCommunityId.getCommunityImages().stream().
-                forEach(CommunityImage::getImgUrl);
         return findCommunityId;
     }
 
