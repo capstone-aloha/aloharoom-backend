@@ -165,6 +165,8 @@ public class BoardService {
     /* 방 활성화 */
     @Transactional
     public String activate(Long boardId) {
+        //원래 있던 방 댓글 삭제
+        commentService.deleteByBoardId(boardId);
         findOne(boardId).activate();
         return "방 활성화 완료";
     }
