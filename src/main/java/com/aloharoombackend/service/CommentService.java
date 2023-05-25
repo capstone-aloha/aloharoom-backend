@@ -101,6 +101,8 @@ public class CommentService {
     }
     public List<CommentDto> getCommunityComment(Long boardId) {
         List<Comment> communityComments = commentRepository.findAllByCommunityBoardId(boardId);
+        communityComments.stream()
+                .forEach(cc -> userRepository.findById(cc.getUser().getId()));
         List<CommentDto> commentDtos = commentSort(communityComments);
         return commentDtos;
     }
