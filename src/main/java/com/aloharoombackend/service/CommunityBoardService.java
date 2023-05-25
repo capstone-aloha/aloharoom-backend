@@ -3,10 +3,7 @@ package com.aloharoombackend.service;
 import com.aloharoombackend.dto.CommunityAllDto;
 import com.aloharoombackend.dto.CommunityBoardDto;
 import com.aloharoombackend.dto.CommunityEditDto;
-import com.aloharoombackend.model.Comment;
-import com.aloharoombackend.model.CommunityBoard;
-import com.aloharoombackend.model.CommunityImage;
-import com.aloharoombackend.model.User;
+import com.aloharoombackend.model.*;
 import com.aloharoombackend.repository.CommunityBoardRepository;
 import com.aloharoombackend.repository.CommunitySearchRepository;
 import lombok.RequiredArgsConstructor;
@@ -85,6 +82,11 @@ public class CommunityBoardService{
     //커뮤니티 code로 전체 조회 + Top3
     public List[] findAllByCode(Integer code) {
         List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
+
+        List<User> users = communityBoards.stream().map(
+                communityBoard -> communityBoard.getUser()
+        ).collect(Collectors.toList());
+        users.stream().forEach(user -> userService.findOne(user.getId()));
 
         // code가 동일한 CommunityBoard만 필터링
         List<CommunityBoard> filteredCommunityBoards = communityBoards.stream()
