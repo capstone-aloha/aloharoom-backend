@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @EntityGraph(attributePaths = {"user", "board", "communityBoard"})
+    @EntityGraph(attributePaths = {"board", "communityBoard"})
     List<Comment> findAllByBoardId(Long boardId);
     @EntityGraph(attributePaths = {"user", "board", "communityBoard"})
     List<Comment> findAllByCommunityBoardId(Long boardId);

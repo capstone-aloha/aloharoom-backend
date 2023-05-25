@@ -94,6 +94,8 @@ public class CommentService {
     //댓글 조회
     public List<CommentDto> getHomeComment(Long boardId) {
         List<Comment> homeComments = commentRepository.findAllByBoardId(boardId);
+        homeComments.stream()
+                .forEach(hc -> userRepository.findById(hc.getUser().getId()));
         List<CommentDto> commentDtos = commentSort(homeComments);
         return commentDtos;
     }
@@ -170,6 +172,7 @@ public class CommentService {
     public void deleteByBoardId(Long boardId) {
         commentRepository.deleteByBoardId(boardId);
     }
+
     @Transactional
     public void deleteByCommunityBoardId(Long boardId) {
         commentRepository.deleteByCommunityBoardId(boardId);
