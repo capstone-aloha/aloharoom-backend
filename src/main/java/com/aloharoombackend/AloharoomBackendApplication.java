@@ -501,7 +501,7 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		List<String> communityImgUrls9 = new ArrayList<>(List.of("91.jpg", "92.jpg"));
 		List<String> communityImgUrls10 = new ArrayList<>(List.of("101.jpg", "102.jpg"));
 		List<String> communityImgUrls11 = new ArrayList<>(List.of("111.jpg"));
-		List<String> communityImgUrls12 = new ArrayList<>(List.of("121.jpg"));
+		List<String> communityImgUrls12 = new ArrayList<>(List.of("121.jpeg"));
 		List<String> communityImgUrls13 = new ArrayList<>(List.of("131.jpg", "132.jpg"));
 		List<String> communityImgUrls14 = new ArrayList<>(List.of("141.jpg", "142.jpg"));
 		List<String> communityImgUrls15 = new ArrayList<>(List.of("151.jpg"));
