@@ -91,11 +91,11 @@ public class CommunityBoardService{
                 .filter(communityBoard -> communityBoard.getCode() == code)
                 .collect(Collectors.toList());
 
-        // 모든 CommunityBoard
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (CommunityBoard communityBoard : filteredCommunityBoards) {
-            communityAllDtos.add(new CommunityAllDto(communityBoard));
-        }
+        // 모든 CommunityBoard (최신순으로 정렬)
+        List<CommunityAllDto> communityAllDtos = filteredCommunityBoards.stream()
+                .sorted(Comparator.comparing(CommunityBoard::getCreatedDate).reversed())
+                .map(CommunityAllDto::new)
+                .collect(Collectors.toList());
 
         // 조회수 Top3 CommunityBoard
         List<CommunityAllDto> topViewCommunityDtos = filteredCommunityBoards.stream()

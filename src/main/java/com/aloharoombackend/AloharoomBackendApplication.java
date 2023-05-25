@@ -439,7 +439,7 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		//정보공유(2)
 		CommunityBoardDto c7 = new CommunityBoardDto("한성대학교 근처에 떡볶이 맛집 뭐 있어?", "떡볶이가 너무 싶은데 우리 집 근처에 떡볶이 맛집 있는지 알려줘..", 2);
-		CommunityBoardDto c8 = new CommunityBoardDto("알로하룸 아는 사람 많아?", "내 주변에 조금 있는 듯?", 1);
+		CommunityBoardDto c8 = new CommunityBoardDto("알로하룸 아는 사람 많아?", "내 주변에 조금 있는 듯?", 2);
 		CommunityBoardDto c9 = new CommunityBoardDto("하얀색 벽지 추천해줘", "하늘 아래 다 같은 하얀색 없는 거 알지?", 2);
 		CommunityBoardDto c10 = new CommunityBoardDto("수납장 어디꺼가 좋은 지 알려줄 사람!", "아무거나 추천해줘도 돼! \n 내가 걸러서 구매할게", 2);
 		CommunityBoardDto c11 = new CommunityBoardDto("다들 집 알아볼 때 주변 시세 어디서 알아봐?", "제곧내", 2);
