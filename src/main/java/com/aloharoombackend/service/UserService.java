@@ -164,22 +164,43 @@ public class UserService {
         likeHashtags.forEach(likeHashtagService::delete);
         myHashtags.forEach(myHashtagService::delete);
 
-        //새로 생성
-        List<LikeHomeHashtag> newLikeHomeHashtags = myPageEditDto.getLikeHomeHashtags()
-                .stream().map(likeProduct -> new LikeHomeHashtag(likeProduct, findUser)).collect(Collectors.toList());
-        List<MyHomeHashtag> newMyHomeHashtags = myPageEditDto.getMyHomeHashtags()
-                .stream().map(myProduct -> new MyHomeHashtag(myProduct, findUser)).collect(Collectors.toList());
-        List<LikeHashtag> newLikeHashtags = myPageEditDto.getLikeHashtags()
-                .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, findUser)).collect(Collectors.toList());
-        List<MyHashtag> newMyHashtags = myPageEditDto.getMyHashtags()
-                .stream().map(myHashtag -> new MyHashtag(myHashtag, findUser)).collect(Collectors.toList());
+        //리스트 비우기
+        likeHomeHashtags.clear();
+        myHomeHashtags.clear();
+        likeHashtags.clear();
+        myHashtags.clear();
+
+        // 새로 생성
+        if (myPageEditDto.getLikeHashtags() != null && !myPageEditDto.getLikeHashtags().isEmpty()) {
+            List<LikeHashtag> newLikeHashtags = myPageEditDto.getLikeHashtags()
+                    .stream().map(likeHashtag -> new LikeHashtag(likeHashtag, findUser))
+                    .collect(Collectors.toList());
+            likeHashtagService.create(newLikeHashtags);
+        }
+
+        if (myPageEditDto.getLikeHomeHashtags() != null && !myPageEditDto.getLikeHomeHashtags().isEmpty()) {
+            List<LikeHomeHashtag> newLikeHomeHashtags = myPageEditDto.getLikeHomeHashtags()
+                    .stream().map(likeHomeHashtag -> new LikeHomeHashtag(likeHomeHashtag, findUser))
+                    .collect(Collectors.toList());
+            likeHomeHashtagService.create(newLikeHomeHashtags);
+        }
+
+        if (myPageEditDto.getMyHashtags() != null && !myPageEditDto.getMyHashtags().isEmpty()) {
+            List<MyHashtag> newMyHashtags = myPageEditDto.getMyHashtags()
+                    .stream().map(myHashtag -> new MyHashtag(myHashtag, findUser))
+                    .collect(Collectors.toList());
+            myHashtagService.create(newMyHashtags);
+        }
+
+        if (myPageEditDto.getMyHomeHashtags() != null && !myPageEditDto.getMyHomeHashtags().isEmpty()) {
+            List<MyHomeHashtag> newMyHomeHashtags = myPageEditDto.getMyHomeHashtags()
+                    .stream().map(myHomeHashtag -> new MyHomeHashtag(myHomeHashtag, findUser))
+                    .collect(Collectors.toList());
+            myHomeHashtagService.create(newMyHomeHashtags);
+        }
 
         //업데이트
         findUser.edit(myPageEditDto, profileUrl);
-        likeHomeHashtagService.create(newLikeHomeHashtags);
-        myHomeHashtagService.create(newMyHomeHashtags);
-        likeHashtagService.create(newLikeHashtags);
-        myHashtagService.create(newMyHashtags);
         return "수정 성공";
     }
 

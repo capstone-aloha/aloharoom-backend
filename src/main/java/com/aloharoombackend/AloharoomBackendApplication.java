@@ -427,32 +427,48 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 
 		em.persist(lhh110); em.persist(lhh22); em.persist(lhh33); em.persist(lhh44); em.persist(lhh55);
 		em.persist(lhh66); em.persist(lhh77); em.persist(lhh88); em.persist(lhh99); em.persist(lhh101); em.persist(lhh111);
+
 		//Community 생성
-		/*CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
-		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 2);
-		CommunityBoardDto c3 = new CommunityBoardDto("제목2(방자랑)", "방자랑2", 1);
-		CommunityBoardDto c4 = new CommunityBoardDto("제목1(자유)", "자유1", 3);
-		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 2);
-		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 3);
-		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
-		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 2);*/
-        CommunityBoardDto c1 = new CommunityBoardDto("제목1(방자랑)", "방자랑1", 1);
-		CommunityBoardDto c2 = new CommunityBoardDto("제목1(정보공유)", "정보공유1", 1);
-		CommunityBoardDto c3 = new CommunityBoardDto("제목2(방자랑)", "방자랑2", 1);
-		CommunityBoardDto c4 = new CommunityBoardDto("제목1(자유)", "자유1", 1);
-		CommunityBoardDto c5 = new CommunityBoardDto("제목2(정보공유)", "정보공유2", 1);
-		CommunityBoardDto c6 = new CommunityBoardDto("제목2(자유)", "자유2", 1);
-		CommunityBoardDto c7 = new CommunityBoardDto("제목3(방자랑)", "방자랑3", 1);
-		CommunityBoardDto c8 = new CommunityBoardDto("제목3(정보공유)", "정보공유3", 1);
+		//방자랑(1)
+		CommunityBoardDto c1 = new CommunityBoardDto("내 방 구경하실 분~", "어때 잘 꾸미지 않았어? \n 칭찬해줘", 1);
+		CommunityBoardDto c2 = new CommunityBoardDto("내 방이 더 좋을 듯", "사실 난 방 꾸미기 같은 건 안해 배고파", 1);
+		CommunityBoardDto c3 = new CommunityBoardDto("오늘의 집 소품들로 꾸미기", "은근 오늘의 집 좋은 소품들 많더라 내꺼 구경해", 1);
+		CommunityBoardDto c4 = new CommunityBoardDto("방 랜선 구경 하실 분", "나 인테리어 다 꾸몄어!! \n 구경해!!", 1);
+		CommunityBoardDto c5 = new CommunityBoardDto("어떤 러그가 더 잘 어울리는지 알려줘~", "제곧내", 1);
+		CommunityBoardDto c6 = new CommunityBoardDto("자랑자랑", "우리 집 근처에는 길냥이 보인다 \n 다들 랜선집사 체험해~", 1);
+
+		//정보공유(2)
+		CommunityBoardDto c7 = new CommunityBoardDto("한성대학교 근처에 떡볶이 맛집 뭐 있어?", "떡볶이가 너무 싶은데 우리 집 근처에 떡볶이 맛집 있는지 알려줘..", 2);
+		CommunityBoardDto c8 = new CommunityBoardDto("알로하룸 아는 사람 많아?", "내 주변에 조금 있는 듯?", 2);
+		CommunityBoardDto c9 = new CommunityBoardDto("하얀색 벽지 추천해줘", "하늘 아래 다 같은 하얀색 없는 거 알지?", 2);
+		CommunityBoardDto c10 = new CommunityBoardDto("수납장 어디꺼가 좋은 지 알려줄 사람!", "아무거나 추천해줘도 돼! \n 내가 걸러서 구매할게", 2);
+		CommunityBoardDto c11 = new CommunityBoardDto("다들 집 알아볼 때 주변 시세 어디서 알아봐?", "제곧내", 2);
+
+		//자유(3)
+		CommunityBoardDto c12 = new CommunityBoardDto("우리 집 강아지 볼 사람", "멍멍 \n 멍멍", 3);
+		CommunityBoardDto c13 = new CommunityBoardDto("맥북 추천해줘", "난 윈도우 쓰는데 맥북 쓸까 말까?..\n 맥북 쓰는 사람 장단점 좀 알려줘", 3);
+		CommunityBoardDto c14 = new CommunityBoardDto("로지텍 마우스 어때?", "이거 사고 싶어,, \n 색깔도 골라줘", 3);
+		CommunityBoardDto c15 = new CommunityBoardDto("집이 좁은데 안마의자 산다 안산다?", "내 집은 좁은데 안마의자를 너무 사고 싶어.. \n 좁아도 걍 살까?", 3);
+		CommunityBoardDto c16 = new CommunityBoardDto("취준생인데 힘들다...", "컴공 취준생인데 너무 힘들어 다들 응원의 메시지 좀 남겨줘ㅠㅠ", 3);
+		CommunityBoardDto c17 = new CommunityBoardDto("각자 좋아하는 노래 알려줘!!", "일단 난 찰리 푸스의 Suffer!", 3);
 
 		CommunityBoard communityBoard1 = new CommunityBoard(u1, c1);
-		CommunityBoard communityBoard2 = new CommunityBoard(u1, c2);
-        CommunityBoard communityBoard3 = new CommunityBoard(u2, c3);
-        CommunityBoard communityBoard4 = new CommunityBoard(u2, c4);
-		CommunityBoard communityBoard5 = new CommunityBoard(u3, c5);
-		CommunityBoard communityBoard6 = new CommunityBoard(u3, c6);
-		CommunityBoard communityBoard7 = new CommunityBoard(u21, c7);
-		CommunityBoard communityBoard8 = new CommunityBoard(u21, c8);
+		CommunityBoard communityBoard2 = new CommunityBoard(u3, c2);
+        CommunityBoard communityBoard3 = new CommunityBoard(u7, c3);
+        CommunityBoard communityBoard4 = new CommunityBoard(u9, c4);
+		CommunityBoard communityBoard5 = new CommunityBoard(u11, c5);
+		CommunityBoard communityBoard6 = new CommunityBoard(u12, c6);
+		CommunityBoard communityBoard7 = new CommunityBoard(u13, c7);
+		CommunityBoard communityBoard8 = new CommunityBoard(u14, c8);
+		CommunityBoard communityBoard9 = new CommunityBoard(u15, c9);
+		CommunityBoard communityBoard10 = new CommunityBoard(u17, c10);
+		CommunityBoard communityBoard11 = new CommunityBoard(u19, c11);
+		CommunityBoard communityBoard12 = new CommunityBoard(u21, c12);
+		CommunityBoard communityBoard13 = new CommunityBoard(u22, c13);
+		CommunityBoard communityBoard14 = new CommunityBoard(u23, c14);
+		CommunityBoard communityBoard15 = new CommunityBoard(u24, c15);
+		CommunityBoard communityBoard16 = new CommunityBoard(u25, c16);
+		CommunityBoard communityBoard17 = new CommunityBoard(u27, c17);
 
         //강제 조회수 증가
         communityBoard1.updateViews(3);
@@ -463,19 +479,86 @@ public class AloharoomBackendApplication implements CommandLineRunner {
         communityBoard6.updateViews(7);
         communityBoard7.updateViews(10);
         communityBoard8.updateViews(9);
+        communityBoard9.updateViews(7);
+        communityBoard10.updateViews(2);
+        communityBoard11.updateViews(4);
+        communityBoard12.updateViews(6);
+        communityBoard13.updateViews(1);
+        communityBoard14.updateViews(3);
+        communityBoard15.updateViews(10);
+        communityBoard16.updateViews(7);
+        communityBoard17.updateViews(5);
 
-		//커뮤니티 이미지(방 이미지와 동일하게 해둠)
-		List<String> CommunityImgUrls = new ArrayList<>(
-				List.of(new String[]{"efdded1a-a0c8-4018-bfd6-a9389087bbb4.jpg","dca186b1-c4b2-452d-a4ec-22f039951754.jpg",
-						"78207f64-5aa1-458d-a6ad-43106806a632.jpg", "2dc5fbd5-c916-405c-bba3-1b22f2c2c39a.jpg"}));
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard1, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard2, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard3, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard4, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard5, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard6, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard7, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
-		CommunityImgUrls.stream().map(CommunityImgUrlsimgUrl -> new CommunityImage(communityBoard8, CommunityImgUrlsimgUrl)).collect(Collectors.toList());
+		//커뮤니티 이미지 설정
+		List<String> communityImgUrls1 = new ArrayList<>(List.of("11.jpg", "12.jpg"));
+		List<String> communityImgUrls2 = new ArrayList<>(List.of("21.jpg"));
+		List<String> communityImgUrls3 = new ArrayList<>(List.of("31.jpg","32.jpg"));
+		List<String> communityImgUrls4 = new ArrayList<>(List.of("41.jpg"));
+		List<String> communityImgUrls5 = new ArrayList<>(List.of("51.jpg", "52.jpg"));
+		List<String> communityImgUrls6 = new ArrayList<>(List.of("61.jpg"));
+		List<String> communityImgUrls7 = new ArrayList<>(List.of("71.jpg"));
+		List<String> communityImgUrls8 = new ArrayList<>(List.of("profile.png"));
+		List<String> communityImgUrls9 = new ArrayList<>(List.of("91.jpg", "92.jpg"));
+		List<String> communityImgUrls10 = new ArrayList<>(List.of("101.jpg", "102.jpg"));
+		List<String> communityImgUrls11 = new ArrayList<>(List.of("111.jpg"));
+		List<String> communityImgUrls12 = new ArrayList<>(List.of("121.jpeg"));
+		List<String> communityImgUrls13 = new ArrayList<>(List.of("131.jpg", "132.jpg"));
+		List<String> communityImgUrls14 = new ArrayList<>(List.of("141.jpg", "142.jpg"));
+		List<String> communityImgUrls15 = new ArrayList<>(List.of("151.jpg"));
+		List<String> communityImgUrls16 = new ArrayList<>(List.of("161.jpg"));
+		List<String> communityImgUrls17 = new ArrayList<>(List.of("171.jpg"));
+
+		communityImgUrls1.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard1, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls2.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard2, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls3.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard3, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls4.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard4, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls5.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard5, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls6.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard6, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls7.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard7, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls8.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard8, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls9.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard9, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls10.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard10, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls11.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard11, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls12.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard12, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls13.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard13, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls14.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard14, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls15.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard15, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls16.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard16, imgUrl))
+				.forEach(em::persist);
+		communityImgUrls17.stream()
+				.map(imgUrl -> new CommunityImage(communityBoard17, imgUrl))
+				.forEach(em::persist);
 
 		em.persist(communityBoard1);
 		em.persist(communityBoard2);
@@ -485,6 +568,15 @@ public class AloharoomBackendApplication implements CommandLineRunner {
 		em.persist(communityBoard6);
 		em.persist(communityBoard7);
 		em.persist(communityBoard8);
+		em.persist(communityBoard9);
+		em.persist(communityBoard10);
+		em.persist(communityBoard11);
+		em.persist(communityBoard12);
+		em.persist(communityBoard13);
+		em.persist(communityBoard14);
+		em.persist(communityBoard15);
+		em.persist(communityBoard16);
+		em.persist(communityBoard17);
 
 		Comment cm1 = new Comment(u1, board1, new AddCommentDto(1L, 1L, 1L, 0, "댓글1", null, 0, null));
 		Comment cm2 = new Comment(u2, board1, new AddCommentDto(2L, 2L, 1L, 0, "댓글2", null, 0, null));
