@@ -56,7 +56,7 @@ public class BoardService {
     public BoardOneDto findOneNew(Long boardId, Long loginUserId) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("찾는 게시글이 존재하지 않습니다."));
-        Home home = homeService.findOne(board.getHome().getId()); //이 쿼리가 나가지 않음.
+        Home home = board.getHome();
         System.out.println("Images = " + home.getHomeImages().get(0)); //이걸 해야만 HomeImage가 실객체로 변환됨.
 
         Long userId = board.getUser().getId();

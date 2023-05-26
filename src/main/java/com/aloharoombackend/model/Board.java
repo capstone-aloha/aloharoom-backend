@@ -35,9 +35,6 @@ public class Board extends BaseEntity{
     @Column(name = "contents")
     private String contents;
 
-    @Column(name = "views")
-    private Integer views = 0;
-
     @OneToMany(mappedBy = "board")
     private List<Comment> comments;
 
