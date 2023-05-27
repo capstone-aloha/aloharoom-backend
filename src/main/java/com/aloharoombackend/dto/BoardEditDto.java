@@ -42,7 +42,7 @@ public class BoardEditDto {
         this.tradeType = home.getTradeType();
         this.price = home.getPrice();
         this.deposit = home.getDeposit();
-        this.rent = home.getPrice();
+        this.rent = home.getRent();
         this.flat = home.getFlat();
         this.maintenance = home.getMaintenance();
         this.floor = home.getFloor();
