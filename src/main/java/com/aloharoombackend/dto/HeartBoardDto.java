@@ -27,7 +27,7 @@ public class HeartBoardDto {
         Home home = board.getHome();
         this.boardId = board.getId();
         this.address = board.getHome().getAddress();
-        this.rent = home.getPrice();
+        this.rent = home.getRent();
         this.flat = home.getFlat();
         this.roomCount = home.getRoomCount();
         this.homeType = board.getHome().getHomeType();
