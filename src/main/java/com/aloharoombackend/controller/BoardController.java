@@ -90,4 +90,9 @@ public class BoardController {
     public ResponseEntity getBoardComment(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return ResponseEntity.ok(boardService.getBoardComment(principalDetails.getUser().getId()));
     }
+
+    @GetMapping("/userId/{userId}")
+    public ResponseEntity isBoard(@PathVariable Long userId) {
+        return ResponseEntity.ok(boardService.isBoard(userId));
+    }
 }

@@ -192,4 +192,10 @@ public class BoardService {
                 .collect(Collectors.toList());
         return boardAllDtos;
     }
+
+    public Boolean isBoard(Long userId) {
+        User user = userService.findOne(userId);
+        if(user.getBoard() == null) return false;
+        else return true;
+    }
 }
