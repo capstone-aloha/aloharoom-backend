@@ -27,9 +27,6 @@ public class CommunityBoard extends BaseEntity{
     @Column(name = "contents")
     private String contents;
 
-//    추천을 누른 사용자
-//    private List<Recommend> recommends;
-
     private Integer code; //커뮤니티 구분
 
     @Column(name = "views")
