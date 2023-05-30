@@ -194,6 +194,20 @@ public class UserService {
         return "수정 성공";
     }
 
+    public String findUserPassword(Long userId) {
+        User findUser = findOne(userId);
+        return findUser.getPassword();
+    }
+
+    @Transactional
+    public String changePassword(Long userId, String newPassword) {
+        User findUser = findOne(userId);
+        String encPassword = bCryptPasswordEncoder.encode(newPassword);
+        findUser.setPassword(encPassword);
+
+        return "비밀번호 수정 성공";
+    }
+
     @Transactional
     public String delete(Long userId) {
         User findUser = getUserById(userId);

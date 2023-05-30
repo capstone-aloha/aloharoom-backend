@@ -78,6 +78,21 @@ public class UserController {
         return ResponseEntity.ok(userService.update(userId, myPageEditDto, profileImg));
     }
 
+    //비밀번호 수정 초기 화면
+    @GetMapping("/myPage/password")
+    public ResponseEntity password(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
+        return ResponseEntity.ok(userService.findUserPassword(userId));
+    }
+
+    //비밀번호 수정
+    @PatchMapping("/myPage/password")
+    public ResponseEntity changePassword(@RequestParam String newPassword,
+                                         @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long userId = principalDetails.getUser().getId();
+        return ResponseEntity.ok(userService.changePassword(userId, newPassword));
+    }
+
     //회원 탈퇴
     @DeleteMapping("/myPage")
     public ResponseEntity deleteUser(@AuthenticationPrincipal PrincipalDetails principalDetails) {
