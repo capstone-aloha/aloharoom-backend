@@ -63,22 +63,6 @@ public class CommunityBoardService{
         return communityAllDtos;
     }
 
-    //커뮤니티 code로 전체 조회
-    /*public List<CommunityAllDto> findAllByCode(Integer code) {
-        List<CommunityBoard> communityBoards = communityBoardRepository.findAll();
-
-        //code가 동일한 CommunityBoard만 필터링
-        communityBoards = communityBoards.stream()
-                .filter(communityBoard -> communityBoard.getCode() == code)
-                .collect(Collectors.toList());
-
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (CommunityBoard communityBoard : communityBoards) {
-            communityAllDtos.add(new CommunityAllDto(communityBoard));
-        }
-        return communityAllDtos;
-    }*/
-
     //커뮤니티 code로 전체 조회 + Top3
     public List[] findAllByCode(Integer code) {
         List<CommunityBoard> communityBoards = communityBoardRepository.findAll();

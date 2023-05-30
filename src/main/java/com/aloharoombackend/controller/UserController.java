@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -100,7 +99,7 @@ public class UserController {
         return ResponseEntity.ok(userService.delete(userId));
     }
 
-    /* 로그인 사용자 식별자, 닉네임 조회 */
+    //로그인 사용자 식별자, 닉네임 조회
     @GetMapping("/userId")
     public ResponseEntity findUserId(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         Map<String, String> map = new HashMap<>();
