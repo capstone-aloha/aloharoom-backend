@@ -20,10 +20,6 @@ public class Home {
 
     private String address;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id")
-    private Location location;
-
     @OneToMany(mappedBy = "home")
     private List<HomeImage> homeImages = new ArrayList<>();
 
