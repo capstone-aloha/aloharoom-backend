@@ -181,10 +181,12 @@ public class CommunityBoardService{
                     .forEach(communityImage -> communityImage.getId());
         });
 
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (int i = 0; i < communityBoards.size(); i++) {
-            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
-        }
+        //최신순 정렬
+        List<CommunityAllDto> communityAllDtos = communityBoards.stream()
+                .sorted(Comparator.comparing(CommunityBoard::getCreatedDate).reversed())
+                .map(CommunityAllDto::new)
+                .collect(Collectors.toList());
+
         return communityAllDtos;
     }
 
@@ -195,10 +197,11 @@ public class CommunityBoardService{
                     .forEach(communityImage -> communityImage.getId());
         });
 
-        List<CommunityAllDto> communityAllDtos = new ArrayList<>();
-        for (int i = 0; i < communityBoards.size(); i++) {
-            communityAllDtos.add(new CommunityAllDto(communityBoards.get(i)));
-        }
+        //최신순 정렬
+        List<CommunityAllDto> communityAllDtos = communityBoards.stream()
+                .sorted(Comparator.comparing(CommunityBoard::getCreatedDate).reversed())
+                .map(CommunityAllDto::new)
+                .collect(Collectors.toList());
         return communityAllDtos;
     }
 
