@@ -204,8 +204,16 @@ public class CommunityBoardService{
         List<Comment> myComments = commentService.findMyComment(userId);
         List<Comment> myCommunityComments = myComments.stream().filter(myComment ->
                 myComment.getBoard() == null).collect(Collectors.toList());
-        List<CommunityAllDto> communityAllDtos = myCommunityComments.stream()
-                .map(myCommunityComment -> new CommunityAllDto(myCommunityComment.getCommunityBoard()))
+        List<Comment> myDistinctCommunityComments = new ArrayList<>();
+
+        Set<Long> set = new HashSet<>();
+        for (Comment myCommunityComment : myCommunityComments) {
+            if(set.add(myCommunityComment.getCommunityBoard().getId()))
+                myDistinctCommunityComments.add(myCommunityComment);
+        }
+
+        List<CommunityAllDto> communityAllDtos = myDistinctCommunityComments.stream()
+                .map(myDistinctCommunityComment -> new CommunityAllDto(myDistinctCommunityComment.getCommunityBoard()))
                 .collect(Collectors.toList());
         return communityAllDtos;
     }

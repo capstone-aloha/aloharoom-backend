@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -184,11 +183,18 @@ public class BoardService {
         List<Comment> myComments = commentService.findMyComment(userId);
         List<Comment> myBoardComments = myComments.stream().filter(myComment ->
                 myComment.getCommunityBoard() == null).collect(Collectors.toList());
-        //Home 초기화 => in쿼리로 쿼리 갯수 감소
+        List<Comment> myDistinctBoardComments = new ArrayList<>();
+
+        Set<Long> set = new HashSet<>();
         for (Comment myBoardComment : myBoardComments) {
-            myBoardComment.getBoard().getHome().getId();
+            if(set.add(myBoardComment.getBoard().getId()))
+                myDistinctBoardComments.add(myBoardComment);
         }
-        List<BoardAllDto> boardAllDtos = myBoardComments.stream().map(myBoardComment -> new BoardAllDto(myBoardComment.getBoard(), myBoardComment.getBoard().getHome()))
+        //Home 초기화 => in쿼리로 쿼리 갯수 감소
+        for (Comment myDistinctBoardComment : myDistinctBoardComments) {
+            myDistinctBoardComment.getBoard().getHome().getId();
+        }
+        List<BoardAllDto> boardAllDtos = myDistinctBoardComments.stream().map(myDistinctBoardComment -> new BoardAllDto(myDistinctBoardComment.getBoard(), myDistinctBoardComment.getBoard().getHome()))
                 .collect(Collectors.toList());
         return boardAllDtos;
     }
