@@ -63,7 +63,6 @@ public class User extends BaseEntity{
     }
 
     public User edit(MyPageEditDto myPageEditDto, String profileUrl) {
-        this.password = myPageEditDto.getPassword();
         this.nickname = myPageEditDto.getNickname();
         this.age = myPageEditDto.getAge();
         this.gender = myPageEditDto.getGender();

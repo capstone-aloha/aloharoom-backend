@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class MyPageEditDto {
 
-    private String password;
     private String nickname;
     private Integer age;
     private String gender;
@@ -24,7 +23,6 @@ public class MyPageEditDto {
     private List<String> myHomeHashtags;    //myProduct
 
     public MyPageEditDto(User user) {
-        this.password = user.getPassword();
         this.nickname = user.getNickname();
         this.age = user.getAge();
         this.gender = user.getGender();

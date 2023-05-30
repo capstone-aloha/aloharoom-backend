@@ -142,9 +142,6 @@ public class UserService {
     public String update(Long userId, MyPageEditDto myPageEditDto, MultipartFile profileImg) {
         User findUser = getUserById(userId);
         String profileUrl = awsS3Service.uploadProfile(profileImg);
-        String rawPassword = myPageEditDto.getPassword(); //입력받은 pw
-        String encPassword = bCryptPasswordEncoder.encode(rawPassword); //인코딩한 pw
-        myPageEditDto.setPassword(encPassword);
 
         //삭제
         List<LikeHashtag> likeHashtags = findUser.getLikeHashtags();

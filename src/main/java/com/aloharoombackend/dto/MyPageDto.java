@@ -14,7 +14,6 @@ public class MyPageDto {
     //user
     private Long signupId;
     private String username;
-    private String password;
     private String nickname;
     //private String name;
     private Integer age;
@@ -37,7 +36,6 @@ public class MyPageDto {
     public MyPageDto(User user) {
         this.signupId = user.getId();
         this.username = user.getUsername();
-        this.password = user.getPassword();
         this.nickname = user.getNickname();
         this.age = user.getAge();
         this.gender = user.getGender();
