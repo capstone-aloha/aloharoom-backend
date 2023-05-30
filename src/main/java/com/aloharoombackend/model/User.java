@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @ToString(exclude = {"likeHomeHashtags", "myHomeHashtags", "likeHashtags", "myHashtags", "board"})
 @NoArgsConstructor
-public class User {
+public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,9 +36,6 @@ public class User {
 
     @Column(name = "nickname")
     private String nickname;
-
-    @Column(name = "name", length = 1000)
-    private String name;
 
     @Column(name = "age")
     private Integer age;

@@ -13,10 +13,12 @@ import java.util.Map;
 public class DataDto {
     //유저 수, 지역별 게시물 수, 평 수랑 월세
     int userTotal; //유저수
+    Map<Integer, Integer> userNumIncreaseMap; //월별 사용자 증가
     Map<String, Integer> regionBoardMap; //지역별 게시물 수
 
-    public DataDto(Integer userTotal, List<Home> homes) {
+    public DataDto(Integer userTotal, Map userNumIncreaseMap,List<Home> homes) {
         this.userTotal = userTotal;
+        this.userNumIncreaseMap = userNumIncreaseMap;
         this.regionBoardMap = new HashMap<>();
         regionBoardMap.put("서울", 0);
         regionBoardMap.put("부산", 0);
