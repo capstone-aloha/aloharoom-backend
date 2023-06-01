@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -189,6 +190,10 @@ public class UserService {
             myHomeHashtagService.create(newMyHomeHashtags);
         }
 
+        if(!Objects.equals(myPageEditDto.getProfileUrl(), "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png")) {
+            awsS3Service.deleteImage(findUser.getProfileUrl());
+        }
+
         //업데이트
         findUser.edit(myPageEditDto, profileUrl);
         return "수정 성공";
@@ -250,7 +255,9 @@ public class UserService {
         myHomeHashtags.forEach(myHomeHashtagService::delete);
         likeHashtags.forEach(likeHashtagService::delete);
         myHashtags.forEach(myHashtagService::delete);
-//        awsS3Service.deleteImage(findUser.getProfileUrl()); //기본 이미지일 때는 삭제 하면 안됨
+        if(!Objects.equals(findUser.getProfileUrl(), "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png")) {
+            awsS3Service.deleteImage(findUser.getProfileUrl());
+        }
         userRepository.delete(findUser);
         return "회원 탈퇴 완료";
     }
