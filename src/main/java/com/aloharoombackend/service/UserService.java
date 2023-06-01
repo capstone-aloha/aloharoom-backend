@@ -190,10 +190,9 @@ public class UserService {
             myHomeHashtagService.create(newMyHomeHashtags);
         }
 
-        if(!Objects.equals(myPageEditDto.getProfileUrl(), "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png")) {
+        if(!Objects.equals(findUser.getProfileUrl(), "https://test-aloha1.s3.ap-northeast-2.amazonaws.com/profile.png")) {
             awsS3Service.deleteImage(findUser.getProfileUrl());
         }
-
         //업데이트
         findUser.edit(myPageEditDto, profileUrl);
         return "수정 성공";
