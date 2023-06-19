@@ -85,17 +85,61 @@ http://3.34.33.83:3000/
   - 본인의 컨텐츠와 밀접한 기부캠페인을 추천 받을 수 있습니다.
 
 ## 📌 기술 스택
-- Language: <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
-- Library & Framework: <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> <img src="https://img.shields.io/badge/QueryDSL-0088D7?style=for-the-badge&logoColor=white"> <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> <img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map API-FF9900?style=for-the-badge&logoColor=white">
-- Database:
-  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
-  <img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white">
-- Tool: 
-  <img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
-  <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
-- etc: 
-  <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
-  <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+<div>
+<table>
+   <tr>
+      <td colspan="1" align="center">
+        Language
+      </td>
+      <td colspan="3">
+        <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+        <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+      </td>
+   </tr>
+   <tr>
+      <td colspan="1" align="center">
+        Library & Framework
+      </td>
+      <td colspan="3">
+        <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> 
+        <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> 
+        <img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> 
+        <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> 
+        <img src="https://img.shields.io/badge/QueryDSL-0088D7?style=for-the-badge&logoColor=white"> 
+        <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> 
+        <img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> 
+        <img src="https://img.shields.io/badge/Kakao Map API-FF9900?style=for-the-badge&logoColor=white">
+      </td>
+   </tr>
+   <tr>
+      <td colspan="1" align="center">
+        Database
+      </td>
+      <td colspan="3">
+        <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+        <img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white">
+      </td>
+   </tr>
+   <tr>
+      <td colspan="1" align="center">
+        Tool
+      </td>
+      <td colspan="3">
+          <img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+          <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+      </td>
+   </tr>
+   <tr>
+      <td colspan="1" align="center">
+        etc
+      </td>
+      <td colspan="3">
+          <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+          <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+      </td>
+   </tr>
+</table>
+</div>
 
 ## 시스템 구조도
 <img width="895" alt="image" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/59025dee-d6e8-4d95-add1-8679f5d7db27">
