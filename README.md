@@ -155,27 +155,27 @@ http://3.34.33.83:3000/
   <summary>주요 화면 보기</summary>
   
   - 내 정보<br>
-  <img width="1000" height="600" alt="내 정보 보기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/4539d3d3-3d09-4610-ab8f-da43ac6a9b97">
+  <img width="1000" height="500" alt="내 정보 보기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/4539d3d3-3d09-4610-ab8f-da43ac6a9b97">
   
 
   - 방 구하기<br>
-  <img width="1400" height="600" alt="지도움직이기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/bba4bac1-914e-42d4-b5f8-fe80bbc76b20">
+  <img width="1000" height="500" alt="지도움직이기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/bba4bac1-914e-42d4-b5f8-fe80bbc76b20">
   
 
   - 방 필터링<br>
-  <img width="1400" height="600" alt="방 필터링" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/0791aacd-9676-4f14-ac78-94690730688b">
+  <img width="1000" height="500" alt="방 필터링" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/0791aacd-9676-4f14-ac78-94690730688b">
   
 
   - 지명 검색<br>
-  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/1f541207-1c8b-49dc-851c-4278d5c2990e">
+  <img width="1000" height="500" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/1f541207-1c8b-49dc-851c-4278d5c2990e">
   
 
   - 방 상세보기<br>
-  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/24125b26-c2ea-4b9a-833e-58a72ae1a80b">
+  <img width="1000" height="500" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/24125b26-c2ea-4b9a-833e-58a72ae1a80b">
   
 
   - 커뮤니티<br>
-  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/3f8fd145-679c-47e3-92df-a1c60761398e">
+  <img width="1000" height="500" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/3f8fd145-679c-47e3-92df-a1c60761398e">
   
   
 </details>
