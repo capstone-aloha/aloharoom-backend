@@ -12,7 +12,7 @@
 <div align="center">
   <h3>
     <a href="https://github.com/capstone-aloha/aloharoom-frontend">
-      🌏 Frontend
+      🖼️ Frontend
     </a>
     <span> | </span>
     <a href="https://cut-prune-d8b.notion.site/API-9e0aa8a740524b0ebf45c52894c15d1c?pvs=4">
