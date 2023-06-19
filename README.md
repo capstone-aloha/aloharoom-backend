@@ -29,7 +29,6 @@
 ## 🔖 목차
 
 - [개요](https://github.com/capstone-aloha/aloharoom-backend#-%EA%B0%9C%EC%9A%94)
-- [배포 URL](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%B0%ED%8F%AC-url)
 - [실행 및 설치 방법](https://github.com/capstone-aloha/aloharoom-backend#-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
 - [핵심 기능](https://github.com/capstone-aloha/aloharoom-backend#-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
   * [해시태그 등록](https://github.com/capstone-aloha/aloharoom-backend#%ED%95%B4%EC%8B%9C%ED%83%9C%EA%B7%B8-%EB%93%B1%EB%A1%9D)
@@ -46,8 +45,6 @@
 사용자의 위치 정보와 사용자 성향이 반영된 해시태그들을 가지고 자신과 성향이 비슷한 룸메이트를 모집할 수 있다.<br>
 또한 룸메이트를 모집하는 것뿐만 아니라 이 플랫폼의 사용자를 유지시키기 위해 커뮤니티를 두어 다른 사용자들이 서로 소통할 수 있다.
   
-## 👇 배포 URL
-http://3.34.33.83:3000/
 
 ## 🏃 실행 및 설치 방법
 1. aloharoom 원격 저장소를 클론합니다.
