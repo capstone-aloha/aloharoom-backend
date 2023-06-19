@@ -137,16 +137,16 @@ http://3.34.33.83:3000/
    </tr>
   <tr>
     <td align="center">
-    <a href="https://github.com/ssw6750"><img src="https://avatars.githubusercontent.com/u/120379834?v=4" width="150px;" alt="박장훈"/><br /><sub><b>박장훈</b></sub></a><br />
+    <a href="https://github.com/gretea5"><img src="https://avatars.githubusercontent.com/u/120379834?v=4" width="150px;" alt="박장훈"/><br /><sub><b>박장훈</b></sub></a><br />
     </td>
      <td align="center">
-        <a href="https://github.com/bobaej1n"><img src="https://avatars.githubusercontent.com/u/91119322?v=4" width="150px" alt="김지윤"/><br /><sub><b>김지윤</b></sub></a>
+        <a href="https://github.com/JiYun1101"><img src="https://avatars.githubusercontent.com/u/91119322?v=4" width="150px" alt="김지윤"/><br /><sub><b>김지윤</b></sub></a>
      </td>
      <td align="center">
-        <a href="https://github.com/im-shung"><img src="https://avatars.githubusercontent.com/u/92067099?v=4" width="150px" alt="김형민"/><br /><sub><b>김형민</b></sub></a>
+        <a href="https://github.com/fkgnssla"><img src="https://avatars.githubusercontent.com/u/92067099?v=4" width="150px" alt="김형민"/><br /><sub><b>김형민</b></sub></a>
      </td>
      <td align="center">
-        <a href="https://github.com/devyuseon"><img src="https://avatars.githubusercontent.com/u/89963270?v=4" width="150px" alt="황지연"/><br /><sub><b>황지연</b></sub></a>
+        <a href="https://github.com/hwldus"><img src="https://avatars.githubusercontent.com/u/89963270?v=4" width="150px" alt="황지연"/><br /><sub><b>황지연</b></sub></a>
      </td>
   <tr>
 
