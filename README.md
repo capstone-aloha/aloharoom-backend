@@ -16,7 +16,11 @@
     </a>
     <span> | </span>
     <a href="https://cut-prune-d8b.notion.site/API-9e0aa8a740524b0ebf45c52894c15d1c?pvs=4">
-      📜 REST API Document
+      📜 REST API 명세서
+    </a>
+    <span> | </span>
+    <a href="https://cut-prune-d8b.notion.site/f166f5ebceaf48a79354eb14372c2478?pvs=4">
+      📜 기능 요구사항 명세서
     </a>
   </h3>
 </div>
@@ -42,7 +46,7 @@
 사용자의 위치 정보와 사용자 성향이 반영된 해시태그들을 가지고 자신과 성향이 비슷한 룸메이트를 모집할 수 있다.<br>
 또한 룸메이트를 모집하는 것뿐만 아니라 이 플랫폼의 사용자를 유지시키기 위해 커뮤니티를 두어 다른 사용자들이 서로 소통할 수 있다.
   
-## 배포 URL
+## 👇 배포 URL
 http://3.34.33.83:3000/
 
 ## 🏃 실행 및 설치 방법
@@ -88,52 +92,52 @@ http://3.34.33.83:3000/
 <div>
 <table>
    <tr>
-      <td colspan="1" align="center">
+      <td colspan="2" align="center">
         Language
       </td>
-      <td colspan="3">
+      <td colspan="4">
         <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
         <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
       </td>
    </tr>
    <tr>
-      <td colspan="1" align="center">
+      <td colspan="2" align="center">
         Library & Framework
       </td>
-      <td colspan="3">
-        <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> 
+      <td colspan="4">
+        <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
+        <img src="https://img.shields.io/badge/react kakao map sdk-F7E600?style=for-the-badge&logo=react&logoColor=black">
         <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> 
         <img src="https://img.shields.io/badge/spring data jpa-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> 
         <img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> 
         <img src="https://img.shields.io/badge/QueryDSL-0088D7?style=for-the-badge&logoColor=white"> 
         <img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> 
         <img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"> 
-        <img src="https://img.shields.io/badge/Kakao Map API-FF9900?style=for-the-badge&logoColor=white">
       </td>
    </tr>
    <tr>
-      <td colspan="1" align="center">
+      <td colspan="2" align="center">
         Database
       </td>
-      <td colspan="3">
+      <td colspan="4">
         <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
         <img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white">
       </td>
    </tr>
    <tr>
-      <td colspan="1" align="center">
+      <td colspan="2" align="center">
         Tool
       </td>
-      <td colspan="3">
+      <td colspan="4">
           <img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
           <img src="https://img.shields.io/badge/visualstudiocode-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
       </td>
    </tr>
    <tr>
-      <td colspan="1" align="center">
-        etc
+      <td colspan="2" align="center">
+        etc.
       </td>
-      <td colspan="3">
+      <td colspan="4">
           <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
           <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
       </td>
@@ -141,7 +145,7 @@ http://3.34.33.83:3000/
 </table>
 </div>
 
-## 시스템 구조도
+## 🖻 시스템 구조도
 <img width="895" alt="image" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/59025dee-d6e8-4d95-add1-8679f5d7db27">
 
 
@@ -151,22 +155,28 @@ http://3.34.33.83:3000/
   <summary>주요 화면 보기</summary>
   
   - 내 정보<br>
-  ![내 정보 보기](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/4539d3d3-3d09-4610-ab8f-da43ac6a9b97)
+  <img width="1000" height="600" alt="내 정보 보기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/4539d3d3-3d09-4610-ab8f-da43ac6a9b97">
+  
 
   - 방 구하기<br>
-  ![지도움직이기](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/bba4bac1-914e-42d4-b5f8-fe80bbc76b20)
+  <img width="1400" height="600" alt="지도움직이기" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/bba4bac1-914e-42d4-b5f8-fe80bbc76b20">
+  
 
   - 방 필터링<br>
-  ![방 필터링](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/0791aacd-9676-4f14-ac78-94690730688b)
+  <img width="1400" height="600" alt="방 필터링" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/0791aacd-9676-4f14-ac78-94690730688b">
+  
 
   - 지명 검색<br>
-  ![지명검색](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/1f541207-1c8b-49dc-851c-4278d5c2990e)
+  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/1f541207-1c8b-49dc-851c-4278d5c2990e">
+  
 
   - 방 상세보기<br>
-  ![방 상세보기](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/24125b26-c2ea-4b9a-833e-58a72ae1a80b)
+  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/24125b26-c2ea-4b9a-833e-58a72ae1a80b">
+  
 
   - 커뮤니티<br>
-  ![커뮤니티 페이지](https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/3f8fd145-679c-47e3-92df-a1c60761398e)
+  <img width="1400" height="600" alt="지명 검색" src="https://github.com/capstone-aloha/aloharoom-backend/assets/92067099/3f8fd145-679c-47e3-92df-a1c60761398e">
+  
   
 </details>
 
