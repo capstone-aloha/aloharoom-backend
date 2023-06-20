@@ -33,7 +33,6 @@
 - [핵심 기능](https://github.com/capstone-aloha/aloharoom-backend#-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
   * [해시태그 등록](https://github.com/capstone-aloha/aloharoom-backend#%ED%95%B4%EC%8B%9C%ED%83%9C%EA%B7%B8-%EB%93%B1%EB%A1%9D)
   * [방 구하기](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
-  * [방 데이터 그래프](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
 - [기술 스택](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
 - [시스템 구조도](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
 - [주요 화면](https://github.com/capstone-aloha/aloharoom-backend#-%EC%A3%BC%EC%9A%94-%ED%99%94%EB%A9%B4)
@@ -78,12 +77,7 @@
 - 블로그, 기사에 관련 기부를 첨부해 보세요!
 - 자유롭게 커스터마이징이 가능해 기부 관련 컨텐츠가 아니라도 배너를 만들 수 있습니다.
 - 로그인 상태에서 만든 배너는 저장되며, 수정도 가능합니다.
-
-
-### 방 데이터 그래프
-  - 텍스트를 삽입하면 주요 단어가 추출됩니다.
-  - 그 중요도에 따라 가중치를 부여해 Elasticsearch에서 기부를 검색하고, 반환합니다.
-  - 본인의 컨텐츠와 밀접한 기부캠페인을 추천 받을 수 있습니다.
+  
 
 ## 📌 기술 스택
 <div>
