@@ -32,7 +32,9 @@
 - [실행 및 설치 방법](https://github.com/capstone-aloha/aloharoom-backend#-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
 - [핵심 기능](https://github.com/capstone-aloha/aloharoom-backend#-%EC%8B%A4%ED%96%89-%EB%B0%8F-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95)
   * [해시태그 등록](https://github.com/capstone-aloha/aloharoom-backend#%ED%95%B4%EC%8B%9C%ED%83%9C%EA%B7%B8-%EB%93%B1%EB%A1%9D)
-  * [방 구하기](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
+  * [방 구하기](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0)
+  * [방 상세보기](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0)
+  * [커뮤니티](https://github.com/capstone-aloha/aloharoom-backend#%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0)
 - [기술 스택](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
 - [시스템 구조도](https://github.com/capstone-aloha/aloharoom-backend#%EB%B0%A9-%EA%B5%AC%ED%95%98%EA%B8%B0-%ED%95%84%ED%84%B0%EB%A7%81)
 - [주요 화면](https://github.com/capstone-aloha/aloharoom-backend#-%EC%A3%BC%EC%9A%94-%ED%99%94%EB%A9%B4)
@@ -70,13 +72,19 @@
 - 회원가입 시 추가할 수 있고 내 정보화면에서 변경 가능합니다.
 - 해시태그로 사용자의 성향을 한 눈에 파악할 수 있습니다.
 
+### 방 구하기
+- 사용자는 지도를 드래그해서 움직이고, 지도에 띄워진 방들을 볼 수 있습니다.
+- 성별, 방 개수, 주거 형태, 평수, 월세, 선호하는 해시태그를 통해 원하는 방을 필터링할 수 있습니다.
+- 지하철역, 대학교와 같은 장소를 검색해 사용자가 원하는 장소로 이동할 수 있습니다.
 
-### 방 구하기 (필터링)
-  
-- 캠페인에서 배너 생성 버튼을 누르거나, 배너제작 페이지로 들어가 배너를 제작할 수 있습니다.
-- 블로그, 기사에 관련 기부를 첨부해 보세요!
-- 자유롭게 커스터마이징이 가능해 기부 관련 컨텐츠가 아니라도 배너를 만들 수 있습니다.
-- 로그인 상태에서 만든 배너는 저장되며, 수정도 가능합니다.
+### 방 상세보기
+- 방 작성자의 나이, 성별, 해시태그, 거주지 정보를 볼 수 있습니다.
+- 상세보기에 있는 지도로 방 주변에 있는 편의시설(편의점, 카페, 약국, 병원, 마트, 주유소)을 볼 수 있습니다.
+- 댓글과 카카오톡 오픈채팅 링크를 두어 방 작성자와 소통이 가능합니다.
+
+### 커뮤니티
+- 사용자는 카테고리(방 자랑, 정보 공유, 자유)를 선택해 게시물을 볼 수 있습니다.
+- 제목, 닉네임으로 카테고리에 해당하는 게시물을 검색할 수 있습니다.
   
 
 ## 📌 기술 스택
