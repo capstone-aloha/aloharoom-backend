@@ -6,7 +6,7 @@
 </div>
 
 <div align="center">
-  룸메이트를 모집하는 1인 가구 플랫폼
+  룸메이트를 모집하는 1인 가구 웹서비스
 </div>
 
 <div align="center">
